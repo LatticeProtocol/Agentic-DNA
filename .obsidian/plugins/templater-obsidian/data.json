@@ -1,0 +1,20 @@
+{
+  "command_timeout": 5,
+  "templates_folder": "ops/templates",
+  "templates_pairs": [
+    ["obs/context", "ops/templates/template_context.md"],
+    ["obs/decisions", "ops/templates/template_adr.md"],
+    ["ops/sessions/active", "ops/templates/template_session.md"],
+    ["ops/plans", "ops/templates/template_plan.md"],
+    ["org/coordination", "ops/templates/template_coordination.md"]
+  ],
+  "trigger_on_file_creation": true,
+  "auto_jump_to_cursor": false,
+  "enable_system_commands": false,
+  "shell_path": "",
+  "user_scripts_folder": "",
+  "enable_folder_templates": true,
+  "syntax_highlighting": true,
+  "syntax_highlighting_mobile": false,
+  "intellisense_render": 1
+}

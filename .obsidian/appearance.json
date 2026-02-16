@@ -1,0 +1,19 @@
+{
+  "cssTheme": "Tokyo Night",
+  "monospaceFontFamily": "Space Mono,JetBrains Mono,SF Mono,Menlo,monospace",
+  "showRibbon": true,
+  "enabledCssSnippets": [
+    "tokyo-night-purple",
+    "table_stripes",
+    "popover_size",
+    "mermaid_override",
+    "notebook_navigator"
+  ],
+  "theme": "obsidian",
+  "interfaceFontFamily": "Space Grotesk",
+  "textFontFamily": "Space Grotesk",
+  "baseFontSize": 16,
+  "baseFontSizeAction": false,
+  "accentColor": "#663399",
+  "translucency": true
+}

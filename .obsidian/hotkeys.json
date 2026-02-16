@@ -1,0 +1,4 @@
+{
+  "app:toggle-left-sidebar": [{"modifiers": ["Mod"], "key": "B"}],
+  "app:toggle-right-sidebar": [{"modifiers": ["Mod", "Alt"], "key": "B"}]
+}

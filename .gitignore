@@ -1,0 +1,10 @@
+# Obsidian volatile files (rewritten on every close)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/graph.json
+
+# macOS
+.DS_Store
+
+# Obsidian trash
+.trash/
