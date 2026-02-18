@@ -1,8 +1,8 @@
 ---
 type: directory_index
 created: 2026-02-17
-updated: 2026-02-17
-last_edited_by: agent_init
+updated: 2026-02-18
+last_edited_by: agent_stanley
 tags: [directory_index, campaign]
 ---
 
@@ -42,10 +42,15 @@ how/campaigns/
 ├── AGENTS.md                           # This file (protocol)
 └── campaign_<name>/                    # One directory per campaign
     ├── campaign_<name>.md              # Master campaign document
+    ├── missions/                       # Campaign missions (containment model)
+    │   ├── mission_<name>.md
+    │   └── mission_<name>.md
     └── ...                             # Supporting documents
 ```
 
-Campaign missions live in `how/missions/` (not inside the campaign directory) with a `campaign_id` frontmatter field linking back to the campaign.
+Campaign missions live **inside their campaign directory** at `how/campaigns/campaign_<name>/missions/`. This containment model keeps campaign-scoped missions co-located with their campaign.
+
+Standalone missions (not part of any campaign) live in `how/missions/`.
 
 ## Campaign Master Document Format
 
@@ -85,7 +90,7 @@ last_edited_by: agent_<username>
 ### 2. Activation
 
 1. Get user approval on campaign scope, phases, and mission sequence
-2. Create mission files in `how/missions/` with `campaign_id` field
+2. Create mission files in `how/campaigns/campaign_<name>/missions/` with `campaign_id` field
 3. Set campaign `status: active`
 4. Begin Mission 0 (infrastructure/setup) if defined
 
@@ -115,7 +120,7 @@ last_edited_by: agent_<username>
 
 | System | Relationship |
 |--------|-------------|
-| **Missions** (`how/missions/`) | Campaigns contain missions. Missions reference their campaign via `campaign_id`. |
+| **Missions** (`how/missions/`) | Standalone missions live in `how/missions/`. Campaign missions live in `how/campaigns/campaign_<name>/missions/`. |
 | **Sessions** (`how/sessions/`) | Sessions execute mission objectives. Sessions reference both mission and campaign. |
 | **Pipelines** (`how/pipelines/`) | R&D→PRD→RFC pipeline produces planning artifacts that feed campaign design. |
 | **Context Library** (`what/context/`) | Campaigns may create or consume context topics. |
@@ -125,7 +130,8 @@ last_edited_by: agent_<username>
 ## Rules
 
 - **One campaign master document per initiative** — the master document is the single source of truth
-- **Missions live in `how/missions/`** — not inside the campaign directory
+- **Campaign missions live inside the campaign** — at `how/campaigns/campaign_<name>/missions/`
+- **Standalone missions live in `how/missions/`** — only for missions not part of a campaign
 - **Phase gates are human gates** — never auto-advance between campaign phases without user review
 - **Campaign scope is mutable** — add, reorder, or remove missions as needed, but document scope changes
 - **Subsumption** — when a campaign absorbs an existing mission, set the original mission's status to `subsumed`

@@ -1,0 +1,86 @@
+---
+type: directory_index
+created: 2026-02-18
+updated: 2026-02-18
+last_edited_by: agent_stanley
+tags: [directory_index, skill]
+---
+
+# how/skills/ — Agent Reference
+
+## Purpose
+
+Reusable procedures and capabilities — both agent-automated recipes and documented human/hybrid processes. This directory consolidates all "how to do X" knowledge into a single location.
+
+## What is a Skill?
+
+A skill is a documented, reusable capability that can be executed by an AI agent, a human, or both. Skills encapsulate:
+- **Trigger conditions** — when to invoke the skill
+- **Required inputs** — what the skill needs to run
+- **Execution steps** — the procedure to follow
+- **Expected outputs** — what the skill produces
+
+## Skill Types
+
+| Type | Description | Format |
+|------|-------------|--------|
+| `agent` | Automated agent recipe — encapsulated automation capability | Single-file: `skill_[name].md` |
+| `process` | Documented human or hybrid procedure for recurring operations | Single-file or directory-based: `skill_[name].md` or `[name]/AGENTS.md` |
+
+**Discriminator**: `skill_type` frontmatter field (`agent` or `process`)
+
+## Skill Categories
+
+| Category | Description |
+|----------|-------------|
+| `setup` | Machine setup, environment configuration |
+| `research` | Information gathering and analysis |
+| `development` | Code and documentation generation |
+| `operations` | Operational tasks and maintenance |
+| `communication` | Messaging and reporting |
+| `data` | Data processing, export, transformation |
+| `onboarding` | Customer, partner, or team onboarding |
+| `review` | Model review, code review, audit |
+| `emergency` | Incident response and emergency procedures |
+
+## Directory Structure
+
+```
+how/skills/
+├── AGENTS.md                    # This file (protocol)
+├── skill_[name].md              # Single-file skills (agent or process)
+├── [name]/                      # Directory-based skills (complex processes)
+│   ├── AGENTS.md                # Process operational manual
+│   └── ...                      # Phase directories, configs, templates
+└── archive/                     # Deprecated skills
+```
+
+## Naming Convention
+
+Pattern: `skill_[name].md`
+
+Examples:
+- `skill_machine_setup.md` (agent)
+- `skill_create_deck.md` (agent)
+- `skill_customer_onboarding.md` (process)
+- `skill_incident_response.md` (process)
+
+## Template
+
+Use `how/templates/template_skill.md` to create new skill files.
+
+## Required Frontmatter
+
+```yaml
+---
+type: skill
+skill_type: agent|process
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+status: active|draft|deprecated
+category: setup|research|development|operations|communication|data|onboarding|review|emergency
+trigger: <when to invoke>
+last_edited_by: agent_<username>
+tags: []
+---
+```

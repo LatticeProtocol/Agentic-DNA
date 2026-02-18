@@ -1,5 +1,5 @@
 # CLAUDE.md — lattice-adna
-<!-- v1.0 | 2026-02-17 -->
+<!-- v2.1 | 2026-02-18 -->
 
 ## Identity & Mission
 
@@ -26,14 +26,14 @@ lattice-adna/
 │       ├── tools/               # Python validation and conversion tools
 │       └── examples/            # Example .lattice.yaml files
 ├── how/                         # HOW — Operations, sessions, templates
-│   ├── templates/               # 9 reusable templates
+│   ├── templates/               # 10 reusable templates
 │   ├── sessions/                # Session tracking (active/ + history/)
-│   ├── missions/                # Multi-session plans
+│   ├── missions/                # Multi-session plans (standalone)
 │   ├── backlog/                 # Ideation and improvement tracking
 │   ├── campaigns/               # Multi-mission strategic initiatives
 │   ├── pipelines/               # Content-as-code workflows
 │   │   └── prd_rfc/             # R&D → PRD → RFC planning pipeline
-│   └── deliverables/            # Pipeline output artifacts
+│   └── skills/                  # Reusable agent recipes and procedures
 └── who/                         # WHO — People, coordination, governance
     ├── coordination/            # Cross-agent ephemeral notes
     └── governance/              # Roles, policies
@@ -57,7 +57,7 @@ lattice-adna/
 2. **Check `updated` field.** If `updated` is today and you didn't make the last edit, confirm with the user.
 3. **Set `last_edited_by` and `updated`.** When modifying any content file, update frontmatter:
    ```yaml
-   updated: 2026-02-17
+   updated: 2026-02-18
    last_edited_by: agent_{username}
    ```
 4. **One shared config at a time.** Edit one config, verify the write, then move to the next.
@@ -112,6 +112,22 @@ Every session ends with a structured status report:
 - **Files touched** — created, modified, or moved
 
 Every session MUST include a **Next Session Prompt** — a self-contained paragraph enabling a fresh agent to continue the work.
+
+### Execution Hierarchy
+
+```
+Campaign → Mission → Objective
+```
+
+**Campaigns** (`how/campaigns/`) coordinate multiple missions toward a strategic goal. Campaign missions live inside their campaign directory at `how/campaigns/campaign_<name>/missions/`. Phased execution with user gates between phases. Protocol: `how/campaigns/AGENTS.md`
+
+**Missions** (`how/missions/` for standalone, `how/campaigns/*/missions/` for campaign-linked) decompose tasks too large for one session into objectives. Agents claim objectives by session, track progress, and hand off. Protocol: `how/missions/AGENTS.md`
+
+**Objectives** are the atomic work units tracked within mission documents.
+
+### Skills
+
+Reusable agent recipes and documented procedures in `how/skills/`. Skills have two types: `agent` (automated recipes) and `process` (human/hybrid procedures). Protocol: `how/skills/AGENTS.md`
 
 ### Campaigns
 
@@ -215,4 +231,4 @@ Use bidirectional wikilinks when adding relationships between entities.
 4. Open STATE.md — see current operational status and next steps
 
 ---
-<!-- v1.0 | 2026-02-17 -->
+<!-- v2.1 | 2026-02-18 -->
