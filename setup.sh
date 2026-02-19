@@ -149,7 +149,8 @@ if [ "$FORCE" -eq 0 ] && [ -f "$THEME_DIR/theme.css" ]; then
     THEME_RESULT="OK"
 else
     mkdir -p "$THEME_DIR"
-    theme_url="https://github.com/$THEME_REPO/releases/latest/download"
+    # Obsidian themes ship files in the repo root, not via GitHub Releases
+    theme_url="https://raw.githubusercontent.com/$THEME_REPO/main"
 
     if download_file "$theme_url/theme.css" "$THEME_DIR/theme.css"; then
         if download_file "$theme_url/manifest.json" "$THEME_DIR/manifest.json"; then
