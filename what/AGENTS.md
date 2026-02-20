@@ -1,7 +1,7 @@
 ---
 type: directory_index
 created: 2026-02-17
-updated: 2026-02-19
+updated: 2026-02-20
 last_edited_by: agent_stanley
 tags: [directory_index, what]
 ---
@@ -11,6 +11,12 @@ tags: [directory_index, what]
 ## Purpose
 
 `what/` holds knowledge objects — the **WHAT** of this project. Context library, decisions, reference material, and domain-specific entities all live here.
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `ontology.md` | Base ontology artifact — 14 entity types, Mermaid ER diagrams, convergence + unification annotations |
 
 ## Subdirectories
 
@@ -51,6 +57,7 @@ All files follow `type_descriptive_name.md` (underscores only, never hyphens).
 
 ## Cross-References
 
+- [ontology.md](ontology.md) — Base ontology (14 entity types, 5 Mermaid diagrams)
 - [what/context/AGENTS](context/AGENTS.md) — Context library protocol and topic index
 - [what/decisions/AGENTS](decisions/AGENTS.md) — Architecture Decision Records
 - [what/docs/AGENTS](docs/AGENTS.md) — aDNA specification documents

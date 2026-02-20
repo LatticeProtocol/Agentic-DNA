@@ -81,11 +81,11 @@ lattice:
   fair:
     license: "MIT"
     creators:
-      - "Your Name"
+      - "Lattice Labs"
     keywords:
       - research
       - orchestrator
       - deep research
       - context engineering
       - multi-agent coordination
-    provenance: "Designed for deep research orchestration"
+    provenance: "Lead orchestrator agent for the deep research process — manages query classification, source dispatch, gap analysis, and synthesis coordination"

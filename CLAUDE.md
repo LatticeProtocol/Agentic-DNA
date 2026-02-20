@@ -1,5 +1,13 @@
+---
+type: governance
+version: "4.0"
+token_estimate: ~500
+updated: 2026-02-19
+last_edited_by: agent_stanley
+---
+
 # CLAUDE.md — lattice-adna
-<!-- v3.0 | 2026-02-19 -->
+<!-- v4.0 | 2026-02-19 -->
 
 ## Identity & Personality
 
@@ -160,29 +168,19 @@ Campaign → Mission → Objective
 
 Reusable agent recipes and documented procedures in `how/skills/`. Skills have two types: `agent` (automated recipes) and `process` (human/hybrid procedures). Protocol: `how/skills/AGENTS.md`
 
-### Campaigns
-
-Multi-mission strategic initiatives in `how/campaigns/`. Campaigns coordinate multiple missions toward a strategic goal, with phased execution and user gates between phases. Protocol: `how/campaigns/AGENTS.md`
-
-### Missions
-
-Tasks too large for one session are decomposed into missions in `how/missions/`. Agents claim objectives by session, track progress, and hand off. Protocol: `how/missions/AGENTS.md`
-
-### Content-as-Code Pipelines
-
-Folder-based workflows where files flow through stage directories. Each stage folder contains an `AGENTS.md` with agent instructions; a file's location is its state. Pipeline index: `how/pipelines/AGENTS.md`
-
-### Context Library
-
-Before domain tasks, check `what/context/` for relevant topics. Read the topic `AGENTS.md`, load only the subtopics you need. Protocol: `what/context/AGENTS.md`
-
-### Backlog
-
-Durable ideation and improvement tracking in `how/backlog/`. Scan on session start for relevant ideas, create new idea files when improvements surface during work. Protocol: `how/backlog/AGENTS.md`
-
 ---
 
 ## Domain Knowledge
+
+### Base Ontology (14 Entity Types)
+
+| Triad Leg | Entities | Purpose |
+|-----------|----------|---------|
+| **WHO** (3) | `governance`, `team`, `coordination` | Who decides, who works, how they sync |
+| **WHAT** (4) | `context`, `decisions`, `modules`, `lattices` | What you know, what you've decided, what you build, how you compose |
+| **HOW** (7) | `campaigns`, `missions`, `sessions`, `templates`, `skills`, `pipelines`, `backlog` | Plan → decompose → execute → track → automate → ideate |
+
+Extend by adding domain-specific entities under the appropriate triad leg. The base gives operational infrastructure; extensions add domain knowledge.
 
 ### Lattice Types
 
@@ -218,6 +216,19 @@ Every `.lattice.yaml` includes a `fair` block with:
 - `identifier` — optional DOI or persistent ID
 - `provenance` — origin and methodology description
 
+### Convergence Model
+
+The execution hierarchy (Campaign → Mission → Objective) is a convergent decomposition: each level narrows context, reducing token count while increasing signal density.
+
+| Level | Analogy | Effect |
+|-------|---------|--------|
+| **Vault** | Function space | Total knowledge — unbounded token count |
+| **Campaign** | Coarse projection | Strategic initiative — hundreds of files → tens |
+| **Mission** | Finer projection | Decomposed task — tens of files → handful |
+| **Objective** | Point evaluation | Session work — the exact files needed |
+
+Context serving implements this as graph traversal: load only the subgraph reachable from the current objective. Each `AGENTS.md` helps agents decide whether to load its directory. See `what/context/prompt_engineering/context_prompt_engineering_convergence_model.md` for the full articulation.
+
 ---
 
 ## Working with Content
@@ -245,4 +256,4 @@ tags: []
 Use bidirectional wikilinks when adding relationships between entities.
 
 ---
-<!-- v3.0 | 2026-02-19 -->
+<!-- v4.0 | 2026-02-19 -->

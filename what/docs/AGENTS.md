@@ -1,7 +1,7 @@
 ---
 type: directory_index
 created: 2026-02-19
-updated: 2026-02-19
+updated: 2026-02-20
 last_edited_by: agent_stanley
 tags: [directory_index, docs]
 ---
@@ -20,10 +20,13 @@ Core specification documents that define the aDNA (Agentic DNA) knowledge archit
 | `adna_design.md` | ~5,000 | Design rationale and deployment patterns — standalone, nested, federated forms. 5 Mermaid diagrams. |
 | `adna_bridge_patterns.md` | ~4,000 | Composition patterns for multi-vault architectures — nesting, federation, discovery. 5 Mermaid diagrams. |
 | `context_quality_rubric.md` | ~2,000 | 6-axis quality evaluation framework for context files — scoring methodology, calibration examples. |
+| `ontology_unification.md` | ~8,000 | Ontology unification protocol — merge algorithm (4-step with Mermaid flowchart + pseudo-code), 10-type conflict taxonomy, namespace specification, worked example (org_formation + vault). |
+| `lattice_federation.md` | ~8,000 | Federation & sharing protocol — 5 capabilities (validate, export, share, import, compose), `lattice://` URI scheme, inline vs. external reference composition, import algorithm with M9 integration, worked round-trip example. |
+| `lattice_interop.md` | ~5,500 | Lattice interop standard — design-time interface descriptors (`lattice_interface` node convention), 8-step runtime execution sequence for `lattice://` references, version drift detection and resolution (severity classification, policy strategies, drift recovery workflow). 2 Mermaid diagrams. |
 
 ## Total Token Budget
 
-~19,000 tokens to load all 4 documents. These are heavy reference documents — load specific files based on need.
+~40,500 tokens to load all 7 documents. These are heavy reference documents — load specific files based on need.
 
 ## Load/Skip Decision
 
@@ -32,6 +35,9 @@ Core specification documents that define the aDNA (Agentic DNA) knowledge archit
 - Designing a new aDNA instance or evaluating deployment form (read `adna_design.md`)
 - Planning multi-vault composition or federation (read `adna_bridge_patterns.md`)
 - Evaluating context file quality or setting up review processes (read `context_quality_rubric.md`)
+- Merging ontologies from different aDNA instances or integrating sub-lattices (read `ontology_unification.md`)
+- Federating, sharing, importing, or composing lattice artifacts across instances (read `lattice_federation.md`)
+- Designing interface contracts, runtime execution, or version management for cross-instance lattice references (read `lattice_interop.md`)
 
 **Skip when**:
 - Performing operational work within an established aDNA vault (sessions, missions, CRM)
@@ -39,6 +45,13 @@ Core specification documents that define the aDNA (Agentic DNA) knowledge archit
 - Already familiar with the standard and not modifying its structure
 
 **Token cost**: ~300 tokens (this AGENTS.md). Individual docs are 2,000-8,000 tokens each — load selectively.
+
+## Reading Order (for federation & interop)
+
+For agents working on cross-instance lattice composition, the recommended reading order is:
+1. `lattice_federation.md` (M10) — URI scheme, composition patterns, import algorithm
+2. `ontology_unification.md` (M9) — merge algorithm for import compatibility
+3. `lattice_interop.md` (M11) — interface contracts, runtime flow, version drift
 
 ## Cross-References
 

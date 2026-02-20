@@ -1,16 +1,16 @@
 ---
-type: deliverable
+type: context
 title: "aDNA Design Document — Architecture Rationale"
 created: 2026-02-13
-updated: 2026-02-17
+updated: 2026-02-19
 status: approved
-last_edited_by: agent_init
-tags: [deliverable, adna, design, rationale, architecture]
+last_edited_by: agent_stanley
+tags: [adna, design, rationale, architecture, spec]
 ---
 
 # aDNA Design Document
 
-<!-- Companion to the aDNA Universal Standard v1.0 -->
+<!-- Companion to the aDNA Universal Standard v2.1 -->
 
 ## 1. Preamble
 
@@ -140,6 +140,38 @@ We considered mandating bare triad everywhere (simpler standard) and mandating e
 
 Pattern-appropriate deployment accepts this reality: different project types have different norms, and the standard should respect them rather than fighting them. The triad ontology is identical in both forms — only the nesting differs. CLAUDE.md in each environment documents the paths, bridging the difference transparently (see spec S3).
 
+The following diagram shows both deployment forms side by side. The triad ontology is identical — only the physical nesting differs:
+
+```mermaid
+flowchart TB
+    subgraph BARE["Bare Triad (Knowledge Base)"]
+        BR["project_root/"]
+        BR --> BC["CLAUDE.md"]
+        BR --> BW["what/"]
+        BR --> BH["how/"]
+        BR --> BO["who/"]
+    end
+
+    subgraph EMBED["Embedded Triad (Git Repo)"]
+        ER["repo_root/"]
+        ER --> EC["CLAUDE.md"]
+        ER --> EA[".agentic/"]
+        ER --> ES["src/"]
+        EA --> EW["what/"]
+        EA --> EH["how/"]
+        EA --> EO["who/"]
+    end
+
+    BARE ---|"Same ontology<br/>Different packaging"| EMBED
+
+    style BW fill:#0d9488,color:#fff
+    style BH fill:#22c55e,color:#fff
+    style BO fill:#8b5cf6,color:#fff
+    style EW fill:#0d9488,color:#fff
+    style EH fill:#22c55e,color:#fff
+    style EO fill:#8b5cf6,color:#fff
+```
+
 ### Worked example: same project, both layouts
 
 A research lab documentation project could use either form:
@@ -192,6 +224,26 @@ The primary design driver for governance files is cold-start orientation. An age
 2. **STATE.md**: The agent learns what phase the project is in, what happened recently, and what needs to happen next.
 
 These two files — read in sequence — are sufficient for an agent to begin useful work. This is the Cold Start success criterion (see spec S18.1), and it was validated against both base template variants during Task 19.
+
+```mermaid
+sequenceDiagram
+    participant A as Agent
+    participant C as CLAUDE.md
+    participant S as STATE.md
+    participant Ses as sessions/active/
+    participant Co as coordination/
+
+    A->>C: 1. Auto-loaded on start
+    Note over A,C: Learn structure, rules, persona
+    A->>S: 2. Read current state
+    Note over A,S: Learn phase, blockers, next steps
+    A->>Ses: 3. Check active sessions
+    Note over A,Ses: Detect conflicts
+    A->>Co: 4. Read coordination notes
+    Note over A,Co: Urgent cross-agent messages
+    A->>Ses: 5. Create session file
+    Note over A: Ready to work
+```
 
 ### Why CLAUDE.md?
 
@@ -267,6 +319,21 @@ AI agents cannot lock files. There is no mutex, no transaction, no compare-and-s
 
 This means collision prevention must be cooperative, not enforced. Agents follow conventions because the standard tells them to, not because a system prevents violations. This is an honor system — and we designed it to work as one, with multiple layers of defense rather than a single point of enforcement.
 
+```mermaid
+flowchart TB
+    Start["Agent wants to<br/>modify a file"] --> Read["Read current content"]
+    Read --> Check{"updated = today<br/>AND different author?"}
+    Check -->|No| Safe["Write with<br/>frontmatter attribution"]
+    Check -->|Yes| Ask["Confirm with user<br/>before overwriting"]
+    Ask -->|Approved| Safe
+    Ask -->|Denied| New["Create new file instead<br/>(zero collision risk)"]
+    Safe --> Done["Update last_edited_by<br/>+ updated fields"]
+
+    style Safe fill:#22c55e,color:#fff
+    style Ask fill:#eab308,color:#000
+    style New fill:#3b82f6,color:#fff
+```
+
 ### Tier 1 — Universal (every aDNA instance)
 
 Three rules that work everywhere:
@@ -333,6 +400,19 @@ This paradigm is universal — it works for research ingestion, document review,
 
 We made pipelines optional rather than required because not every project has staged workflows. A simple knowledge base may never need a pipeline. But when you do need one, the pattern is defined and consistent (see spec S14).
 
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> inbox
+    inbox --> processing: Agent picks up
+    processing --> review: Work complete
+    review --> done: Approved
+    review --> processing: Needs revision
+
+    note left of inbox: File location<br/>= processing state
+    note right of done: No separate<br/>status database
+```
+
 ### Graduated skeletons (D11)
 
 Templates and directory structure grow with the project:
@@ -396,6 +476,21 @@ The standard defines the SHAPE of a persona, not its CONTENT:
 - **Domain awareness**: What the persona should know about the project.
 
 A reference implementation — a fully worked example — demonstrates how to fill the framework. Projects adopt it directly, modify it, or create their own. The framework survives regardless of the specific persona chosen (see spec S4.2 and Appendix A).
+
+```mermaid
+flowchart TB
+    P["Persona Framework"]
+    P --> ID["Identity<br/>Name, role, mission"]
+    P --> OS["Operating Style<br/>3-5 behavioral principles"]
+    P --> CN["Communication Norms<br/>Tone, format, greetings"]
+    P --> DA["Domain Awareness<br/>Project-specific context"]
+
+    ID --> EX1["e.g. Chief of Staff<br/>to the operation"]
+    OS --> EX2["e.g. Orient first,<br/>think in lines of effort"]
+    CN --> EX3["e.g. Direct, SITREP format,<br/>no filler"]
+
+    style P fill:#8b5cf6,color:#fff
+```
 
 ---
 

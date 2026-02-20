@@ -47,6 +47,11 @@
               "description": "Execution mode. Aligned with AgentMode enum: workflow (deterministic DAG), reasoning (LLM-driven), hybrid (mixed).",
               "enum": ["workflow", "reasoning", "hybrid"]
             },
+            "model": {
+              "type": "string",
+              "description": "Default model for reasoning nodes. Per-node model_override takes precedence.",
+              "examples": ["claude-opus-4-6", "gpt-4o"]
+            },
             "runtime": {
               "type": "string",
               "description": "Target runtime environment. 'ray' for distributed execution (L2/L3), 'local' for single-machine (L1), 'kubernetes' for orchestrated (L3).",
@@ -178,6 +183,41 @@
             "provenance": {
               "type": "string",
               "description": "Free-text provenance description: origin, derivation, methodology. Maps to ObjectMetadata.provenance."
+            }
+          }
+        },
+        "federation": {
+          "type": "object",
+          "description": "Federation metadata for cross-instance sharing and composition.",
+          "additionalProperties": false,
+          "properties": {
+            "shareable": {
+              "type": "boolean",
+              "description": "Whether this lattice can be shared with other aDNA instances.",
+              "default": false
+            },
+            "source_instance": {
+              "type": "string",
+              "description": "Identifier of the aDNA instance that originated this lattice.",
+              "examples": ["lattice-adna", "lattice-labs-vault"]
+            },
+            "parent_lattice": {
+              "type": "string",
+              "description": "Name of the lattice this was extracted from (for sub-lattice extraction).",
+              "examples": ["protein_binder_design", "deep_research"]
+            },
+            "version_policy": {
+              "type": "string",
+              "description": "How this lattice tracks upstream version changes. locked=pinned, patch/minor=auto-update within range, latest=always latest.",
+              "enum": ["locked", "patch", "minor", "latest"],
+              "default": "minor"
+            },
+            "extracted_nodes": {
+              "type": "array",
+              "description": "Node IDs extracted from parent_lattice. All listed IDs must exist in this lattice's nodes array.",
+              "items": {
+                "type": "string"
+              }
             }
           }
         }

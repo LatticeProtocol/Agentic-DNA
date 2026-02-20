@@ -28,6 +28,7 @@ VALID_EXECUTION_MODES = {"workflow", "reasoning", "hybrid"}
 VALID_RUNTIMES = {"ray", "local", "kubernetes"}
 VALID_TIERS = {"L1", "L2", "L3"}
 VALID_NODE_TYPES = {"module", "dataset", "process", "reasoning"}
+VALID_VERSION_POLICIES = {"locked", "patch", "minor", "latest"}
 
 # Pattern: lowercase, underscores, starts with letter
 ID_PATTERN = re.compile(r"^[a-z][a-z0-9_]*$")
@@ -141,6 +142,9 @@ def validate_lattice(data: dict[str, Any]) -> LatticeValidationResult:
     # FAIR block
     _validate_fair(lattice.get("fair"), result)
 
+    # Federation block (optional)
+    _validate_federation(lattice.get("federation"), node_ids, lattice.get("fair"), result)
+
     return result
 
 
@@ -252,6 +256,13 @@ def _validate_edges(edges: Any, node_ids: set[str], result: LatticeValidationRes
         elif target not in node_ids and node_ids:
             result.add_error(f"lattice.edges[{i}].to '{target}' references unknown node")
 
+        # Self-referential edge warning
+        if source is not None and target is not None and source == target:
+            result.add_warning(
+                f"lattice.edges[{i}]: self-referential edge '{source}' → '{target}' "
+                "(valid for iteration loops but verify intent)"
+            )
+
 
 def _validate_fair(fair: Any, result: LatticeValidationResult) -> None:
     """Validate the FAIR metadata block."""
@@ -271,6 +282,68 @@ def _validate_fair(fair: Any, result: LatticeValidationResult) -> None:
         keywords = fair["keywords"]
         if not isinstance(keywords, list) or len(keywords) == 0:
             result.add_error("lattice.fair.keywords must be a non-empty array")
+
+
+def _validate_federation(
+    federation: Any,
+    node_ids: set[str],
+    fair: Any,
+    result: LatticeValidationResult,
+) -> None:
+    """Validate the optional federation metadata block."""
+    if federation is None:
+        return  # Federation is optional
+
+    if not isinstance(federation, dict):
+        result.add_error("lattice.federation must be a mapping")
+        return
+
+    # Version policy enum
+    version_policy = federation.get("version_policy")
+    if version_policy is not None and version_policy not in VALID_VERSION_POLICIES:
+        result.add_error(
+            f"lattice.federation.version_policy '{version_policy}' "
+            f"must be one of: {sorted(VALID_VERSION_POLICIES)}"
+        )
+
+    # Shareable without license warning
+    if federation.get("shareable") and (
+        fair is None or not isinstance(fair, dict) or "license" not in fair
+    ):
+        result.add_warning(
+            "federation.shareable is true but no fair.license specified — "
+            "shared lattices should declare a license"
+        )
+
+    # Parent lattice without extracted_nodes warning
+    if "parent_lattice" in federation and "extracted_nodes" not in federation:
+        result.add_warning(
+            "federation.parent_lattice specified without federation.extracted_nodes — "
+            "consider listing which nodes were extracted"
+        )
+
+    # Extracted nodes cross-reference validation
+    extracted = federation.get("extracted_nodes")
+    if extracted is not None:
+        if not isinstance(extracted, list):
+            result.add_error("lattice.federation.extracted_nodes must be an array")
+        else:
+            for node_id in extracted:
+                if not isinstance(node_id, str):
+                    result.add_error(
+                        f"lattice.federation.extracted_nodes contains non-string: {node_id}"
+                    )
+                elif node_ids and node_id not in node_ids:
+                    result.add_error(
+                        f"federation.extracted_nodes references unknown node: '{node_id}'"
+                    )
+
+    # Extracted nodes without parent_lattice warning
+    if "extracted_nodes" in federation and "parent_lattice" not in federation:
+        result.add_warning(
+            "federation.extracted_nodes specified without federation.parent_lattice — "
+            "extracted nodes should reference their source lattice"
+        )
 
 
 def validate_lattice_file(path: str | Path) -> LatticeValidationResult:

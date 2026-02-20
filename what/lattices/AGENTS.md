@@ -50,9 +50,12 @@ for error in result.errors:
 
 | File | Type | Description |
 |------|------|-------------|
+| `examples/hello_world.lattice.yaml` | pipeline (workflow) | Minimal valid lattice for onboarding |
 | `examples/deep_research.lattice.yaml` | pipeline (hybrid) | Multi-agent research pipeline with validation loops |
 | `examples/research_orchestrator.lattice.yaml` | agent (hybrid) | Orchestrator for deep research process |
-| `examples/protein_binder_design.lattice.yaml` | pipeline (workflow) | Computational protein design pipeline |
+| `examples/protein_binder_design.lattice.yaml` | pipeline (workflow) | Computational protein design pipeline with federation |
+| `examples/knowledge_base.lattice.yaml` | context_graph (reasoning) | Knowledge retrieval + reasoning lattice |
+| `examples/docking_assessment.lattice.yaml` | pipeline (workflow) | Sub-lattice extraction with full federation properties |
 
 ## Lattice Types
 
@@ -62,6 +65,20 @@ for error in result.errors:
 | `agent` | LLM-driven reasoning | `reasoning` |
 | `context_graph` | Knowledge structure | varies |
 | `workflow` | Operational process | `workflow` |
+
+## Federation & Sub-Lattice Extraction
+
+Lattices support optional `federation` metadata for cross-instance sharing:
+
+| Property | Purpose |
+|----------|---------|
+| `shareable` | Whether this lattice can be shared with other instances |
+| `source_instance` | Originating aDNA instance identifier |
+| `parent_lattice` | Source lattice name (for extracted sub-lattices) |
+| `version_policy` | Upstream tracking: `locked`, `patch`, `minor`, `latest` |
+| `extracted_nodes` | Node IDs extracted from parent — must exist in this lattice's nodes |
+
+**Sub-lattice extraction pattern**: Extract a subset of nodes from a parent lattice into a standalone `.lattice.yaml`. Set `federation.parent_lattice` to the source name and `federation.extracted_nodes` to the list of node IDs carried over. The validator cross-checks that all listed node IDs exist in the new lattice's `nodes` array.
 
 ## Load/Skip Decision
 

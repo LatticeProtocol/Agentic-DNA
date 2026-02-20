@@ -1,24 +1,22 @@
 ---
-type: deliverable
-plan: plan_adna_standard
-task: "23"
+type: context
 title: "aDNA Bridge Patterns — Cross-Instance Composition"
 created: 2026-02-13
-updated: 2026-02-17
+updated: 2026-02-19
 status: approved
-last_edited_by: agent_init
-tags: [deliverable, adna, bridge_patterns, cross_instance, composition]
+last_edited_by: agent_stanley
+tags: [adna, bridge_patterns, cross_instance, composition, spec]
 ---
 
 # aDNA Bridge Patterns
 
-<!-- Companion to the aDNA Universal Standard v1.0 and Design Document -->
+<!-- Companion to the aDNA Universal Standard v2.1 and Design Document -->
 
 ## 1. Introduction
 
-The aDNA Universal Standard (v1.0) defines how a single project organizes its knowledge using the what/how/who triad, deployed as either a bare triad or an embedded triad. But projects do not exist in isolation. A vault may contain a cloned repository. Sibling repositories may share organizational context. A monorepo may host multiple sub-projects, each with its own aDNA instance.
+The aDNA Universal Standard defines how a single project organizes its knowledge using the what/how/who triad, deployed as either a bare triad or an embedded triad. But projects do not exist in isolation. A vault may contain a cloned repository. Sibling repositories may share organizational context. A monorepo may host multiple sub-projects, each with its own aDNA instance.
 
-This document addresses **G8 (Cross-Instance Awareness)** — how multiple aDNA instances discover, reference, and coexist with each other. It was deferred from v1.0 (spec Appendix C) with the unlock condition: "At least two aDNA instances needing to interoperate, providing concrete design requirements." That condition is now met.
+This document addresses **G8 (Cross-Instance Awareness)** — how multiple aDNA instances discover, reference, and coexist with each other. It was deferred from the initial standard (spec Appendix C) with the unlock condition: "At least two aDNA instances needing to interoperate, providing concrete design requirements." That condition is now met.
 
 ### Relationship to the standard
 
@@ -57,6 +55,41 @@ The aspirational success criterion #7 (spec §18.3) states: "Multiple aDNA insta
 
 Three composition patterns cover the ways aDNA instances relate to each other. They are not mutually exclusive — a project ecosystem may use all three simultaneously.
 
+```mermaid
+flowchart TB
+    subgraph NEST["Nesting (Parent Contains Child)"]
+        P1["Parent Vault"]
+        C1["Child Repo"]
+        P1 -->|contains| C1
+    end
+
+    subgraph SIB["Sibling Composition"]
+        S1["Project A"]
+        S2["Project B"]
+        S3["Coordinator"]
+        S1 <-.->|"reference"| S2
+        S3 -.->|"coordinates"| S1
+        S3 -.->|"coordinates"| S2
+    end
+
+    subgraph MONO["Monorepo Sub-Projects"]
+        MR["Monorepo Root"]
+        MS1["service/auth"]
+        MS2["service/payments"]
+        MR -->|contains| MS1
+        MR -->|contains| MS2
+        MS1 <-.->|"peer"| MS2
+    end
+
+    style P1 fill:#3b82f6,color:#fff
+    style C1 fill:#0d9488,color:#fff
+    style S1 fill:#8b5cf6,color:#fff
+    style S2 fill:#8b5cf6,color:#fff
+    style MR fill:#ef4444,color:#fff
+    style MS1 fill:#eab308,color:#000
+    style MS2 fill:#eab308,color:#000
+```
+
 ### 3.1 Nesting (Parent Contains Child)
 
 **Pattern**: A parent aDNA instance's directory tree physically contains one or more child aDNA instances. The child instance has its own governance files, its own triad, and its own scope boundary.
@@ -90,6 +123,33 @@ parent_vault/                      <- Parent instance boundary
 - **Session independence**: Sessions in the parent track work in the parent's `how/sessions/`. Sessions in the child track work in the child's `.agentic/how/sessions/`. An agent working within the child instance creates session files within the child's session directory, not the parent's.
 - **Frontmatter independence**: The parent's frontmatter conventions (field names, tag taxonomy) do not automatically apply to the child, and vice versa.
 - **Selective awareness**: The parent SHOULD know the child exists (via its Project Map in CLAUDE.md or a registry in MANIFEST.md). The child need not know it is nested — it operates as a self-contained instance.
+
+```mermaid
+flowchart TB
+    subgraph Parent["Parent Instance Boundary"]
+        PC["CLAUDE.md<br/>(parent rules)"]
+        PW["what/"]
+        PH["how/sessions/"]
+        PO["who/"]
+
+        subgraph Child["Child Instance Boundary"]
+            CC["CLAUDE.md<br/>(child rules)"]
+            CW[".agentic/what/"]
+            CH[".agentic/how/sessions/"]
+        end
+    end
+
+    PC -->|"governs"| PW
+    PC -->|"governs"| PH
+    PC -->|"governs"| PO
+    CC -->|"governs"| CW
+    CC -->|"governs"| CH
+    PC -.->|"aware of"| Child
+    PC ~~~ CC
+
+    style Parent fill:#f0f9ff,color:#000
+    style Child fill:#fefce8,color:#000
+```
 
 ### 3.2 Sibling Composition (Organizational Peers)
 
@@ -160,6 +220,26 @@ monorepo/
 
 When an agent starts a session, it needs to determine whether it is operating in a multi-instance environment. The following discovery protocol extends the standard startup checklist (spec §4.2).
 
+```mermaid
+flowchart TB
+    Start["Agent starts session"]
+    Start --> Q1{"Multi-instance<br/>environment?"}
+
+    Q1 -->|"Check registry"| Reg{"MANIFEST.md or<br/>CLAUDE.md lists<br/>child instances?"}
+    Reg -->|Yes| Known["Known children:<br/>respect boundaries"]
+    Reg -->|No| Scan{"Scan: CLAUDE.md<br/>or .agentic/<br/>below root?"}
+    Scan -->|Found| Discovered["Discovered child:<br/>document in registry"]
+    Scan -->|Not found| Single["Single-instance:<br/>proceed normally"]
+
+    Q1 -->|"Check for parent"| Up{"CLAUDE.md<br/>above root?"}
+    Up -->|Yes| Nested["Nested child:<br/>follow own CLAUDE.md"]
+    Up -->|No| Top["Top-level instance"]
+
+    Q1 -->|"Check for siblings"| Sib{"MANIFEST.md<br/>lists siblings?"}
+    Sib -->|Yes| Sibs["Sibling awareness:<br/>coordinate via notes"]
+    Sib -->|No| Solo["Independent instance"]
+```
+
 ### 4.1 Detecting child instances
 
 An agent operating in a parent instance SHOULD check whether its directory tree contains child aDNA instances. The presence of a child is indicated by:
@@ -189,6 +269,28 @@ Sibling detection cannot rely on filesystem structure because siblings are not p
 ## 5. Scope Boundaries
 
 The most important principle in multi-instance environments is **governance isolation**: each aDNA instance is governed by its own governance files, and governance does not leak across instance boundaries.
+
+```mermaid
+flowchart LR
+    subgraph DOES_NOT["Does NOT Cross"]
+        N1["Safety rules"]
+        N2["Session tracking"]
+        N3["Frontmatter conventions"]
+        N4["Naming conventions"]
+        N5["State tracking"]
+        N6["Persona"]
+    end
+
+    subgraph MAY_CROSS["MAY Cross"]
+        Y1["Awareness"]
+        Y2["Context references<br/>(read-only)"]
+        Y3["Coordination notes"]
+        Y4["Organizational context<br/>(explicit only)"]
+    end
+
+    style DOES_NOT fill:#fecaca,color:#000
+    style MAY_CROSS fill:#d1fae5,color:#000
+```
 
 ### 5.1 What does NOT cross boundaries
 
@@ -455,6 +557,25 @@ instances_touched:
 
 Choosing between nesting (parent/child) and separation (siblings) depends on the operational relationship between instances.
 
+```mermaid
+flowchart TB
+    Q1{"Agent frequently<br/>works in both?"}
+    Q1 -->|Yes| Q2{"Knowledge flows<br/>between them?"}
+    Q1 -->|No| Sep["Keep Separate<br/>(siblings)"]
+
+    Q2 -->|Yes| Q3{"Same sync<br/>solution?"}
+    Q2 -->|No| Sep
+
+    Q3 -->|Yes| Nest["Nest<br/>(parent/child)"]
+    Q3 -->|No| Sep
+
+    Sep --> Tip1["Document relationship<br/>in MANIFEST.md"]
+    Nest --> Tip2["Add to Project Map<br/>in CLAUDE.md"]
+
+    style Nest fill:#22c55e,color:#fff
+    style Sep fill:#3b82f6,color:#fff
+```
+
 ### 10.1 Decision framework
 
 | Factor | Nest (parent contains child) | Separate (siblings) |
@@ -491,7 +612,17 @@ Tooling (scripts, CI checks, or agent skills) that scans a parent instance's dir
 
 ### 11.3 Federation protocol
 
-For sibling instances on different machines or services, a lightweight federation protocol could enable agents to query remote instance state (e.g., "What is the current STATE.md of the workflows repo?") without manual cross-referencing. This overlaps with agent-to-agent communication patterns that are evolving in the broader AI ecosystem.
+The [Lattice Federation & Sharing Protocol](lattice_federation.md) defines the operational protocol for how lattice artifacts move between aDNA instances. It provides five capabilities that form a complete federation lifecycle:
+
+1. **Validate** — Check federation readiness (schema compliance, FAIR metadata, `federation.shareable: true`)
+2. **Export** — Package a lattice for transfer, converting local refs to portable `lattice://` URIs
+3. **Share** — Distribute via git, registry, or direct transfer channels
+4. **Import** — Ingest into a target instance with ontology compatibility check (triggering the [Ontology Unification Protocol](ontology_unification.md) merge algorithm when entity types differ)
+5. **Compose** — Integrate into a parent lattice via inline composition (namespace-prefixed child nodes) or external reference (`lattice://` URI as opaque node)
+
+The protocol uses the `lattice://` URI scheme (`lattice://<instance_id>/<lattice_name>[/<node_id>]`) for cross-instance references, with resolution rules covering same-machine, git-based, and registry-based discovery. Node ID collisions during composition are resolved via namespace prefixing, consistent with the ontology unification namespace specification.
+
+Federation preserves the convergent narrowing property — token scope decreases monotonically through the execution hierarchy even when federated lattices expand the total node count. External reference composition (child as opaque node) is the recommended default because it minimizes token cost while preserving composability.
 
 ### 11.4 Governance inheritance
 

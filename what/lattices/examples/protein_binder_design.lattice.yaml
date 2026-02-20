@@ -94,7 +94,7 @@ lattice:
   fair:
     license: "MIT"
     creators:
-      - "Your Name"
+      - "Lattice Labs"
     keywords:
       - protein binder
       - de novo design
@@ -102,4 +102,8 @@ lattice:
       - protein-protein interaction
       - RFdiffusion
       - LigandMPNN
-    provenance: "Computational protein design pipeline"
+    provenance: "End-to-end computational protein binder design pipeline — backbone generation through structure prediction, interface analysis, and candidate ranking"
+  federation:
+    shareable: true
+    source_instance: lattice-adna
+    version_policy: minor

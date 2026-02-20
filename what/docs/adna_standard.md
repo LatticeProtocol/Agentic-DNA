@@ -1,10 +1,10 @@
 ---
-type: deliverable
-title: "aDNA Universal Standard v2.0"
+type: context
+title: "aDNA Universal Standard v2.1"
 created: 2026-02-11
-updated: 2026-02-17
+updated: 2026-02-19
 status: approved
-last_edited_by: agent_init
+last_edited_by: agent_stanley
 tags: [adna, standard, spec, normative]
 ---
 
@@ -98,6 +98,30 @@ The triad is the universal ontology. Any piece of project knowledge belongs in e
 
 The triad is deliberately minimal. Three categories are sufficient because they map to the three dimensions of any project: its knowledge, its operations, and its people. Additional categories create sorting ambiguity.
 
+```mermaid
+flowchart TB
+    Root["aDNA Instance"]
+    Root --> W["what/<br/>Knowledge"]
+    Root --> H["how/<br/>Operations"]
+    Root --> O["who/<br/>Organization"]
+
+    W --> ctx["context/"]
+    W --> dec["decisions/"]
+    W --> dom["domain entities"]
+
+    H --> mis["missions/"]
+    H --> ses["sessions/"]
+    H --> tpl["templates/"]
+
+    O --> coord["coordination/"]
+    O --> gov["governance/"]
+    O --> ppl["people & teams"]
+
+    style W fill:#0d9488,color:#fff
+    style H fill:#22c55e,color:#fff
+    style O fill:#8b5cf6,color:#fff
+```
+
 ### 3.2 Bare Triad
 
 In a bare triad deployment, `what/`, `how/`, and `who/` sit as top-level directories at the project root. Governance files sit alongside them at root level.
@@ -163,6 +187,25 @@ The following ALLCAPS files constitute the governance layer:
 | **STATE.md** | SHOULD | Dynamic operational state — current phase, blockers, recent decisions, next steps | Every session close-out |
 | **AGENTS.md** | MUST | Root-level agent guide — directory purpose, key files, patterns | When directory structure changes |
 | **README.md** | MUST | Root-level human guide — navigation, setup, how to browse | When onboarding experience changes |
+
+```mermaid
+flowchart LR
+    CLAUDE["CLAUDE.md<br/>Agent root context"]
+    MANIFEST["MANIFEST.md<br/>Project overview"]
+    STATE["STATE.md<br/>Current state"]
+    AGENTS["AGENTS.md<br/>Directory guide"]
+    README["README.md<br/>Human guide"]
+
+    CLAUDE -->|"structure + rules"| STATE
+    CLAUDE -->|"references"| MANIFEST
+    STATE -->|"updated each session"| CLAUDE
+    AGENTS -.->|"per-directory"| CLAUDE
+    README -.->|"per-directory"| CLAUDE
+
+    style CLAUDE fill:#ef4444,color:#fff
+    style STATE fill:#eab308,color:#000
+    style MANIFEST fill:#3b82f6,color:#fff
+```
 
 ### 4.2 CLAUDE.md — Agent Root Context
 
@@ -300,10 +343,17 @@ erDiagram
     how ||--o{ missions : contains
     how ||--o{ sessions : contains
     how ||--o{ templates : contains
+    how ||--o{ pipelines : contains
+    how ||--o{ skills : contains
+    how ||--o{ backlog : contains
     who ||--o{ coordination : contains
     who ||--o{ governance : contains
+    who ||--o{ people : contains
     missions ||--o{ sessions : "tracked by"
     sessions ||--o{ coordination : "may produce"
+    pipelines ||--o{ stages : "flow through"
+    campaigns ||--o{ missions : "decompose into"
+    missions ||--o{ objectives : "decompose into"
 ```
 
 Projects extend this skeleton with domain-specific entities (e.g., `customers`, `models`, `hardware`). Knowledge-base environments MAY additionally maintain `what/ontology.canvas` for interactive exploration.
@@ -533,6 +583,21 @@ A session is a bounded unit of agent work. Every session follows this lifecycle:
 4. **Archive**: Set `status: completed`, move to `how/sessions/history/YYYY-MM/`
 
 A session file MUST be created before an agent modifies any other project files. This is the audit trail.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Create: Agent starts work
+    Create --> Active: Session file written
+    Active --> Active: Work + log activity
+    Active --> Close: SITREP written
+    Close --> Archive: Move to history/YYYY-MM/
+    Archive --> [*]
+
+    state Active {
+        [*] --> Working
+        Working --> Working: Modify files<br/>Update frontmatter
+    }
+```
 
 ### 8.2 Session ID Format
 
@@ -769,6 +834,32 @@ A template index (e.g., `template_library.md` in `how/templates/`) is RECOMMENDE
 
 Collision prevention protects against data loss when multiple agents or humans modify the same files. The system is tiered — projects adopt the tiers they need.
 
+```mermaid
+flowchart TB
+    T1["Tier 1 — Universal<br/>Every aDNA instance"]
+    T2["Tier 2 — Sync Environments<br/>Cloud storage, team sync"]
+    T3["Tier 3 — Multi-Agent<br/>Concurrent agents"]
+
+    T1 --> A1["Frontmatter attribution"]
+    T1 --> A2["Read-before-write"]
+    T1 --> A3["New-file safety"]
+
+    T2 --> B1["File safety tiers"]
+    T2 --> B2["Archive-don't-rename"]
+    T2 --> B3["One config at a time"]
+
+    T3 --> C1["Coordination notes"]
+    T3 --> C2["Scope declarations"]
+    T3 --> C3["Update-field check"]
+
+    T1 -.->|extends| T2
+    T2 -.->|extends| T3
+
+    style T1 fill:#22c55e,color:#fff
+    style T2 fill:#eab308,color:#000
+    style T3 fill:#ef4444,color:#fff
+```
+
 ### 13.2 Tier 1 — Universal
 
 Every aDNA instance MUST implement Tier 1:
@@ -804,6 +895,21 @@ Projects with multiple agents operating simultaneously SHOULD additionally imple
 Content-as-code is a universal paradigm for folder-based workflows: a file's directory location IS its processing state. Moving a file between stage directories advances it through the workflow.
 
 This paradigm applies wherever content flows through defined stages — research ingestion, document review, approval workflows, deployment pipelines.
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> inbox: New content
+    inbox --> processing: Agent picks up
+    processing --> review: Processing complete
+    review --> done: Approved
+    review --> processing: Revision needed
+    done --> [*]
+
+    note right of inbox: AGENTS.md defines<br/>acceptance criteria
+    note right of processing: AGENTS.md defines<br/>processing steps
+    note right of review: AGENTS.md defines<br/>review checklist
+```
 
 ### 14.2 Pipeline Structure
 
@@ -877,6 +983,35 @@ Major version increments indicate structural changes. Minor version increments i
 
 Everything in this standard is Tier 1 unless noted otherwise. Tier 1 features work with any tool that can read files and directories.
 
+```mermaid
+flowchart TB
+    subgraph T1["Tier 1 — Core Standard (Universal)"]
+        F1["YAML frontmatter"]
+        F2["Markdown files"]
+        F3["Directory structure"]
+        F4["Naming conventions"]
+    end
+
+    subgraph T2["Tier 2 — Frontmatter Querying"]
+        F5["Dataview queries"]
+        F6["Shell scripts"]
+        F7["CI/CD pipelines"]
+    end
+
+    subgraph T3["Tier 3 — Environment-Specific"]
+        F8["Obsidian plugins"]
+        F9["IDE extensions"]
+        F10["Graph / canvas views"]
+    end
+
+    T1 -->|"any YAML reader"| T2
+    T2 -->|"specific tools"| T3
+
+    style T1 fill:#22c55e,color:#fff
+    style T2 fill:#3b82f6,color:#fff
+    style T3 fill:#8b5cf6,color:#fff
+```
+
 ### 16.2 Aggregation Points
 
 The following cross-directory views are useful in any aDNA instance. Their implementation is Tier 2/3 (tool-specific):
@@ -904,6 +1039,19 @@ Implementation examples: Dataview queries, shell scripts that parse frontmatter,
 | **Tier 2 — State inconsistency** | Stale STATE.md, broken cross-references, missing frontmatter | Attempt recovery: re-read files, reconcile state, add missing fields. Log the issue and recovery action in session file. Continue work. | Agent-recoverable with documentation |
 | **Tier 3 — Process issue** | Template not found, naming violation, ambiguous pipeline stage | Note the issue in session file. Work around it. Create a backlog idea for improvement. | Work around, improve later |
 
+```mermaid
+flowchart LR
+    E["Error detected"] --> S1{"Data at risk?"}
+    S1 -->|Yes| T1["Tier 1: STOP<br/>Escalate to human"]
+    S1 -->|No| S2{"State inconsistent?"}
+    S2 -->|Yes| T2["Tier 2: Fix + log<br/>Continue work"]
+    S2 -->|No| T3["Tier 3: Note + workaround<br/>Backlog idea"]
+
+    style T1 fill:#ef4444,color:#fff
+    style T2 fill:#eab308,color:#000
+    style T3 fill:#22c55e,color:#fff
+```
+
 ### 17.2 Escalation
 
 Agents MUST log blockers with the `#needs-human` tag when:
@@ -918,6 +1066,34 @@ Agents MUST NOT proceed with destructive or irreversible actions when uncertain.
 ## 18. Success Criteria
 
 *Decisions: D21*
+
+```mermaid
+flowchart TB
+    subgraph MIN["Minimum Viable (MUST)"]
+        M1["Cold Start"]
+        M2["Handoff"]
+        M3["Integrity"]
+    end
+
+    subgraph REC["Recommended (SHOULD)"]
+        R1["Fork"]
+        R2["Scale"]
+        R3["Consistency"]
+    end
+
+    subgraph ASP["Aspirational"]
+        A1["Network"]
+        A2["Collision Safety"]
+        A3["Dual-Audience"]
+    end
+
+    MIN -->|mature| REC
+    REC -->|excellent| ASP
+
+    style MIN fill:#22c55e,color:#fff
+    style REC fill:#3b82f6,color:#fff
+    style ASP fill:#8b5cf6,color:#fff
+```
 
 ### 18.1 Minimum Viable (every aDNA MUST pass)
 

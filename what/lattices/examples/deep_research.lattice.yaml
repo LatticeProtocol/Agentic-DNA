@@ -10,6 +10,7 @@ lattice:
     mode: hybrid
     runtime: local
     tier: L1
+    model: "claude-opus-4-6"
   nodes:
     - id: research_query
       type: dataset
@@ -21,7 +22,6 @@ lattice:
         Analyze the research query across 5 classification dimensions.
         Determine effort level (minimal/focused/standard/comprehensive).
         Decompose into sub-questions and assign source modules.
-      model_override: "claude-opus-4-6"
     - id: source_dispatch
       type: process
       description: "Dispatch parallel source queries via Task tool to source worker agents"
@@ -35,7 +35,6 @@ lattice:
         Merge raw findings from multiple sources into a unified document.
         Build provenance map. Deduplicate semantically identical claims.
         Flag contradictions for explicit presentation.
-      model_override: "claude-opus-4-6"
     - id: validate
       type: reasoning
       description: "Fact-check, completeness-check, coherence-check, citation audit"
@@ -43,7 +42,6 @@ lattice:
         Validate the merged document: verify claims against sources,
         check coverage against research plan, assess internal consistency,
         audit citations. Iterate if budget allows.
-      model_override: "claude-opus-4-6"
     - id: optimize
       type: reasoning
       description: "Progressive disclosure structuring, signal density maximization"
@@ -51,7 +49,6 @@ lattice:
         Transform validated research into token-optimized context object.
         Apply 6-step pipeline: audit, structure, compress, format, fit, audit.
         Structure output into Tier 1/2/3 information hierarchy.
-      model_override: "claude-opus-4-6"
     - id: standardize
       type: process
       description: "Format as context object, generate metadata, prepare for vault filing"
@@ -102,11 +99,11 @@ lattice:
   fair:
     license: "MIT"
     creators:
-      - "Your Name"
+      - "Lattice Labs"
     keywords:
       - research
       - context engineering
       - orchestrator-worker
       - multi-agent
       - progressive disclosure
-    provenance: "Designed for deep research workflows"
+    provenance: "Multi-phase deep research pipeline — transforms queries into token-optimized context objects via parallel source dispatch, synthesis, and validation"

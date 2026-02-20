@@ -1,0 +1,82 @@
+---
+type: directory_index
+created: 2026-02-20
+updated: 2026-02-20
+last_edited_by: agent_stanley
+tags: [directory_index, context, adna_core]
+---
+
+# aDNA Core — Context Index
+
+## Overview
+
+Foundational knowledge for the aDNA paradigm — enough base context for an agent to bootstrap into the standard and begin designing ontologies, lattices, and campaigns. Distilled from the aDNA Standard v2.1, Design Document, and Phase 4 protocol deliverables (ontology unification, federation, interop).
+
+## Subtopics
+
+| # | Subtopic | File | ~Tokens | Subtype | Key Content |
+|---|----------|------|---------|---------|-------------|
+| 1 | Paradigm Overview | `context_adna_core_paradigm_overview.md` | ~3,000 | context_core | Triad, governance files, deployment forms, cold-start, collision prevention |
+| 2 | Convergence Model | `context_adna_core_convergence_model.md` | ~2,500 | context_core | Operational quick-ref for token narrowing, design decisions, anti-patterns |
+| 3 | Ontology Design | `context_adna_core_ontology_design.md` | ~3,200 | context_guide | Base/extension partitioning, namespace spec, frontmatter system, merge compatibility |
+| 4 | Lattice Design | `context_adna_core_lattice_design.md` | ~3,500 | context_guide | YAML schema, node/edge types, execution modes, federation readiness, validation |
+| 5 | Context Engineering | `context_adna_core_context_engineering.md` | ~2,800 | context_guide | Writing context files, quality rubric, format selection, topic organization |
+| 6 | Federation | `context_adna_core_federation.md` | ~3,200 | context_guide | 5-capability lifecycle, URI scheme, composition patterns, seam edges, interop |
+| 7 | Ontology Unification | `context_adna_core_ontology_unification.md` | ~3,000 | context_guide | 4-step merge algorithm, 10-type conflict taxonomy, namespace spec, worked example |
+| 8 | Campaign Dispatch | `context_adna_core_campaign_dispatch.md` | ~2,800 | context_guide | Campaign→Mission→Objective hierarchy, phase design, mission execution protocol |
+
+## Total Token Budget
+
+~24,000 tokens to load all subtopics. Typical session loads 2-4 subtopics (~5K-12K tokens).
+
+## Usage by Task
+
+| Task | Load These Subtopics |
+|------|---------------------|
+| Bootstrapping into aDNA (cold start) | paradigm_overview |
+| Designing a new ontology or extending existing | ontology_design, convergence_model |
+| Creating a lattice YAML file | lattice_design |
+| Writing context library files | context_engineering |
+| Federating lattices across instances | federation, lattice_design |
+| Merging ontologies from two instances | ontology_unification, ontology_design |
+| Designing a campaign | campaign_dispatch, convergence_model |
+| Reviewing structure for token efficiency | convergence_model, context_engineering |
+| Understanding the full aDNA paradigm | paradigm_overview + convergence_model + ontology_design |
+
+## Dependency Notes
+
+- **paradigm_overview** is the entry point — read first for any aDNA work
+- **convergence_model** builds on paradigm_overview — the narrowing property in action
+- **ontology_design** builds on paradigm_overview — extends the base types
+- **lattice_design** is self-contained — YAML schema reference
+- **context_engineering** is self-contained — writing guide
+- **federation** depends on lattice_design (YAML schema) and references ontology_unification
+- **ontology_unification** depends on ontology_design (base/extension partitioning)
+- **campaign_dispatch** builds on convergence_model (execution hierarchy)
+
+## Relationship to prompt_engineering Topic
+
+Three subtopics overlap in domain with the `prompt_engineering` topic. The differentiation:
+
+| adna_core File | prompt_engineering Counterpart | Differentiation |
+|----------------|-------------------------------|-----------------|
+| convergence_model | convergence_model | adna_core = operational quick-ref ("how to apply"); PE = full theoretical articulation |
+| ontology_design | ontology_design | adna_core = aDNA-specific prescriptive guide; PE = general ontology-for-LLMs research |
+| federation | federation_composability | adna_core = concrete aDNA protocol distillation; PE = external research patterns |
+
+**Rule**: Load adna_core for aDNA-specific work. Load prompt_engineering for research/theory or cross-project design.
+
+## Load/Skip Decision
+
+**Load when**:
+- Bootstrapping into the aDNA paradigm (agent cold-start beyond CLAUDE.md)
+- Designing ontologies, lattices, or campaigns within aDNA
+- Federating or merging across aDNA instances
+- Writing or evaluating context library files
+
+**Skip when**:
+- Already oriented via CLAUDE.md + STATE.md for routine operational work
+- Working on domain-specific tasks that don't touch aDNA structure
+- Performing CRM, communications, or non-structural vault maintenance
+
+**Token cost**: ~400 tokens (this AGENTS.md)

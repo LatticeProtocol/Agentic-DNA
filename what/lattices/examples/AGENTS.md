@@ -1,7 +1,7 @@
 ---
 type: directory_index
 created: 2026-02-19
-updated: 2026-02-19
+updated: 2026-02-20
 last_edited_by: agent_stanley
 tags: [directory_index, lattice, examples]
 ---
@@ -14,11 +14,28 @@ Example `.lattice.yaml` files demonstrating different lattice types, execution m
 
 ## Examples
 
+### General-Purpose Examples
+
 | File | Lattice Type | Execution Mode | Demonstrates |
 |------|-------------|---------------|-------------|
-| `deep_research.lattice.yaml` | pipeline | hybrid | Multi-agent research pipeline with validation loops, phase gates, mixed workflow/reasoning nodes |
-| `research_orchestrator.lattice.yaml` | agent | hybrid | Orchestrator pattern — LLM-driven coordination of sub-tasks with human checkpoints |
-| `protein_binder_design.lattice.yaml` | pipeline | workflow | Deterministic computational biology pipeline — linear DAG, no reasoning nodes |
+| `hello_world.lattice.yaml` | pipeline | workflow | Minimal valid lattice — simplest pipeline for onboarding |
+| `sales_pipeline.lattice.yaml` | pipeline | workflow | B2B sales funnel — lead capture through close. Business use case |
+| `product_launch.lattice.yaml` | pipeline | hybrid | Cross-functional launch — market research (LLM) through go-to-market |
+| `learning_path.lattice.yaml` | workflow | workflow | Personal learning cycle with iterative assessment loop |
+| `creative_brief.lattice.yaml` | pipeline | hybrid | Client project workflow — brief through revision cycle with LLM feedback |
+| `deep_research.lattice.yaml` | pipeline | hybrid | Multi-agent research pipeline with validation loops and phase gates |
+| `knowledge_base.lattice.yaml` | context_graph | reasoning | Knowledge retrieval + LLM reasoning — only `context_graph` type example |
+| `research_orchestrator.lattice.yaml` | agent | hybrid | Orchestrator pattern — LLM-driven coordination with human checkpoints |
+
+### Biotech / Federation Examples
+
+| File | Lattice Type | Execution Mode | Demonstrates |
+|------|-------------|---------------|-------------|
+| `protein_binder_design.lattice.yaml` | pipeline | workflow | Deterministic computational biology pipeline — linear DAG, federation metadata |
+| `docking_assessment.lattice.yaml` | pipeline | workflow | Sub-lattice extracted from protein_binder_design — demonstrates all 5 federation properties |
+| `binder_generation.lattice.yaml` | pipeline | workflow | Generative design sub-lattice — interface descriptor + federation extraction |
+| `composed_therapeutics.lattice.yaml` | pipeline | workflow | Single external reference composition — uses docking_assessment via `lattice://` URI |
+| `full_therapeutics.lattice.yaml` | pipeline | workflow | Multi-lattice composition — composes both binder_generation and docking_assessment |
 
 ## How to Use
 

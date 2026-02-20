@@ -1,7 +1,7 @@
 ---
 type: directory_index
 created: 2026-02-17
-updated: 2026-02-19
+updated: 2026-02-20
 last_edited_by: agent_stanley
 tags: [directory_index, context]
 ---
@@ -134,6 +134,7 @@ Every context file should meet these standards:
 | Topic | Subtopics | Total Tokens | Avg Quality | Status |
 |-------|-----------|-------------|-------------|--------|
 | prompt_engineering | 7 | ~21,200 | — | active |
+| adna_core | 8 | ~24,000 | 4.2 | active |
 
 ## Load/Skip Decision
 
