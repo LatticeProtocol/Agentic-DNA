@@ -1,7 +1,7 @@
 ---
 type: directory_index
 created: 2026-02-19
-updated: 2026-02-19
+updated: 2026-02-20
 last_edited_by: agent_stanley
 tags: [directory_index, templates]
 ---
@@ -26,6 +26,18 @@ Templates for all content types in the vault. Each template defines the frontmat
 | `template_rfc.md` | Request for Comments | `how/pipelines/prd_rfc/` | `rfc` |
 | `template_session.md` | Session tracking file | `how/sessions/` | `session` |
 | `template_skill.md` | Skill recipe or procedure | `how/skills/` | `skill` |
+
+## Filled Examples
+
+See `examples/` for completed samples showing what quality output looks like:
+
+| Example | Based on template | Shows |
+|---------|------------------|-------|
+| `example_context_market_analysis.md` | `template_context.md` | Filled context file with real research, competitive analysis, and anti-patterns |
+| `example_mission_product_launch.md` | `template_mission.md` | Completed mission with 5 tasks, status tracking, and completion summary |
+| `example_session_customer_research.md` | `template_session.md` | Completed session with activity log, SITREP, and next session prompt |
+
+Use these to understand the expected level of detail before creating your own files.
 
 ## Usage Notes
 

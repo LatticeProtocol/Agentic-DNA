@@ -2,7 +2,7 @@
 type: skill
 skill_type: agent
 created: 2026-02-19
-updated: 2026-02-19
+updated: 2026-02-20
 status: active
 category: onboarding
 trigger: "First-run detection in CLAUDE.md indicates uncustomized vault"
@@ -71,7 +71,7 @@ Make it concrete with the **Question Test**: "If you have a research paper summa
 
 Mention that this is extensible — they'll add their own entity types under the right leg in Step 6.
 
-### Step 3: Explain Lattices and Context Graphs (brief)
+### Step 3: Explain Lattices and Context Graphs (brief, skippable)
 
 Lattices are directed graphs connecting datasets, modules, and reasoning nodes into executable compositions. Four types:
 
@@ -82,7 +82,13 @@ Lattices are directed graphs connecting datasets, modules, and reasoning nodes i
 | `context_graph` | Knowledge structure connecting concepts |
 | `workflow` | Operational process for human/agent procedures |
 
-This vault includes tools to validate and visualize lattices, plus 3 ready-to-use examples.
+This vault includes tools to validate and visualize lattices, plus 13 ready-to-use examples across business, creative, research, and biotech domains.
+
+**Lattice-skip path**: If the user's domain is non-computational or they seem unfamiliar with workflow automation, offer the skip:
+
+> "Lattices model executable workflows — pipelines, reasoning chains, multi-step processes. They're powerful for computational work, but **the triad structure handles knowledge management perfectly well without them**. Would you like me to explain lattices in more detail, or shall we move on to exploring your project needs?"
+
+If they skip, acknowledge it naturally and proceed to Step 4. Don't make it feel like they're missing something important — the triad is the core architecture, lattices are an optional layer.
 
 **Tiered depth**: Point to `what/lattices/examples/` for examples. For the full spec, see `what/docs/adna_standard.md`.
 
@@ -108,10 +114,15 @@ This is the most important step. Ask the user about their project, domain, and g
 - "Do you already use AI agents in your workflow?"
 
 Listen for **domain signals** that inform ontology extensions in Step 6:
-- Research terms → `what/papers/`, `what/datasets/`, `what/hypotheses/`
-- Business/CRM terms → `who/customers/`, `who/partners/`, `who/contacts/`
-- Software terms → `how/incidents/`, `how/deployments/`, `what/services/`
+- Business/CRM terms → `who/customers/`, `who/partners/`, `who/contacts/`, `who/projects/`
+- Startup/fundraising terms → `who/investors/`, `what/decisions/` (term sheets), `who/board/`
+- Research terms → `what/papers/`, `what/datasets/`, `what/hypotheses/`, `what/experiments/`
+- Software terms → `how/incidents/`, `how/deployments/`, `what/services/`, `what/apis/`
 - Lab/science terms → `what/experiments/`, `what/compounds/`, `what/protocols/`
+- Creative/agency terms → `who/clients/`, `what/creative_assets/`, `how/revision_cycles/`, `what/portfolio/`
+- Personal learning terms → `what/courses/`, `what/books/`, `how/learning_goals/`, `what/skills/`
+- Healthcare terms → `who/patients/`, `what/treatments/`, `what/protocols/`
+- Legal terms → `what/cases/`, `what/contracts/`, `what/compliance/`
 - Content/media terms → `what/publications/`, `how/editorial_pipeline/`
 
 Don't ask all questions — read the room and ask what's relevant.
@@ -122,18 +133,33 @@ Based on the discovery conversation, suggest domain-specific entity types with c
 
 | Domain | Suggested extensions |
 |--------|---------------------|
-| **Biotech/Science** | `what/experiments/`, `what/compounds/`, `what/protocols/`, `what/datasets/` |
+| **Startup / Business** | `who/customers/`, `who/partners/`, `who/investors/`, `who/board/`, `who/contacts/`, `who/projects/` |
+| **Research / Academic** | `what/papers/`, `what/datasets/`, `what/hypotheses/`, `what/experiments/` |
+| **Biotech / Science** | `what/experiments/`, `what/compounds/`, `what/protocols/`, `what/datasets/`, `what/targets/` |
 | **Software team** | `how/incidents/`, `how/deployments/`, `what/services/`, `what/apis/` |
-| **Research** | `what/papers/`, `what/datasets/`, `what/hypotheses/` |
-| **Business/CRM** | `who/customers/`, `who/partners/`, `who/contacts/`, `who/projects/` |
-| **Content/Media** | `what/publications/`, `how/editorial_pipeline/` |
+| **Creative / Agency** | `who/clients/`, `what/creative_assets/`, `how/revision_cycles/`, `what/portfolio/` |
+| **Personal Learning** | `what/courses/`, `what/books/`, `how/learning_goals/`, `what/skills/`, `how/habits/` |
+| **Healthcare** | `who/patients/`, `what/treatments/`, `what/protocols/`, `what/compliance/` |
+| **Legal** | `what/cases/`, `what/contracts/`, `what/compliance/`, `who/clients/` |
+| **Content / Media** | `what/publications/`, `how/editorial_pipeline/`, `what/assets/` |
 
-For each confirmed extension:
-1. Create the directory under the appropriate triad leg
-2. Add an `AGENTS.md` with purpose and working rules
-3. Optionally create a template in `how/templates/`
+#### Classification Ambiguity Guidance
 
-**Ask user to confirm before creating anything.** Show them the proposed structure and get approval.
+When suggesting an extension, **explain the triad placement** so the user builds intuition:
+
+> "I'm suggesting `who/investors/` because investors are *people and organizations* — that's the WHO question. Their financial terms (term sheets, SAFE notes) go in `what/decisions/` because those are *things you decided or recorded*. The fundraising process itself goes in `how/campaigns/` because that's *how you execute* the raise."
+
+Common classification decisions to explain:
+- **Clients vs. projects**: Clients are WHO (people/orgs). Projects with clients are also WHO (they answer "who is this work for?"). But project *deliverables* are WHAT (knowledge artifacts).
+- **Protocols vs. experiments**: A protocol template is HOW (process). A specific experiment using that protocol is WHAT (a knowledge record of what was done and learned).
+- **Contracts**: The contract document itself is WHAT (a knowledge artifact). The client who signed it is WHO. The compliance process is HOW.
+
+For each confirmed extension, use the **entity scaffolding skill** (`how/skills/skill_new_entity_type.md`) which automates:
+1. Creating the directory under the appropriate triad leg
+2. Generating an `AGENTS.md` with purpose and working rules
+3. Creating a template in `how/templates/`
+
+**Ask user to confirm before creating anything.** Show them the proposed structure with triad placement rationale and get approval.
 
 ### Step 7: Customize Governance Files
 

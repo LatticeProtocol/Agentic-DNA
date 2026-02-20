@@ -1,10 +1,10 @@
 ---
 type: state
 created: 2026-02-17
-updated: 2026-02-19
+updated: 2026-02-20
 status: active
 last_edited_by: agent_stanley
-last_session: session_stanley_20260219_adna_m6
+last_session: session_stanley_20260220_adna_universality_p1
 tags: [state, governance]
 ---
 
@@ -13,6 +13,10 @@ tags: [state, governance]
 Dynamic operational snapshot for cold-start orientation. Updated each session.
 
 ## Current Phase
+
+<!-- IF YOU JUST CLONED THIS: Replace everything below with your project's current state. -->
+<!-- This file is YOUR operational dashboard — update it every session with what's happening, -->
+<!-- what's blocked, and what's next. Delete these HTML comments when you customize. -->
 
 **Ready — Complete Template.** The lattice-adna repo ships as a fully functional aDNA quick-start with validated tools, context library, Mermaid-enhanced spec docs, and agent-driven onboarding. Clone and start building.
 
@@ -41,7 +45,7 @@ None.
 - Lattice YAML validation tool (`lattice_validate.py`)
 - Canvas-YAML bidirectional conversion (`lattice2canvas.py`, `canvas2lattice.py`)
 - JSON Schema for `.lattice.yaml` format
-- 3 example lattice files (deep research, orchestrator, protein binder)
+- 13 example lattice files across business, creative, research, personal, and biotech domains
 - R&D→PRD→RFC planning pipeline with 4 stages
 - Session tracking ready (`how/sessions/active/`)
 - Mission, campaign, backlog, and skills systems ready
@@ -50,11 +54,13 @@ None.
 
 ## Next Steps
 
-1. **Start an agent session** — run `claude` in the vault directory; Berthier guides interactive onboarding (~5 min)
-2. **Or customize manually** — edit MANIFEST.md, STATE.md, and CLAUDE.md § Identity with your project identity
-3. **Create your first lattice** — copy an example from `what/lattices/examples/` and customize
-4. **Explore the context library** — read `what/context/prompt_engineering/AGENTS.md` for context engineering best practices
-5. **Start a mission** — use `how/missions/` for multi-session work decomposition
+<!-- CUSTOMIZE THIS: Replace these steps with your project's actual next actions. -->
+
+1. **Start an agent session** — run `claude` in the vault directory; Berthier guides interactive onboarding (~15-30 min)
+2. **Or customize manually** — edit MANIFEST.md, STATE.md, and CLAUDE.md § Identity with your project identity (~30-45 min)
+3. **Extend the ontology** — add domain-specific directories under who/what/how for your project (see README § Extending the Ontology)
+4. **Create your first content** — pick the triad leg that fits and create a file using templates from `how/templates/`
+5. **Explore the context library** — read `what/context/prompt_engineering/AGENTS.md` for context engineering best practices
 
 ## Partial-Resume Detection
 

@@ -1,10 +1,14 @@
 # lattice-adna
 
-**The knowledge genome for AI-native projects.**
+**Give your project a knowledge architecture that both humans and AI agents can navigate.**
 
-aDNA gives any project a persistent knowledge architecture that AI agents can orient in, operate on, and coordinate across — alongside humans. It's an ontology for building your ontology: a minimal scaffold that bootstraps domain-specific knowledge structures from day one. Clone this repo to build your own.
+Every project accumulates knowledge — decisions, contacts, research, processes, context. Without structure, that knowledge fragments across chat logs, scattered docs, and individual memory. AI agents start every session cold, re-discovering what the project is and how it works.
 
-> *aDNA originated from the [Lattice Protocol](https://github.com/lat-labs/lattice-protocol) for federated AI compute, but the knowledge architecture is universal — any team running AI agents benefits from structured project DNA.*
+**aDNA (Agentic DNA)** is a knowledge architecture that solves this. It organizes any project's knowledge into three directories — `who/`, `what/`, `how/` — with lightweight governance files that give AI agents instant orientation and give humans a browsable knowledge graph in [Obsidian](https://obsidian.md).
+
+Clone this repo to get a ready-to-use aDNA vault with templates, tools, and examples. Customize it for your domain in minutes.
+
+> *aDNA originated from the [Lattice Protocol](https://github.com/lat-labs/lattice-protocol) for federated AI compute, but the architecture is domain-neutral — any project that uses AI agents (or just wants structured knowledge) benefits.*
 
 ---
 
@@ -19,25 +23,39 @@ AI agents start every session cold. No memory of past work, no awareness of othe
 | **Knowledge fragmentation** | Insights discovered in one session are lost by the next. There's no persistent medium that accumulates project understanding across sessions and agents. |
 | **Audience divergence** | Humans browse knowledge visually (folders, links, graphs). Agents parse knowledge programmatically (frontmatter, structured files, protocol files). Most projects serve one audience poorly or both terribly. |
 
-aDNA solves these by giving projects a **deliberate knowledge architecture** — a genome that both humans and agents can read, navigate, and build on.
+aDNA solves these by giving projects a **deliberate knowledge architecture** — structured knowledge that both humans and agents can read, navigate, and build on.
+
+---
+
+## Who Is This For?
+
+aDNA works for any project that manages knowledge. Here are four common use cases:
+
+**Startup founder** — You're tracking investors, customers, product roadmap, hiring, and fundraising. Your `who/` leg holds investor profiles, customer records, and team members. Your `what/` leg holds product decisions, market research, and competitive analysis. Your `how/` leg holds fundraising campaigns, sprint plans, and onboarding processes. One vault replaces scattered Notion pages, Google Docs, and Slack threads.
+
+**Researcher** — You're managing papers, datasets, experiments, and collaborations. Your `what/` leg holds literature reviews, dataset documentation, and methodology decisions. Your `who/` leg holds collaborators, lab members, and funding contacts. Your `how/` leg holds research missions, publication pipelines, and grant application workflows.
+
+**Creative professional** — You're juggling clients, projects, creative assets, and revision cycles. Your `who/` leg holds client profiles and collaborator contacts. Your `what/` leg holds project briefs, asset libraries, and style guides. Your `how/` leg holds project workflows, revision pipelines, and delivery checklists.
+
+**Personal knowledge manager** — You're organizing learning goals, reading notes, skills development, and personal projects. Your `what/` leg holds course notes, book summaries, and topic deep-dives. Your `how/` leg holds learning paths, habit tracking, and project plans. Your `who/` leg holds mentors, communities, and professional contacts.
+
+Each of these users starts with the same base structure and extends it with domain-specific directories. See [Extending the Ontology](#extending-the-ontology) for how.
 
 ---
 
 ## The aDNA Paradigm
-
-**Agentic DNA (aDNA)** is a knowledge architecture standard. Think of it as the genome of a project: structured knowledge that agents read on startup to orient, operate, and coordinate — while humans browse the same structure through tools like Obsidian.
 
 ### The Triad
 
 Every piece of project knowledge answers exactly one of three questions:
 
 ```
-what/    →  What does this project know?     (knowledge)
-how/     →  How does this project work?      (operations)
-who/     →  Who is involved?                 (organization)
+who/     →  Who is involved?                 (people, teams, organizations)
+what/    →  What does this project know?     (knowledge, decisions, artifacts)
+how/     →  How does this project work?      (processes, plans, operations)
 ```
 
-This is the **triad** — the universal ontology at the heart of aDNA. Three directories. Three questions. Complete coverage.
+This is the **triad** — three directories, three questions, complete coverage.
 
 **The Question Test** classifies any content:
 
@@ -76,52 +94,19 @@ Agents read `CLAUDE.md` → `STATE.md` → directory-level `AGENTS.md` files. Hu
 
 ---
 
-## Context Lattices
+## Glossary
 
-A **lattice** is a directed graph connecting datasets, modules, reasoning nodes, and processes into an executable composition. Lattices are the bridge between human knowledge graphs and machine-executable workflows.
+Key terms used throughout this documentation:
 
-### Four Lattice Types
-
-| Type | What it does | Example |
-|------|-------------|---------|
-| **pipeline** | Deterministic DAG — modules process data through defined stages | Deep research: query → plan → workers → merge → validate → output |
-| **agent** | LLM-driven reasoning — nodes contain prompts, models make decisions | Code review agent: diff → analyze → critique → suggest |
-| **context_graph** | Knowledge structure — connects datasets and context into navigable maps | Domain knowledge graph linking papers, models, and datasets |
-| **workflow** | Operational process — defines human/agent procedures | Sprint planning: backlog → prioritize → assign → track |
-
-### Three Execution Modes
-
-| Mode | Behavior |
-|------|----------|
-| **workflow** | Deterministic — every node executes in topological order |
-| **reasoning** | LLM-driven — nodes contain prompts, model decides routing |
-| **hybrid** | Mixed — some nodes are deterministic, others use LLM reasoning |
-
-### Built-in FAIR Metadata
-
-Every lattice carries [FAIR](https://www.go-fair.org/fair-principles/) metadata — making it findable, accessible, interoperable, and reusable by default:
-
-```yaml
-fair:
-  license: "MIT"
-  creators: ["Your Name"]
-  keywords: [research, context engineering, multi-agent]
-  provenance: "Designed for deep research workflows"
-```
-
-### Example: Deep Research Lattice
-
-The included `deep_research.lattice.yaml` shows a hybrid pipeline that transforms a research query into an optimized context object:
-
-```
-research_query → planning → source_dispatch → raw_findings
-                                                    ↓
-context_output ← review_gate ← standardize ← optimize ← validate ← merge_dedup
-                                                              ↑______|
-                                                           (validation loop)
-```
-
-10 nodes across 4 types (dataset, reasoning, process), 11 edges including a conditional validation loop and effort-scaled routing. The planning node uses `claude-opus-4-6` for query classification, the validate node self-loops until quality thresholds pass, and the review gate conditionally routes to human review for high-effort research.
+| Term | Definition |
+|------|-----------|
+| **aDNA** | Agentic DNA — a knowledge architecture standard that organizes project knowledge into three directories (who/what/how) with governance files for both human and AI agent navigation. |
+| **Triad** | The three-directory structure (`who/`, `what/`, `how/`) at the heart of aDNA. Every piece of project knowledge belongs in exactly one leg. |
+| **Ontology** | The set of entity types your project uses (e.g., customers, decisions, sessions). aDNA ships 14 base types; you extend with your own. |
+| **Lattice** | A YAML-defined directed graph that models a workflow, pipeline, or reasoning process. Lattices are optional — the triad works without them. |
+| **FAIR** | Findable, Accessible, Interoperable, Reusable — metadata principles applied to lattices so they can be shared and discovered. |
+| **Convergence model** | The way aDNA's execution hierarchy (Campaign → Mission → Objective) progressively narrows context, reducing token count while increasing signal density. |
+| **AGENTS.md** | A per-directory guide file that tells AI agents what lives in a directory and how to work with it. Every directory in an aDNA project has one. |
 
 ---
 
@@ -137,14 +122,17 @@ Base aDNA ships **14 entity types** across the triad — the minimal operational
 
 **You extend by adding domain-specific entities under the appropriate triad leg.** The base gives you operational infrastructure — sessions, missions, coordination — that works from day one. Your extensions add the domain knowledge that makes the project yours.
 
-For example, Lattice Labs extended the base with 8 domain entities:
+Here are some examples of how different teams extend the base:
 
-| Extension | Added entities | Triad leg |
-|-----------|---------------|-----------|
-| **CRM** | `customers`, `partners`, `contacts`, `projects`, `communications`, `roadmap`, `data` | `who/` |
-| **Science** | `hardware`, `datasets`, `targets` | `what/` |
+| Domain | Example extensions | Triad leg |
+|--------|-------------------|-----------|
+| **Startup / Business** | `investors`, `customers`, `partners`, `fundraising_pipeline` | `who/` |
+| **Research / Science** | `experiments`, `datasets`, `hypotheses`, `protocols` | `what/` |
+| **Software team** | `services`, `incidents`, `deployments` | `how/` |
+| **Creative agency** | `clients`, `creative_assets`, `revision_cycles` | `who/` + `what/` |
+| **Personal learning** | `courses`, `books`, `learning_goals` | `what/` |
 
-A biotech lab might add `experiments/`, `compounds/`, `protocols/` under `what/`. A software team might add `services/`, `incidents/`, `deployments/` under `how/`. The triad doesn't prescribe your domain — it gives you the scaffold to build your domain ontology on.
+The triad doesn't prescribe your domain — it gives you the scaffold to build your domain ontology on.
 
 ### The Discriminator Pattern
 
@@ -169,19 +157,19 @@ This keeps the directory structure flat while preserving semantic precision. The
 ```
 lattice-adna/
 ├── CLAUDE.md                           # Agent master context
-├── MANIFEST.md                         # Project identity
-├── STATE.md                            # Operational state
+├── MANIFEST.md                         # Project identity (customize this)
+├── STATE.md                            # Operational state (customize this)
 ├── what/                               # Knowledge
 │   ├── context/                        #   Context library
 │   ├── decisions/                      #   Architecture Decision Records
 │   ├── docs/                           #   aDNA specification documents
-│   │   ├── adna_standard.md            #     Full normative spec (v2.0)
+│   │   ├── adna_standard.md            #     Full normative spec (v2.1)
 │   │   ├── adna_design.md              #     Architecture rationale
 │   │   └── adna_bridge_patterns.md     #     Multi-instance composition
 │   └── lattices/                       #   Lattice definitions
 │       ├── lattice_yaml_schema.json    #     JSON Schema
 │       ├── canvas_yaml_interop.md      #     Canvas ↔ YAML spec
-│       ├── examples/                   #     3 ready-to-use lattices
+│       ├── examples/                   #     13 example lattices
 │       └── tools/                      #     validate, convert, interop
 ├── how/                                # Operations
 │   ├── templates/                      #   10 auto-triggering templates
@@ -201,15 +189,17 @@ lattice-adna/
 |-----------|----------|-------------|
 | **Lattice tools** | `what/lattices/tools/` | Validate `.lattice.yaml` files, convert to/from Obsidian canvas |
 | **JSON Schema** | `what/lattices/lattice_yaml_schema.json` | Formal schema for lattice definitions |
-| **3 example lattices** | `what/lattices/examples/` | Deep research, protein binder design, research orchestrator |
+| **13 example lattices** | `what/lattices/examples/` | Business, research, creative, personal, and biotech examples |
 | **10 templates** | `how/templates/` | Session, mission, campaign, ADR, context, coordination, backlog, skill, PRD, RFC |
 | **PRD/RFC pipeline** | `how/pipelines/prd_rfc/` | 4-stage content-as-code planning workflow |
 | **aDNA spec docs** | `what/docs/` | Normative standard, design rationale, bridge patterns |
-| **Obsidian config** | `.obsidian/` | Tokyo Night theme, 9 CSS snippets, 12 pre-configured plugins (run `setup.sh`) |
+| **Obsidian config** | `.obsidian/` | Tokyo Night theme, CSS snippets, 12 pre-configured plugins (run `setup.sh`) |
 
 ---
 
 ## Quick Start
+
+**Clone and open: ~5 minutes.** Agent-guided customization: 15-30 minutes. Manual customization: 30-45 minutes.
 
 ### 1. Clone the repo
 
@@ -232,7 +222,9 @@ Optionally install [Space Grotesk](https://fonts.google.com/specimen/Space+Grote
 
 Open `lattice-adna/` as a vault in [Obsidian](https://obsidian.md). Enable community plugins when prompted. The accent color (Rebecca Purple `#663399`) and CSS snippets activate automatically.
 
-### 4. Start an agent session (recommended)
+### 4. Choose your setup path
+
+**Option A: Agent-guided setup (recommended, ~15-30 min)**
 
 Open a terminal in the vault directory and start Claude Code:
 
@@ -250,9 +242,194 @@ claude
 
 This is the fastest way to go from clone to productive vault. Everything Berthier does is inspectable — see `how/skills/skill_onboarding.md`.
 
-> **Prefer reading?** Skip this step and customize the vault manually.
-> The governance files (`CLAUDE.md`, `MANIFEST.md`, `STATE.md`) are
-> well-documented and ready to edit.
+**Option B: Manual setup (~30-45 min)**
+
+See [Using Without AI Agents](#using-without-ai-agents) below.
+
+---
+
+## Using Without AI Agents
+
+aDNA works perfectly well as a human-only knowledge management system. The triad structure, templates, and Obsidian integration don't require AI agents at all.
+
+### Manual setup in 5 steps
+
+**1. Clone and install** — Follow Quick Start steps 1-3 above.
+
+**2. Edit `MANIFEST.md`** — Replace the project description with your project's name and purpose. This file is your project's identity card — update it to describe what you're building.
+
+**3. Edit `STATE.md`** — Replace the current phase and next steps with your own. This is your operational dashboard — use it to track what's happening now and what's next.
+
+**4. Edit `CLAUDE.md` (optional)** — If you plan to use AI agents later, update the project description in the `## Identity & Personality` section. If not, you can ignore this file.
+
+**5. Create your first content file** — Pick the triad leg that matches your first piece of knowledge and create a file:
+   - A decision? Create `what/decisions/adr_your_decision.md`
+   - A team member? Create `who/governance/team_member_name.md`
+   - A project plan? Create `how/missions/plan_your_project.md`
+
+Use the templates in `how/templates/` as starting points — each one has the required frontmatter fields pre-filled.
+
+### What you can skip for solo use
+
+- **Session tracking** — designed for multi-agent coordination. For solo human use, it's optional.
+- **Collision prevention** — the `updated` / `last_edited_by` fields prevent multi-agent conflicts. Solo users can still use them as an audit trail, but they're not critical.
+- **AGENTS.md files** — these are instructions for AI agents. As a human, browse directories directly in Obsidian.
+- **Lattices** — YAML workflow definitions for executable pipelines. Useful for computational work, but the triad handles knowledge management without them.
+
+---
+
+## Working with AI Agents
+
+aDNA is designed for **human-agent collaboration**. The architecture serves both audiences simultaneously.
+
+### Agent Orientation
+
+When an AI agent (Claude Code, Cursor, etc.) opens an aDNA vault, it reads `CLAUDE.md` and immediately understands:
+
+- Project structure and where to find things
+- Safety rules and what not to touch
+- Active state — what's in progress, what's blocked
+- Session protocol — how to track its work
+- Domain knowledge — project-specific context
+
+No prompt engineering required. The architecture *is* the prompt.
+
+When an agent first opens a fresh vault, it runs an interactive onboarding flow to help customize the vault for your project.
+
+### Session Tracking
+
+Every agent session creates a file in `how/sessions/active/` before modifying vault files:
+
+| Tier | When | What's tracked |
+|------|------|---------------|
+| **Tier 1** | Default for most work | Session ID, intent, files touched |
+| **Tier 2** | Shared config edits | Adds scope declaration, conflict scan, heartbeat |
+
+On completion, sessions close with a **SITREP** — a structured handoff:
+
+- **Completed** — what got done
+- **In progress** — what's started but unfinished
+- **Next up** — recommended next actions
+- **Blockers** — anything preventing progress
+- **Files touched** — full audit trail
+
+The next agent reads the last SITREP and picks up where the previous one left off. Knowledge compounds instead of evaporating.
+
+### The Execution Hierarchy
+
+For work larger than a single session:
+
+```
+Campaign  (strategic initiative — weeks to months)
+├── Phase  (logical grouping with human gate between phases)
+│   ├── Mission  (multi-session task — 1-5 sessions)
+│   │   ├── Objective  (session-sized unit of work)
+│   │   └── Objective
+│   └── Mission
+└── Phase
+```
+
+- **Campaigns** coordinate multiple missions toward a strategic goal
+- **Missions** decompose complex tasks into claimable objectives
+- **Objectives** are what actually get done in a session
+- **Phases** group missions with human approval gates between them
+
+### Cross-Agent Coordination
+
+When multiple agents work on the same project, they coordinate through `who/coordination/` — structured notes that flag dependencies, handoffs, and blockers. Each agent checks coordination on startup, before starting work.
+
+---
+
+## Extending the Ontology
+
+Adding a new entity type takes three steps:
+
+### 1. Create the directory
+
+Place it under the right triad leg:
+
+```bash
+mkdir -p who/customers    # People/orgs → who/
+# or
+mkdir -p what/datasets    # Knowledge objects → what/
+# or
+mkdir -p how/runbooks     # Operational processes → how/
+```
+
+### 2. Add an AGENTS.md
+
+Every directory needs an `AGENTS.md` telling agents what lives here:
+
+```markdown
+# customers/ — Agent Guide
+
+## What's Here
+Customer records for active and prospective accounts.
+
+## Working Rules
+- One file per customer: `customer_<name>.md`
+- Check `updated` field before modifying
+- Set `last_edited_by` and `updated` on every edit
+- Link to contacts via `[[contacts/contact_name]]`
+```
+
+### 3. Create a template
+
+Add a template in `how/templates/` so new entities are consistent:
+
+```markdown
+---
+type: customer
+created: <% tp.date.now("YYYY-MM-DD") %>
+updated: <% tp.date.now("YYYY-MM-DD") %>
+status: prospect
+last_edited_by:
+tags: [customer]
+---
+
+# customer_<name>
+```
+
+Configure Templater to auto-trigger the template when files are created in the new directory.
+
+**Using an AI agent?** The entity scaffolding skill (`how/skills/skill_new_entity_type.md`) automates all three steps — just tell the agent what entity type you need and where it belongs.
+
+---
+
+## Context Lattices
+
+> **Lattices are optional.** The triad structure handles knowledge management without them. Lattices add value when you need to model executable workflows, computational pipelines, or multi-step reasoning processes. If your use case is purely knowledge organization, you can skip this section entirely.
+
+A **lattice** is a directed graph connecting datasets, modules, reasoning nodes, and processes into an executable composition. Lattices bridge human knowledge graphs and machine-executable workflows.
+
+### Four Lattice Types
+
+| Type | What it does | Example |
+|------|-------------|---------|
+| **pipeline** | Deterministic DAG — modules process data through defined stages | Sales pipeline: lead → qualify → propose → close |
+| **agent** | LLM-driven reasoning — nodes contain prompts, models make decisions | Code review agent: diff → analyze → critique → suggest |
+| **context_graph** | Knowledge structure — connects datasets and context into navigable maps | Domain knowledge graph linking papers, models, and datasets |
+| **workflow** | Operational process — defines human/agent procedures | Product launch: research → build → test → ship |
+
+### Three Execution Modes
+
+| Mode | Behavior |
+|------|----------|
+| **workflow** | Deterministic — every node executes in topological order |
+| **reasoning** | LLM-driven — nodes contain prompts, model decides routing |
+| **hybrid** | Mixed — some nodes are deterministic, others use LLM reasoning |
+
+### Built-in FAIR Metadata
+
+Every lattice carries [FAIR](https://www.go-fair.org/fair-principles/) metadata — making it findable, accessible, interoperable, and reusable by default:
+
+```yaml
+fair:
+  license: "MIT"
+  creators: ["Lattice Labs"]
+  keywords: [research, context engineering, multi-agent]
+  provenance: "Designed for deep research workflows"
+```
 
 ---
 
@@ -260,18 +437,24 @@ This is the fastest way to go from clone to productive vault. Everything Berthie
 
 ### 1. Pick an example
 
-Three example lattices ship in `what/lattices/examples/`:
+Example lattices ship in `what/lattices/examples/` across multiple domains:
 
 | Example | Type | What it models |
 |---------|------|---------------|
+| `hello_world.lattice.yaml` | pipeline (workflow) | Minimal 3-node pipeline — start here |
+| `sales_pipeline.lattice.yaml` | pipeline (workflow) | Lead → qualify → propose → negotiate → close |
+| `product_launch.lattice.yaml` | pipeline (hybrid) | Market research → engineering → QA → launch |
+| `learning_path.lattice.yaml` | workflow | Course selection → study → practice → assessment |
+| `creative_brief.lattice.yaml` | pipeline (hybrid) | Brief intake → design → revision → delivery |
 | `deep_research.lattice.yaml` | pipeline (hybrid) | Research query → validated context object |
-| `protein_binder_design.lattice.yaml` | pipeline | Protein design → docking → optimization |
-| `research_orchestrator.lattice.yaml` | agent | Multi-source research coordination |
+| `knowledge_base.lattice.yaml` | context_graph (reasoning) | Knowledge retrieval + LLM reasoning |
+| `research_orchestrator.lattice.yaml` | agent (hybrid) | Multi-source research coordination |
+| `protein_binder_design.lattice.yaml` | pipeline (workflow) | Computational biology pipeline |
 
 Copy one to start customizing:
 
 ```bash
-cp what/lattices/examples/deep_research.lattice.yaml what/lattices/my_first.lattice.yaml
+cp what/lattices/examples/hello_world.lattice.yaml what/lattices/my_first.lattice.yaml
 ```
 
 ### 2. Understand the anatomy
@@ -349,122 +532,6 @@ print('Lattice updated from canvas')
 
 ---
 
-## Working with AI Agents
-
-aDNA is designed for **human-agent collaboration**. The architecture serves both audiences simultaneously.
-
-### Agent Orientation
-
-When an agent first opens a fresh lattice-adna vault, it runs an interactive onboarding flow to help customize the vault for your project.
-
-When an AI agent (Claude Code, Cursor, etc.) opens an aDNA vault, it reads `CLAUDE.md` and immediately understands:
-
-- Project structure and where to find things
-- Safety rules and what not to touch
-- Active state — what's in progress, what's blocked
-- Session protocol — how to track its work
-- Domain knowledge — project-specific context
-
-No prompt engineering required. The architecture *is* the prompt.
-
-### Session Tracking
-
-Every agent session creates a file in `how/sessions/active/` before modifying vault files:
-
-| Tier | When | What's tracked |
-|------|------|---------------|
-| **Tier 1** | Default for most work | Session ID, intent, files touched |
-| **Tier 2** | Shared config edits | Adds scope declaration, conflict scan, heartbeat |
-
-On completion, sessions close with a **SITREP** — a structured handoff:
-
-- **Completed** — what got done
-- **In progress** — what's started but unfinished
-- **Next up** — recommended next actions
-- **Blockers** — anything preventing progress
-- **Files touched** — full audit trail
-
-The next agent reads the last SITREP and picks up where the previous one left off. Knowledge compounds instead of evaporating.
-
-### The Execution Hierarchy
-
-For work larger than a single session:
-
-```
-Campaign  (strategic initiative — weeks to months)
-├── Phase  (logical grouping with human gate between phases)
-│   ├── Mission  (multi-session task — 1-5 sessions)
-│   │   ├── Objective  (session-sized unit of work)
-│   │   └── Objective
-│   └── Mission
-└── Phase
-```
-
-- **Campaigns** coordinate multiple missions toward a strategic goal
-- **Missions** decompose complex tasks into claimable objectives
-- **Objectives** are what actually get done in a session
-- **Phases** group missions with human approval gates between them
-
-### Cross-Agent Coordination
-
-When multiple agents work on the same project, they coordinate through `who/coordination/` — structured notes that flag dependencies, handoffs, and blockers. Each agent checks coordination on startup, before starting work.
-
----
-
-## Extending the Ontology
-
-Adding a new entity type takes three steps:
-
-### 1. Create the directory
-
-Place it under the right triad leg:
-
-```bash
-mkdir -p who/customers    # CRM entity → who/
-# or
-mkdir -p what/datasets    # Knowledge entity → what/
-# or
-mkdir -p how/runbooks     # Operational entity → how/
-```
-
-### 2. Add an AGENTS.md
-
-Every directory needs an `AGENTS.md` telling agents what lives here:
-
-```markdown
-# customers/ — Agent Guide
-
-## What's Here
-Customer records for active and prospective accounts.
-
-## Working Rules
-- One file per customer: `customer_<name>.md`
-- Check `updated` field before modifying
-- Set `last_edited_by` and `updated` on every edit
-- Link to contacts via `[[contacts/contact_name]]`
-```
-
-### 3. Create a template
-
-Add a template in `how/templates/` so new entities are consistent:
-
-```markdown
----
-type: customer
-created: <% tp.date.now("YYYY-MM-DD") %>
-updated: <% tp.date.now("YYYY-MM-DD") %>
-status: prospect
-last_edited_by:
-tags: [customer]
----
-
-# customer_<name>
-```
-
-Configure Templater to auto-trigger the template when files are created in the new directory.
-
----
-
 ## Context Engineering
 
 Token efficiency is the constraint that shapes everything. Every token in an agent's context window must earn its place.
@@ -531,7 +598,7 @@ Three rules keep multi-agent work safe:
 
 | Document | What it covers |
 |----------|---------------|
-| [`what/docs/adna_standard.md`](what/docs/adna_standard.md) | Full normative specification (v2.0) — RFC 2119 keywords, all MUST/SHOULD/MAY rules |
+| [`what/docs/adna_standard.md`](what/docs/adna_standard.md) | Full normative specification (v2.1) — RFC 2119 keywords, all MUST/SHOULD/MAY rules |
 | [`what/docs/adna_design.md`](what/docs/adna_design.md) | Architecture rationale — why three legs, why these governance files, design tradeoffs |
 | [`what/docs/adna_bridge_patterns.md`](what/docs/adna_bridge_patterns.md) | Multi-instance composition — nesting, sibling, monorepo patterns |
 | [`what/lattices/canvas_yaml_interop.md`](what/lattices/canvas_yaml_interop.md) | Canvas ↔ YAML bidirectional mapping specification |

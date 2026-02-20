@@ -1,8 +1,8 @@
 ---
 type: manifest
 created: 2026-02-17
-updated: 2026-02-17
-last_edited_by: agent_init
+updated: 2026-02-20
+last_edited_by: agent_stanley
 tags: [manifest, governance]
 ---
 
@@ -10,9 +10,12 @@ tags: [manifest, governance]
 
 ## Project Identity
 
-**lattice-adna** — A quick-start Obsidian vault for building and managing Lattice YAML definitions with AI agents.
+<!-- CUSTOMIZE THIS: Replace the description below with your project's name and purpose. -->
+<!-- Example: "**my-project** — AI-powered market research platform for B2B SaaS companies." -->
 
-This repo is a self-contained aDNA deployment that anyone can clone and immediately start using. It includes lattice validation tools, canvas interop, example lattices, a full template library, and the R&D→PRD→RFC planning pipeline — everything needed to design, validate, and iterate on lattice definitions.
+**lattice-adna** — A quick-start Obsidian vault for building and managing knowledge architectures with AI agents.
+
+This repo is a self-contained aDNA deployment that anyone can clone and immediately start using. It includes templates, tools, example lattices, and the operational infrastructure (sessions, missions, campaigns) needed to run an AI-native project from day one.
 
 ## Architecture
 
@@ -39,6 +42,14 @@ lattice-adna/
 | **Humans** | `README.md` | `MANIFEST.md` → browse triad → `STATE.md` |
 
 ## Key Components
+
+### Context Library
+
+| Topic | Subtopics | Tokens | Location |
+|-------|-----------|--------|----------|
+| Prompt Engineering | 7 (signal-to-token, CLAUDE.md best practices, agentic scaffolding, Mermaid, ontology design, federation, convergence model) | ~21K | `what/context/prompt_engineering/` |
+
+Load via `what/context/AGENTS.md` → topic `AGENTS.md` → individual subtopics as needed.
 
 ### Lattice YAML Tools
 
@@ -76,8 +87,11 @@ how/pipelines/prd_rfc/
 
 ## Active Builds
 
-| Plan | Status | Description |
-|------|--------|-------------|
-| *(none yet)* | | |
+| Component | Status | Description |
+|-----------|--------|-------------|
+| Context library | Shipped | 1 topic (prompt engineering), 7 subtopics, ~21K tokens |
+| Lattice YAML tools | Shipped | Validate, convert (YAML↔canvas), JSON Schema |
+| Mermaid-enhanced spec docs | Shipped | 19 diagrams across 3 aDNA specification documents |
+| Quality evaluation framework | Shipped | 6-axis rubric for context file quality scoring |
 
 See `how/missions/` for mission details and `STATE.md` for current operational state.
