@@ -1,7 +1,7 @@
 ---
 type: directory_index
 created: 2026-02-17
-updated: 2026-02-20
+updated: 2026-03-05
 last_edited_by: agent_stanley
 tags: [directory_index, context]
 ---
@@ -135,6 +135,8 @@ Every context file should meet these standards:
 |-------|-----------|-------------|-------------|--------|
 | prompt_engineering | 7 | ~21,200 | — | active |
 | adna_core | 8 | ~24,000 | 4.2 | active |
+| lattice_basics | 2 | ~4,500 | — | active |
+| object_standards | 1 | ~3,000 | — | active |
 
 ## Load/Skip Decision
 

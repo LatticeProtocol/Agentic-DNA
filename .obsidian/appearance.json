@@ -3,15 +3,7 @@
   "theme": "obsidian",
   "cssTheme": "Tokyo Night",
   "enabledCssSnippets": [
-    "tokyo_night_purple",
-    "table_stripes",
-    "mermaid_override",
-    "popover_size",
-    "code_blocks",
-    "headings_styled",
-    "links_enhanced",
-    "scrollbar_custom",
-    "modals_translucent",
-    "notebook_navigator"
+    "core_theme",
+    "editor_polish"
   ]
 }
