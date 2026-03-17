@@ -1,8 +1,8 @@
 ---
 type: manifest
 created: 2026-02-17
-updated: 2026-03-02
-last_edited_by: agent_init
+updated: 2026-03-17
+last_edited_by: agent_stanley
 tags: [manifest, governance]
 ---
 
@@ -48,10 +48,13 @@ adna/
 | Topic | Subtopics | Tokens | Location |
 |-------|-----------|--------|----------|
 | Prompt Engineering | 7 | ~21K | `what/context/prompt_engineering/` |
+| aDNA Core | 10 | ~29.5K | `what/context/adna_core/` |
+| Lattice Basics | 2 | ~4.5K | `what/context/lattice_basics/` |
+| Object Standards | 1 | ~3K | `what/context/object_standards/` |
+
+Cross-topic recipes: `what/context/context_recipes.md` (6 domain-neutral recipes, 3-tier budget system).
 
 Load via `what/context/AGENTS.md` → topic `AGENTS.md` → individual subtopics as needed.
-
-> **Note**: The parent vault (lattice-labs) maintains a 36-topic context library with ~540K+ tokens. The aDNA repo ships with 1 topic as a reference implementation.
 
 ### Lattice YAML Tools
 
@@ -72,7 +75,7 @@ how/pipelines/prd_rfc/
 └── 04_review/        → Final approval (human gate)
 ```
 
-### Templates (10)
+### Templates (14)
 
 | Template | Auto-triggers in |
 |----------|-----------------|
@@ -86,16 +89,22 @@ how/pipelines/prd_rfc/
 | `template_prd.md` | `how/pipelines/prd_rfc/02_requirements/` |
 | `template_rfc.md` | `how/pipelines/prd_rfc/03_design/` |
 | `template_skill.md` | `how/skills/` |
+| `template_aar.md` | `how/missions/artifacts/` |
+| `template_strategic_compass.md` | `who/governance/` |
+| `template_campaign_claude.md` | `how/campaigns/campaign_*/` |
+| `template_registry.md` | — |
 
 ## Active Builds
 
 | Component | Status | Description |
 |-----------|--------|-------------|
 | aDNA Standard v2.1 | Shipped | Core specification — triad, ontology (14 base + 8 extension), sessions, missions, campaigns |
-| Context library | Shipped | 1 topic (prompt engineering), 7 subtopics, ~21K tokens |
-| Lattice YAML tools | Shipped | Validate, convert (YAML↔canvas), JSON Schema, 6 example lattices |
+| Context library | Shipped | 4 topics, 20 subtopics, ~58K tokens. Cross-topic recipe system with 6 recipes |
+| Lattice YAML tools | Shipped | Validate, convert (YAML↔canvas), JSON Schema, 14 example lattices |
 | Mermaid-enhanced spec docs | Shipped | 19 diagrams across 3 aDNA specification documents |
 | PRD/RFC pipeline | Shipped | 4-stage planning pipeline (research → requirements → design → review) |
-| 10 templates | Shipped | Session, mission, campaign, context, ADR, backlog, coordination, PRD, RFC, skill |
+| 14 templates | Shipped | Session, mission, campaign, context, ADR, backlog, coordination, PRD, RFC, skill, AAR, strategic compass, campaign CLAUDE.md, registry |
+| Execution hierarchy v2 | Shipped | OODA cascade (3-level evaluation loops), AAR protocol, mission classes, escalation cascade |
+| Quality framework | Shipped | 6-axis quality rubric, quality audit skill, context graduation pipeline |
 
 See `how/missions/` for mission details and `STATE.md` for current operational state.

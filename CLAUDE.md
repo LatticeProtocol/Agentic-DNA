@@ -1,13 +1,13 @@
 ---
 type: governance
-version: "4.2"
+version: "5.0"
 token_estimate: ~650
-updated: 2026-03-08
+updated: 2026-03-17
 last_edited_by: agent_stanley
 ---
 
 # CLAUDE.md — adna
-<!-- v4.2 | 2026-03-08 -->
+<!-- v5.0 | 2026-03-17 -->
 
 ## Identity & Personality
 
@@ -301,4 +301,4 @@ tags: []
 Use bidirectional wikilinks when adding relationships between entities.
 
 ---
-<!-- v4.2 | 2026-03-08 -->
+<!-- v5.0 | 2026-03-17 -->

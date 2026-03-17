@@ -17,7 +17,9 @@ Multi-session plans for tasks too large to complete in a single agent session. P
 ```
 how/missions/
 ├── AGENTS.md                    # This file (protocol)
-└── plan_{name}.md               # One file per plan
+├── plan_{name}.md               # One file per plan
+└── artifacts/                   # Mission and campaign artifacts (AARs, gap registers)
+    └── AGENTS.md                # Artifacts directory guide
 ```
 
 Plans with deliverables MAY use subdirectories:

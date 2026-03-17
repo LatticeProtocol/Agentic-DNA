@@ -27,7 +27,7 @@ Named, pre-defined cross-topic context assemblies for multi-disciplinary tasks. 
 
 | Recipe | Topics Used | Subtopics (Standard Load) | ~Tokens | Use When |
 |--------|------------|---------------------------|---------|----------|
-| `ontology_extension` | adna_core + prompt_engineering | paradigm_overview, ontology_design, PE/ontology_design | ~9K | Extending the base ontology with domain-specific entities |
+| `ontology_extension` | adna_core + prompt_engineering | paradigm_overview, ontology_design, ontology_workshop, PE/ontology_design | ~12K | Extending the base ontology or designing multi-entity domains |
 | `campaign_design` | adna_core | campaign_dispatch, convergence_model | ~5K | Designing a new campaign — phases, missions, scope |
 | `context_authoring` | adna_core | context_engineering, signal_to_token | ~5K | Writing new context files following quality standards |
 | `lattice_authoring` | adna_core + lattice_basics | lattice_design, core_concepts | ~8K | Creating lattice YAML files, node/edge design |
@@ -52,9 +52,9 @@ Each recipe supports three budget tiers. The Standard load is shown in the index
 
 | Tier | Load | ~Tokens |
 |------|------|---------|
-| Minimal | paradigm_overview | ~3K |
-| Standard | paradigm_overview, ontology_design, PE/ontology_design | ~9K |
-| Full | All 8 adna_core + all 7 prompt_engineering | ~45K |
+| Minimal | paradigm_overview, ontology_design | ~6K |
+| Standard | paradigm_overview, ontology_design, ontology_workshop, PE/ontology_design | ~12K |
+| Full | All 10 adna_core + all 7 prompt_engineering | ~51K |
 
 ## Task Classification Heuristic
 

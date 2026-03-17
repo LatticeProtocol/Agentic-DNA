@@ -138,7 +138,7 @@ Pre-defined context assemblies for multi-disciplinary tasks. See `context_recipe
 | Topic | Subtopics | Total Tokens | Avg Quality | Status |
 |-------|-----------|-------------|-------------|--------|
 | prompt_engineering | 7 | ~21,200 | 4.2 | active |
-| adna_core | 8 | ~24,000 | 4.2 | active |
+| adna_core | 10 | ~29,500 | 4.2 | active |
 | lattice_basics | 2 | ~4,500 | 3.0 | active |
 | object_standards | 1 | ~3,000 | 3.4 | active |
 
