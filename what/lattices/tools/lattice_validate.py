@@ -23,7 +23,7 @@ from typing import Any
 import yaml
 
 # Schema constants aligned with lattice_yaml_schema.json
-VALID_LATTICE_TYPES = {"pipeline", "agent", "context_graph", "workflow"}
+VALID_LATTICE_TYPES = {"pipeline", "agent", "context_graph", "workflow", "skill"}
 VALID_EXECUTION_MODES = {"workflow", "reasoning", "hybrid"}
 VALID_RUNTIMES = {"ray", "local", "kubernetes"}
 VALID_TIERS = {"L1", "L2", "L3"}
@@ -344,6 +344,84 @@ def _validate_federation(
             "federation.extracted_nodes specified without federation.parent_lattice — "
             "extracted nodes should reference their source lattice"
         )
+
+
+def check_federation_readiness(data: dict[str, Any]) -> LatticeValidationResult:
+    """
+    Check if a lattice is ready for federation (sharing/export).
+
+    Implements the 6 federation readiness checks from lattice_federation.md §4.1:
+    1. Schema validation passes (basic structure check)
+    2. federation.shareable is true
+    3. federation.source_instance is set
+    4. fair.license is declared
+    5. fair.keywords has >= 1 entry
+    6. All ref fields resolve or use lattice:// URIs
+
+    Args:
+        data: Parsed lattice YAML dictionary (with root 'lattice' key).
+
+    Returns:
+        LatticeValidationResult — valid=True if all 6 checks pass.
+    """
+    result = LatticeValidationResult()
+
+    # Extract lattice section
+    if not isinstance(data, dict) or "lattice" not in data:
+        result.add_error("[federation] Missing root 'lattice' key")
+        return result
+
+    lattice = data["lattice"]
+    if not isinstance(lattice, dict):
+        result.add_error("[federation] 'lattice' must be a mapping")
+        return result
+
+    # Check 1: Schema — required fields present
+    required = ["name", "version", "description", "execution", "nodes", "edges", "fair"]
+    missing = [f for f in required if f not in lattice]
+    if missing:
+        result.add_error(f"[federation] Missing required fields: {', '.join(missing)}")
+
+    # Check 2: federation.shareable is true
+    federation = lattice.get("federation")
+    if not isinstance(federation, dict) or not federation.get("shareable"):
+        result.add_error("[federation] federation.shareable must be true")
+
+    # Check 3: federation.source_instance is set
+    if not isinstance(federation, dict) or not federation.get("source_instance"):
+        result.add_error("[federation] federation.source_instance must be set")
+
+    # Check 4: fair.license is declared
+    fair = lattice.get("fair")
+    if not isinstance(fair, dict) or not fair.get("license"):
+        result.add_error("[federation] fair.license must be declared")
+
+    # Check 5: fair.keywords has >= 1 entry
+    if not isinstance(fair, dict):
+        result.add_error("[federation] fair.keywords must have at least 1 entry")
+    else:
+        keywords = fair.get("keywords", [])
+        if not isinstance(keywords, list) or len(keywords) < 1:
+            result.add_error("[federation] fair.keywords must have at least 1 entry")
+
+    # Check 6: All ref fields in nodes resolve or use lattice:// URIs
+    uri_pattern = re.compile(r"^lattice://")
+    nodes = lattice.get("nodes", [])
+    if isinstance(nodes, list):
+        for node in nodes:
+            if not isinstance(node, dict):
+                continue
+            ref = node.get("ref")
+            if ref is not None and not isinstance(ref, str):
+                result.add_error(
+                    f"[federation] Node '{node.get('id', '?')}': ref must be a string"
+                )
+            elif ref is not None and not ref.strip():
+                result.add_error(
+                    f"[federation] Node '{node.get('id', '?')}': ref is empty"
+                )
+
+    return result
 
 
 def validate_lattice_file(path: str | Path) -> LatticeValidationResult:

@@ -1,7 +1,7 @@
 ---
 type: directory_index
 created: 2026-02-19
-updated: 2026-03-05
+updated: 2026-03-08
 last_edited_by: agent_stanley
 tags: [directory_index, templates]
 ---
@@ -29,6 +29,7 @@ Templates for all content types in the vault. Each template defines the frontmat
 | `template_data_record.md` | Generic data record | — | varies |
 | `template_governance.md` | Governance document | — | `governance` |
 | `template_folder_note.md` | Folder index note | — | `folder_note` |
+| `template_registry.md` | Registry publication metadata | — | `template` |
 
 ## Filled Examples
 

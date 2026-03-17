@@ -51,7 +51,7 @@ adna/
 
 Load via `what/context/AGENTS.md` → topic `AGENTS.md` → individual subtopics as needed.
 
-> **Note**: The parent vault (LATTICE-PROTOCOL) maintains a 16-topic context library with ~195K+ tokens. The aDNA repo ships with 1 topic as a reference implementation.
+> **Note**: The parent vault (lattice-labs) maintains a 36-topic context library with ~540K+ tokens. The aDNA repo ships with 1 topic as a reference implementation.
 
 ### Lattice YAML Tools
 

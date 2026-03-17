@@ -60,7 +60,7 @@ cssclasses: [folder-note]
 
 ## Related
 
-- [[LATTICE-PROTOCOL/LATTICE-PROTOCOL|Lattice Protocol]] — open-source protocol foundation
+- [[lattice-protocol|Lattice Protocol]] — open-source protocol foundation
 - [[latlab/latlab|LatLab]] — product SDK built on the protocol
 - [[who/who|Organization]] — vault people layer
 - [[what/what|Technical Objects]] — vault knowledge layer

@@ -1,7 +1,7 @@
 ---
 type: directory_index
 created: 2026-02-18
-updated: 2026-02-19
+updated: 2026-03-08
 last_edited_by: agent_stanley
 tags: [directory_index, skill]
 ---
@@ -64,6 +64,7 @@ Examples:
 - `skill_create_deck.md` (agent)
 - `skill_customer_onboarding.md` (process)
 - `skill_incident_response.md` (process)
+- `skill_lattice_publish.md` (agent)
 
 ## Template
 

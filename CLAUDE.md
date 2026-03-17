@@ -1,13 +1,13 @@
 ---
 type: governance
-version: "4.1"
-token_estimate: ~600
-updated: 2026-03-02
+version: "4.2"
+token_estimate: ~650
+updated: 2026-03-08
 last_edited_by: agent_stanley
 ---
 
 # CLAUDE.md — adna
-<!-- v4.1 | 2026-03-02 -->
+<!-- v4.2 | 2026-03-08 -->
 
 ## Identity & Personality
 
@@ -213,6 +213,17 @@ Three core object types have type-standard docs, YAML schemas, and FAIR metadata
 
 **Type vocabulary (Decision 10)**: 19 canonical I/O types across 4 tiers (primitives → structured → molecular → media) for module `inputs:`/`outputs:` annotations. Snake_case, file types end in `_file`.
 
+### Registry Awareness
+
+Lattices can be published to and pulled from registries for sharing across instances. The registry is local-first (`MarketplaceRegistry`), with federation enabling cross-instance exchange.
+
+- **Publish**: `latlab lattice publish <path>` — registers a lattice with its metadata, FAIR block, and federation info. Requires 6 readiness checks (shareable, source_instance, version_policy, license, keywords, valid lattice_type).
+- **Pull**: `latlab lattice pull <name>` — downloads a published lattice by name (optionally pinned to a version).
+- **Compose**: `latlab lattice compose <parent> <child> --pattern external|inline --seam-edges <json>` — combines two lattices. External keeps them separate with seam edges; inline merges child nodes into the parent.
+- **Skills as lattices**: Skills (`lattice_type: skill`) are a degenerate lattice and can be published to the registry like any other lattice. See the Skill–Lattice Interop Standard for promotion from skill files to lattice records.
+- **Workflow skill**: `how/skills/skill_lattice_publish.md` — full agent recipe for validate → check readiness → publish/pull/compose.
+- **Registry template**: `how/templates/template_registry.md` — metadata checklist for federation publication.
+
 ### Compute Tiers
 
 | Tier | Scope | Example |
@@ -272,4 +283,4 @@ tags: []
 Use bidirectional wikilinks when adding relationships between entities.
 
 ---
-<!-- v4.1 | 2026-03-02 -->
+<!-- v4.2 | 2026-03-08 -->
