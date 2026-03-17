@@ -26,10 +26,13 @@ Foundational knowledge for the aDNA paradigm — enough base context for an agen
 | 8 | Campaign Dispatch | `context_adna_core_campaign_dispatch.md` | ~2,800 | context_guide | Campaign→Mission→Objective hierarchy, phase design, mission execution protocol |
 | 9 | OODA Cascade | `context_adna_core_ooda_cascade.md` | ~2,500 | context_guide | 3-level OODA loops, cascade dynamics, triggers, upward/downward flow |
 | 10 | Ontology Workshop | `context_adna_core_ontology_workshop.md` | ~3,000 | context_guide | Multi-entity domain design, entity discovery, relationship mapping, validation |
+| 11 | Type Vocabulary | `context_adna_core_type_vocabulary.md` | ~2,000 | context_guide | 19 canonical I/O types (4 tiers: primitives, structured, molecular, media) |
+| 12 | FAIR Mapping | `context_adna_core_fair_mapping.md` | ~1,500 | context_guide | Flat↔nested FAIR envelope interconversion, field correspondence |
+| 13 | Entity Definitions | `context_adna_core_entity_definitions.md` | ~1,600 | context_core | 14 base entity types (WHO 3, WHAT 4, HOW 7), triad classification, extension guidance |
 
 ## Total Token Budget
 
-~29,500 tokens to load all subtopics. Typical session loads 2-4 subtopics (~5K-12K tokens).
+~34,600 tokens to load all subtopics. Typical session loads 2-4 subtopics (~5K-12K tokens).
 
 ## Usage by Task
 
@@ -49,6 +52,12 @@ Foundational knowledge for the aDNA paradigm — enough base context for an agen
 | Understanding evaluation loops and cascade | ooda_cascade, campaign_dispatch |
 | Running mission AARs | ooda_cascade (triggers section), campaign_dispatch |
 | Understanding the full aDNA paradigm | paradigm_overview + convergence_model + ontology_design |
+| Annotating module I/O types | type_vocabulary |
+| Writing FAIR metadata for objects | fair_mapping |
+| Looking up entity type definitions | entity_definitions |
+| Onboarding or explaining vault structure | paradigm_overview + entity_definitions |
+| Auditing object standards compliance | type_vocabulary + fair_mapping |
+| Defining dataset YAML objects | type_vocabulary (for format field) |
 
 ## Dependency Notes
 
@@ -62,6 +71,9 @@ Foundational knowledge for the aDNA paradigm — enough base context for an agen
 - **campaign_dispatch** builds on convergence_model (execution hierarchy)
 - **ooda_cascade** builds on campaign_dispatch (evaluation loops for the execution hierarchy)
 - **ontology_workshop** depends on ontology_design (base/extension partitioning, question test)
+- **type_vocabulary** is self-contained — 19 type definitions for I/O annotations
+- **fair_mapping** references type_vocabulary (for `format` field values)
+- **entity_definitions** is self-contained — reference for 14 base entity types
 
 ## Relationship to prompt_engineering Topic
 
