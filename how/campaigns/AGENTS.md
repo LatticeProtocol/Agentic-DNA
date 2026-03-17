@@ -141,6 +141,22 @@ On mission completion, execute this 5-step protocol:
 | **Backlog** (`how/backlog/`) | Campaigns graduate from backlog ideas. Completed campaigns may generate new backlog ideas. |
 | **STATE.md** (`how/STATE.md`) | Active campaigns tracked in operational state. |
 
+## Verification Rubric
+
+Three verification levels ensure campaign quality:
+
+**Per-mission**: SITREP filed, AAR produced with scorecard, deliverables validated, files committed.
+
+**Per-phase**: All mission AARs are GO, phase exit criteria met (user approval required), scope changes documented.
+
+**Campaign-level**: Cross-file coherence (AGENTS.md references), token budget measured, template/skill indexes complete, context graduation run, STATE.md updated.
+
+See `template_campaign.md` verification section for the full checklist tables.
+
+## Campaign CLAUDE.md
+
+For campaigns that will be executed by multiple agents or span many sessions, create a per-campaign `CLAUDE.md` in the campaign directory. Template: `template_campaign_claude.md`. This enables delegation by providing: campaign identity, quick start, key files, standing orders, and context loading instructions.
+
 ## Rules
 
 - **One campaign master document per initiative** — the master document is the single source of truth

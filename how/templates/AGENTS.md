@@ -32,6 +32,7 @@ Templates for all content types in the vault. Each template defines the frontmat
 | `template_registry.md` | Registry publication metadata | — | `template` |
 | `template_aar.md` | After-Action Review | `how/missions/artifacts/` | `artifact` |
 | `template_strategic_compass.md` | Strategic compass | `who/governance/` | `governance` |
+| `template_campaign_claude.md` | Per-campaign CLAUDE.md | `how/campaigns/campaign_*/` | `governance` |
 
 ## Filled Examples
 

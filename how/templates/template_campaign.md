@@ -76,16 +76,32 @@ tags: [campaign]
 
 ### Per-Mission
 
-- SITREP with completed/in-progress/next-up/blockers/files-touched
+| Check | Method | Gate? |
+|-------|--------|-------|
+| SITREP filed | Session closure protocol | Yes — mission cannot close without SITREP |
+| AAR produced | 5-step AAR protocol | Yes — scorecard + GO/NO-GO required |
+| Deliverables validated | AAR scorecard (validated/total) | Yes — all deliverables must be validated or justified |
+| Files committed | Git status clean | Yes — no orphaned changes |
 
 ### Per-Phase
 
-- [Phase 1 checkpoint criteria]
-- [Phase 2 checkpoint criteria]
+| Check | Method | Gate? |
+|-------|--------|-------|
+| All mission AARs are GO | Review AAR readiness assessments | Yes — phase cannot advance with NO-GO missions |
+| Phase exit criteria met | Campaign doc phase exit gate | Yes — user approval required |
+| Risk register updated | Campaign doc risk register | No — recommended |
+| Scope changes documented | Campaign doc scope section | Yes — all changes recorded |
 
 ### Campaign Validation
 
-- [Final validation approach -- cross-system coherence, audits, etc.]
+| Check | Method |
+|-------|--------|
+| Cross-file coherence | All new files referenced from parent AGENTS.md |
+| Token budget measured | Sum token_estimate across new/modified context files |
+| Template index complete | All new templates listed in `how/templates/AGENTS.md` |
+| Skill index complete | All new skills listed in `how/skills/AGENTS.md` |
+| Context graduation run | `skill_context_graduation` executed on campaign deliverables |
+| STATE.md updated | Campaign status reflected in operational state |
 
 ## Timeline
 
