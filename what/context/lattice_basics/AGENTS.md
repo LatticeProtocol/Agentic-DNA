@@ -2,19 +2,28 @@
 
 ## Overview
 
-Orienting new users and agents to the aDNA framework: vault structure, `.lattice.yaml` format, canvas system, and core concepts.
+Orienting new users and agents to the aDNA framework: vault structure, `.lattice.yaml` format, object types, and core concepts. This is the entry-point topic for agents unfamiliar with the vault.
 
 ## Subtopics
 
-| Subtopic | File | Token Estimate | Version | Sources |
-|----------|------|---------------|---------|---------|
-| Vault Architecture | `context_lattice_basics_vault_architecture.md` | ~2,000 | 1.0 | aDNA docs |
-| Core Concepts | `context_lattice_basics_core_concepts.md` | ~2,500 | 1.0 | aDNA docs |
+| # | Subtopic | File | ~Tokens | Quality | Sources |
+|---|----------|------|---------|---------|---------|
+| 1 | Core Concepts | `context_lattice_basics_core_concepts.md` | ~3,200 | 4.0 | 5 sources (Standard v2.1, Design Doc, lattice_design context, hello_world example, type_vocabulary) |
+| 2 | Vault Architecture | `context_lattice_basics_vault_architecture.md` | ~2,800 | 4.0 | 5 sources (Standard v2.1, Design Doc, CLAUDE.md, MANIFEST.md, template library) |
 
 ## Total Token Budget
 
-~4,500 tokens to load all subtopics
+~6,000 tokens to load all subtopics
 
 ## Usage Notes
 
 Load this topic when onboarding new users, explaining vault structure, or when an agent needs to understand the aDNA framework basics. This is the starting point for agents unfamiliar with the vault.
+
+**Relationship to adna_core**: These files are beginner-oriented overviews. For reference-grade depth, load `adna_core/` subtopics (e.g., `lattice_design` for full YAML schema, `paradigm_overview` for triad theory).
+
+## Load/Skip Decision
+
+**Load when**: First session in a vault, onboarding users, explaining aDNA to newcomers.
+**Skip when**: Already oriented — use `adna_core/` for deeper reference work.
+
+**Token cost**: ~200 tokens (this AGENTS.md)
