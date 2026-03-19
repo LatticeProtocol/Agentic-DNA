@@ -12,6 +12,18 @@ Clone this repo to get a ready-to-use aDNA vault with templates, tools, and exam
 
 ---
 
+## aDNA in 60 Seconds
+
+Your project has three kinds of knowledge: **people** (contacts, teams, partners), **things you know** (research, decisions, designs), and **how you work** (plans, processes, workflows). aDNA gives each one a folder — `who/`, `what/`, `how/`.
+
+Inside each folder, a small config file (`AGENTS.md`) tells AI agents what's here and how to work with it. When an agent opens your project, it reads the top-level config, then only the folder-level configs relevant to its task. Instead of reading everything, it reads just what it needs.
+
+This means every new folder you add automatically narrows the search space for agents. Your project gets bigger, but each task stays focused. The structure filters out the noise so both humans and AI can find what matters fast.
+
+No special tooling required. It's folders, Markdown files, and a handful of conventions — works with any editor, any AI agent, any version control.
+
+---
+
 ## The Problem
 
 AI agents start every session cold. No memory of past work, no awareness of other agents, no understanding of the project they're operating in. This creates four compounding failures:
@@ -92,6 +104,42 @@ Five files provide the structural skeleton:
 
 Agents read `CLAUDE.md` → `STATE.md` → directory-level `AGENTS.md` files. Humans read `README.md` → `MANIFEST.md` → browse the triad. Same knowledge, two entry paths.
 
+### How It All Fits Together
+
+```mermaid
+graph TB
+    subgraph governance ["Governance Layer"]
+        CLAUDE["CLAUDE.md<br/><i>agents</i>"]
+        STATE["STATE.md<br/><i>both</i>"]
+        MANIFEST["MANIFEST.md<br/><i>both</i>"]
+        README["README.md<br/><i>humans</i>"]
+        AGENTS["AGENTS.md<br/><i>per-directory</i>"]
+    end
+
+    subgraph triad ["The Triad"]
+        WHO["who/<br/>People & orgs"]
+        WHAT["what/<br/>Knowledge & artifacts"]
+        HOW["how/<br/>Operations & process"]
+    end
+
+    subgraph execution ["Execution Hierarchy — Context Narrows"]
+        CAMP["Campaign<br/>~50K tokens"]
+        MISS["Mission<br/>~15K tokens"]
+        OBJ["Objective<br/>~5K tokens"]
+    end
+
+    CLAUDE --> STATE
+    STATE --> AGENTS
+    AGENTS --> WHO
+    AGENTS --> WHAT
+    AGENTS --> HOW
+    HOW --> CAMP
+    CAMP --> MISS
+    MISS --> OBJ
+```
+
+Each layer narrows what an agent loads. By the time work reaches an objective, the agent has exactly the context it needs — no more, no less.
+
 ---
 
 ## Glossary
@@ -169,7 +217,7 @@ adna/
 │   └── lattices/                       #   Lattice definitions
 │       ├── lattice_yaml_schema.json    #     JSON Schema
 │       ├── canvas_yaml_interop.md      #     Canvas ↔ YAML spec
-│       ├── examples/                   #     13 example lattices
+│       ├── examples/                   #     14 example lattices
 │       └── tools/                      #     validate, convert, interop
 ├── how/                                # Operations
 │   ├── templates/                      #   10 auto-triggering templates
@@ -189,7 +237,7 @@ adna/
 |-----------|----------|-------------|
 | **Lattice tools** | `what/lattices/tools/` | Validate `.lattice.yaml` files, convert to/from Obsidian canvas |
 | **JSON Schema** | `what/lattices/lattice_yaml_schema.json` | Formal schema for lattice definitions |
-| **13 example lattices** | `what/lattices/examples/` | Business, research, creative, personal, and biotech examples |
+| **14 example lattices** | `what/lattices/examples/` | Business, research, creative, and biotech examples |
 | **17 templates** | `how/templates/` | Session, mission, campaign, ADR, context, coordination, backlog, skill, PRD, RFC, AAR, governance, data record, folder note, registry, strategic compass, campaign CLAUDE.md |
 | **PRD/RFC pipeline** | `how/pipelines/prd_rfc/` | 4-stage content-as-code planning workflow |
 | **aDNA spec docs** | `what/docs/` | Normative standard, design rationale, bridge patterns |
@@ -201,7 +249,9 @@ adna/
 
 **Clone and open: ~5 minutes.** Agent-guided customization: 15-30 minutes. Manual customization: 30-45 minutes.
 
-> **What you'll have after 5 minutes**: A fully configured knowledge vault with the triad structure (`who/`/`what/`/`how/`), 17 templates, 13 Obsidian plugins, example lattices, and governance files — ready for customization to your domain.
+> **What you'll have after 5 minutes**: A fully configured knowledge vault with the triad structure (`who/`/`what/`/`how/`), 17 templates, 14 example lattices, 13 Obsidian plugins, and governance files — ready for customization to your domain.
+
+> **Why this matters for AI agents**: aDNA's directory structure acts as a routing system. Each level narrows what an AI agent needs to read — from your entire project down to a single task. Agents work faster, use fewer tokens, and produce more focused results.
 
 ### Prerequisites
 
@@ -343,6 +393,8 @@ Campaign  (strategic initiative — weeks to months)
 - **Objectives** are what actually get done in a session
 - **Phases** group missions with human approval gates between them
 
+Each level narrows the context an agent needs to load. A campaign might reference 50K tokens of project knowledge. A mission within it needs ~15K. A single objective within that mission needs ~5K. This progressive narrowing means agents spend tokens on *doing the work*, not re-reading the entire project. See [How It All Fits Together](#how-it-all-fits-together) for the visual version.
+
 ### Cross-Agent Coordination
 
 When multiple agents work on the same project, they coordinate through `who/coordination/` — structured notes that flag dependencies, handoffs, and blockers. Each agent checks coordination on startup, before starting work.
@@ -470,17 +522,39 @@ A **lattice** is a directed graph connecting datasets, modules, reasoning nodes,
 | **reasoning** | LLM-driven — nodes contain prompts, model decides routing |
 | **hybrid** | Mixed — some nodes are deterministic, others use LLM reasoning |
 
-### Built-in FAIR Metadata
+### FAIR Metadata — Start Simple, Add Later
 
-Every lattice carries [FAIR](https://www.go-fair.org/fair-principles/) metadata — making it findable, accessible, interoperable, and reusable by default:
+Every lattice carries [FAIR](https://www.go-fair.org/fair-principles/) metadata — making it findable, accessible, interoperable, and reusable. You don't need all of it on day one:
+
+| Tier | When | Fields |
+|------|------|--------|
+| **Start here** | Day 1 | `license`, `keywords` |
+| **When sharing** | Publishing or collaborating | + `creators`, `description` |
+| **Advanced** | Federation, registries | + `provenance`, `doi`, `access_conditions` |
+
+A minimal lattice just needs two fields:
 
 ```yaml
 fair:
   license: "MIT"
-  creators: ["Lattice Labs"]
-  keywords: [research, context engineering, multi-agent]
-  provenance: "Designed for deep research workflows"
+  keywords: [your, domain, tags]
 ```
+
+<details>
+<summary>Full FAIR example (all fields)</summary>
+
+```yaml
+fair:
+  license: "MIT"
+  creators: ["Your Name", "Your Team"]
+  keywords: [research, context engineering, multi-agent]
+  description: "What this lattice does and why"
+  provenance: "Designed for deep research workflows"
+  doi: "10.5281/zenodo.XXXXXXX"
+  access_conditions: "Open access"
+```
+
+</details>
 
 ---
 
@@ -492,15 +566,24 @@ Example lattices ship in `what/lattices/examples/` across multiple domains:
 
 | Example | Type | What it models |
 |---------|------|---------------|
+| **General** | | |
 | `hello_world.lattice.yaml` | pipeline (workflow) | Minimal 3-node pipeline — start here |
+| **Business** | | |
 | `sales_pipeline.lattice.yaml` | pipeline (workflow) | Lead → qualify → propose → negotiate → close |
 | `product_launch.lattice.yaml` | pipeline (hybrid) | Market research → engineering → QA → launch |
+| `brand_doctor.lattice.yaml` | pipeline (hybrid) | Brand audit → competitive analysis → positioning → content strategy |
+| **Research & Creative** | | |
 | `learning_path.lattice.yaml` | workflow | Course selection → study → practice → assessment |
 | `creative_brief.lattice.yaml` | pipeline (hybrid) | Brief intake → design → revision → delivery |
 | `deep_research.lattice.yaml` | pipeline (hybrid) | Research query → validated context object |
 | `knowledge_base.lattice.yaml` | context_graph (reasoning) | Knowledge retrieval + LLM reasoning |
 | `research_orchestrator.lattice.yaml` | agent (hybrid) | Multi-source research coordination |
-| `protein_binder_design.lattice.yaml` | pipeline (workflow) | Computational biology pipeline |
+| **Biotech** | | |
+| `protein_binder_design.lattice.yaml` | pipeline (workflow) | Full binder design: target → generation → docking → ranking |
+| `binder_generation.lattice.yaml` | pipeline (workflow) | Sub-lattice: generative binder design from target structure |
+| `docking_assessment.lattice.yaml` | pipeline (workflow) | Sub-lattice: structure prediction + binding interface scoring |
+| `composed_therapeutics.lattice.yaml` | pipeline (workflow) | Therapeutics discovery with federated `lattice://` composition |
+| `full_therapeutics.lattice.yaml` | pipeline (workflow) | End-to-end therapeutics composing two federated sub-lattices |
 
 Copy one to start customizing:
 
