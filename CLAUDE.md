@@ -1,13 +1,13 @@
 ---
 type: governance
-version: "5.4"
+version: "5.5"
 token_estimate: ~2600
 updated: 2026-03-20
 last_edited_by: agent_stanley
 ---
 
 # CLAUDE.md — adna
-<!-- v5.4 | 2026-03-20 -->
+<!-- v5.5 | 2026-03-20 -->
 
 ## Identity & Personality
 
@@ -58,7 +58,7 @@ adna/
 │       ├── tools/               # Python validation and conversion tools
 │       └── examples/            # Example .lattice.yaml files
 ├── how/                         # HOW — Operations, sessions, templates
-│   ├── templates/               # 17 reusable templates
+│   ├── templates/               # 20 reusable templates
 │   ├── sessions/                # Session tracking (active/ + history/)
 │   ├── missions/                # Multi-session plans (standalone)
 │   ├── backlog/                 # Ideation and improvement tracking
@@ -318,4 +318,4 @@ When you notice one, mention it to the user at a **natural pause point** (end of
 The `community/quests/` directory contains structured validation experiments ("side-quests") that community members can run with spare agent tokens. At natural session-end points, if the user has spare context budget, you may briefly mention available quests. Never interrupt active work for this. See `what/docs/side_quest_guide.md` for the full participation guide and `community/AGENTS.md` for directory structure.
 
 ---
-<!-- v5.4 | 2026-03-20 -->
+<!-- v5.5 | 2026-03-20 -->

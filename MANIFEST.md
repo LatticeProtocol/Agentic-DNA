@@ -1,7 +1,7 @@
 ---
 type: manifest
 created: 2026-02-17
-updated: 2026-03-17
+updated: 2026-03-20
 last_edited_by: agent_stanley
 tags: [manifest, governance]
 ---
@@ -23,15 +23,16 @@ This project uses the **aDNA (Agentic DNA)** knowledge architecture — a bare t
 
 ```
 adna/
-├── what/    # WHAT — Knowledge objects, context library, lattice tools
-├── how/     # HOW — Plans, sessions, templates, pipelines
-└── who/     # WHO — People, teams, coordination, governance
+├── what/        # WHAT — Knowledge objects, context library, lattice tools
+├── how/         # HOW — Plans, sessions, templates, pipelines
+├── who/         # WHO — People, teams, coordination, governance
+└── community/   # Community infrastructure — quests, results, tools
 ```
 
 | Layer | Question | Contains |
 |-------|----------|----------|
 | **what/** | WHAT does this project know? | Context library, decisions, aDNA docs, lattice YAML tools + schema + examples |
-| **how/** | HOW does this project work? | Missions, sessions, 10 templates, backlog, campaigns, skills, PRD/RFC pipeline |
+| **how/** | HOW does this project work? | Missions, sessions, 20 templates, backlog, campaigns, skills, PRD/RFC pipeline |
 | **who/** | WHO is involved? | People, teams, coordination, governance |
 
 ## Entry Points
@@ -75,7 +76,7 @@ how/pipelines/prd_rfc/
 └── 04_review/        → Final approval (human gate)
 ```
 
-### Templates (14)
+### Templates (20)
 
 | Template | Auto-triggers in |
 |----------|-----------------|
@@ -93,6 +94,12 @@ how/pipelines/prd_rfc/
 | `template_strategic_compass.md` | `who/governance/` |
 | `template_campaign_claude.md` | `how/campaigns/campaign_*/` |
 | `template_registry.md` | — |
+| `template_data_record.md` | — |
+| `template_folder_note.md` | — |
+| `template_governance.md` | — |
+| `template_migration.md` | `how/migrations/` |
+| `template_side_quest.md` | `community/quests/` |
+| `template_quest_result.md` | `community/results/` |
 
 ## Active Builds
 
@@ -103,7 +110,7 @@ how/pipelines/prd_rfc/
 | Lattice YAML tools | Shipped | Validate, convert (YAML↔canvas), JSON Schema, 14 example lattices |
 | Mermaid-enhanced spec docs | Shipped | 19 diagrams across 3 aDNA specification documents |
 | PRD/RFC pipeline | Shipped | 4-stage planning pipeline (research → requirements → design → review) |
-| 14 templates | Shipped | Session, mission, campaign, context, ADR, backlog, coordination, PRD, RFC, skill, AAR, strategic compass, campaign CLAUDE.md, registry |
+| 20 templates | Shipped | Session, mission, campaign, context, ADR, backlog, coordination, PRD, RFC, skill, AAR, strategic compass, campaign CLAUDE.md, registry, data record, folder note, governance, migration, side quest, quest result |
 | Execution hierarchy v2 | Shipped | OODA cascade (3-level evaluation loops), AAR protocol, mission classes, escalation cascade |
 | Quality framework | Shipped | 6-axis quality rubric, quality audit skill, context graduation pipeline |
 

@@ -230,6 +230,10 @@ adna/
 ├── who/                                # Organization
 │   ├── coordination/                   #   Cross-agent notes
 │   └── governance/                     #   Project governance
+├── community/                          # Community infrastructure
+│   ├── quests/                         #   Side-quest experiment specs
+│   ├── results/                        #   Structured result submissions
+│   └── tools/                          #   Aggregation & analysis scripts
 └── .obsidian/                          # Visual config (theme, snippets, plugins)
 ```
 
@@ -238,7 +242,7 @@ adna/
 | **Lattice tools** | `what/lattices/tools/` | Validate `.lattice.yaml` files, convert to/from Obsidian canvas |
 | **JSON Schema** | `what/lattices/lattice_yaml_schema.json` | Formal schema for lattice definitions |
 | **14 example lattices** | `what/lattices/examples/` | Business, research, creative, and biotech examples |
-| **17 templates** | `how/templates/` | Session, mission, campaign, ADR, context, coordination, backlog, skill, PRD, RFC, AAR, governance, data record, folder note, registry, strategic compass, campaign CLAUDE.md |
+| **20 templates** | `how/templates/` | Session, mission, campaign, ADR, context, coordination, backlog, skill, PRD, RFC, AAR, governance, data record, folder note, registry, strategic compass, campaign CLAUDE.md, migration, side quest, quest result |
 | **PRD/RFC pipeline** | `how/pipelines/prd_rfc/` | 4-stage content-as-code planning workflow |
 | **aDNA spec docs** | `what/docs/` | Normative standard, design rationale, bridge patterns |
 | **Obsidian config** | `.obsidian/` | Tokyo Night theme, CSS snippets, 14 pre-configured plugins (run `setup.sh`) |
@@ -249,7 +253,7 @@ adna/
 
 **Clone and open: ~5 minutes.** Agent-guided customization: 15-30 minutes. Manual customization: 30-45 minutes.
 
-> **What you'll have after 5 minutes**: A fully configured knowledge vault with the triad structure (`who/`/`what/`/`how/`), 17 templates, 14 example lattices, 14 Obsidian plugins, and governance files — ready for customization to your domain.
+> **What you'll have after 5 minutes**: A fully configured knowledge vault with the triad structure (`who/`/`what/`/`how/`), 20 templates, 14 example lattices, 14 Obsidian plugins, and governance files — ready for customization to your domain.
 
 > **Why this matters for AI agents**: aDNA's directory structure acts as a routing system. Each level narrows what an AI agent needs to read — from your entire project down to a single task. Agents work faster, use fewer tokens, and produce more focused results.
 
@@ -496,7 +500,7 @@ Edit three sections in `CLAUDE.md`: (1) **Identity & Mission** — replace the p
 
 ### How do templates work?
 
-Templates live in `how/templates/` and auto-apply via the Templater plugin when you create files in mapped directories. For example, creating a file in `what/decisions/` auto-populates the ADR template. 10 of the 17 templates have auto-triggers; the other 7 are applied manually via `Templater: Insert template`. See `how/templates/AGENTS.md` for the full trigger table.
+Templates live in `how/templates/` and auto-apply via the Templater plugin when you create files in mapped directories. For example, creating a file in `what/decisions/` auto-populates the ADR template. 10 of the 20 templates have auto-triggers; the other 7 are applied manually via `Templater: Insert template`. See `how/templates/AGENTS.md` for the full trigger table.
 
 ---
 
@@ -798,6 +802,14 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full guide.
 
 ---
 
+## Ecosystem & Vision
+
+aDNA is more than a file convention — it's a knowledge architecture standard designed to improve through community usage. Agents working in aDNA vaults organically surface framework-level improvements, side-quests collect structured validation data, and version migrations deliver improvements to every vault.
+
+Read [`VISION.md`](VISION.md) for the full picture: the decentralized frontier lab model, the opt-in participation ladder (use standalone → contribute improvements → run side-quests → shape the standard), and how the infrastructure built into this repo makes it work.
+
+---
+
 ## Further Reading
 
 | Document | What it covers |
@@ -811,6 +823,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full guide.
 | [`what/docs/projects_folder_pattern.md`](what/docs/projects_folder_pattern.md) | Multi-project workspace pattern — agent-guided scaffolding, shared templates, domain presets |
 | [`what/docs/start_kit_prd.md`](what/docs/start_kit_prd.md) | Lattice Start Kit PRD — 1-click onboarding design (CLI interview, scaffolding, 4 personas) |
 | [`what/docs/version_migration_guide.md`](what/docs/version_migration_guide.md) | Version migration system — upgrading vaults between CLAUDE.md versions with structured prompts |
+| [`VISION.md`](VISION.md) | Ecosystem vision — decentralized frontier lab model, participation ladder, community infrastructure |
 | [`what/lattices/canvas_yaml_interop.md`](what/lattices/canvas_yaml_interop.md) | Canvas ↔ YAML bidirectional mapping specification |
 | [`what/lattices/lattice_yaml_schema.json`](what/lattices/lattice_yaml_schema.json) | JSON Schema for `.lattice.yaml` validation |
 

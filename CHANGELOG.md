@@ -28,6 +28,23 @@ Changelog entries are organized by **governance version** (primary heading). Sta
 
 ---
 
+## [v5.5] — 2026-03-20
+
+### Added
+- `VISION.md` — ecosystem vision document (decentralized frontier lab model, participation ladder)
+- "Ecosystem & Vision" section in `README.md` linking to VISION.md
+- `VISION.md` row in README Further Reading table
+
+### Changed
+- `CLAUDE.md` version bump: `5.4` → `5.5`
+- Template counts corrected across all governance files: `17` → `20` (CLAUDE.md, MANIFEST.md, README.md, STATE.md)
+- `MANIFEST.md` template table expanded with 6 missing rows (data_record, folder_note, governance, migration, side_quest, quest_result)
+- `MANIFEST.md` architecture tree updated with `community/` directory
+- `README.md` tree diagram updated with `community/` directory
+- `STATE.md` updated to v5.5, added community infrastructure to What's Working, added v5.3-v5.5 upgrade entries
+
+---
+
 ## [v5.4] — 2026-03-20
 
 ### Added

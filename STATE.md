@@ -1,10 +1,10 @@
 ---
 type: state
 created: 2026-02-17
-updated: 2026-03-19
+updated: 2026-03-20
 status: active
 last_edited_by: agent_stanley
-last_session: session_stanley_20260319_adna_evo_m12
+last_session: session_stanley_20260320_adna_evo_m15
 tags: [state, governance]
 ---
 
@@ -14,7 +14,7 @@ Dynamic operational snapshot for cold-start orientation. Updated each session.
 
 ## Current Phase
 
-**Production-validated.** aDNA v5.2 with hardened object standards, Canvas Standard v1.0.0, execution hierarchy v2 (OODA + AAR), and 14 example lattices across business, research, creative, personal, and biotech domains. aDNA Standard v2.2 (maintenance pass complete).
+**Production-validated.** aDNA v5.5 with hardened object standards, Canvas Standard v1.0.0, execution hierarchy v2 (OODA + AAR), 14 example lattices, and community infrastructure (contribution system, side-quests, vision document). aDNA Standard v2.2 (maintenance pass complete).
 
 ## What's Working
 
@@ -33,13 +33,17 @@ Dynamic operational snapshot for cold-start orientation. Updated each session.
 - Execution hierarchy v2: OODA cascade (3-level), AAR protocol (5-step), mission classes (5 types)
 - Quality framework: 6-axis rubric, quality audit skill, context graduation pipeline
 - Strategic compass template + escalation cascade (session→mission→campaign→STATE.md)
-- 17 templates including AAR, strategic compass, campaign CLAUDE.md, registry, data record, folder note, PRD, RFC
+- 20 templates including AAR, strategic compass, campaign CLAUDE.md, registry, data record, folder note, PRD, RFC, migration, side quest, quest result
 - R&D→PRD→RFC planning pipeline (4 stages)
 - Agent-driven onboarding (`how/skills/skill_onboarding.md`)
 - 6 skills (onboarding, lattice publish, new entity type, context quality audit, context graduation, vault review)
 - Session tracking, mission/campaign/backlog systems
 - 10 CSS snippets for Obsidian visual polish
 - CHANGELOG.md with version policy and migration cross-links
+- CONTRIBUTING.md with Agent Contribution Mode (organic upstream contribution)
+- Upstream contribution skill (`how/skills/skill_upstream_contribution.md`)
+- Side-quest infrastructure: quest specs, result templates, aggregation tool (`community/`)
+- VISION.md — decentralized frontier lab model with participation ladder
 
 ## Recent Decisions
 
@@ -54,6 +58,9 @@ Dynamic operational snapshot for cold-start orientation. Updated each session.
 
 | Date | Upgrade | Source |
 |------|---------|--------|
+| 2026-03-20 | CLAUDE.md v5.5 — VISION.md, ecosystem section in README, governance file coherence pass | campaign_adna_ecosystem_evolution M15 |
+| 2026-03-20 | CLAUDE.md v5.4 — side-quest infrastructure, quest/result templates, aggregation tool | campaign_adna_ecosystem_evolution M14 |
+| 2026-03-20 | CLAUDE.md v5.3 — CONTRIBUTING.md, Agent Contribution Mode, upstream contribution skill | campaign_adna_ecosystem_evolution M13 |
 | 2026-03-19 | CLAUDE.md v5.2 — CHANGELOG.md, version policy, migration cross-links | campaign_adna_ecosystem_evolution M12 |
 | 2026-03-18 | CLAUDE.md v5.1 — lattice types table (7 values), template count (17), standard file path fixes | campaign_adna_comprehensive_review M08 |
 | 2026-03-18 | aDNA Standard v2.2 — federation stub, vault extensions, campaign system, factual fixes | campaign_adna_comprehensive_review M07 |
