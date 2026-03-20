@@ -4,6 +4,7 @@ created: 2026-02-19
 updated: 2026-03-19
 last_edited_by: agent_stanley
 tags: [directory_index, docs]
+token_estimate: ~350
 ---
 
 # what/docs/ — aDNA Specification Documents
@@ -22,6 +23,7 @@ Core specification documents that define the aDNA (Agentic DNA) knowledge archit
 | `migration_guide.md` | ~3,500 | Adding aDNA to existing projects — decision tree (bare vs. embedded), step-by-step walkthroughs, starter templates, common pitfalls. |
 | `agent_first_guide.md` | ~3,500 | Terminal-first aDNA setup — using aDNA with Claude Code without Obsidian, feature parity audit (22/6/12 split), session workflow, Claude Code configuration. |
 | `standard_reading_guide.md` | ~3,000 | Reading guide for the standard — three persona-based paths (new adopter, extension builder, contributor), section map with line ranges, skill/lattice disambiguation, quick reference decision tree. |
+| `start_kit_prd.md` | ~4,000 | Lattice Start Kit PRD — 1-click onboarding design: 4 personas, packaging evaluation, 5-question interview, `adna new` + `adna init` flow mockups, MoSCoW requirements, success metrics. Design only — build deferred to `campaign_lattice_start_kit`. |
 | `context_quality_rubric.md` | ~2,000 | 6-axis quality evaluation framework for context files — scoring methodology, calibration examples. |
 | `ontology_unification.md` | ~8,000 | Ontology unification protocol — merge algorithm (4-step with Mermaid flowchart + pseudo-code), 10-type conflict taxonomy, namespace specification, worked example (org_formation + vault). |
 | `lattice_federation.md` | ~8,000 | Federation & sharing protocol — 5 capabilities (validate, export, share, import, compose), `lattice://` URI scheme, inline vs. external reference composition, import algorithm with M9 integration, worked round-trip example. |
@@ -29,7 +31,7 @@ Core specification documents that define the aDNA (Agentic DNA) knowledge archit
 
 ## Total Token Budget
 
-~50,500 tokens to load all 10 documents. These are heavy reference documents — load specific files based on need.
+~54,500 tokens to load all 11 documents. These are heavy reference documents — load specific files based on need.
 
 ## Load/Skip Decision
 
@@ -44,6 +46,7 @@ Core specification documents that define the aDNA (Agentic DNA) knowledge archit
 - Merging ontologies from different aDNA instances or integrating sub-lattices (read `ontology_unification.md`)
 - Federating, sharing, importing, or composing lattice artifacts across instances (read `lattice_federation.md`)
 - Designing interface contracts, runtime execution, or version management for cross-instance lattice references (read `lattice_interop.md`)
+- Building or extending the Lattice Start Kit CLI, onboarding flow, or scaffolding system (read `start_kit_prd.md`)
 
 **Skip when**:
 - Performing operational work within an established aDNA vault (sessions, missions, CRM)
