@@ -792,6 +792,8 @@ We welcome contributions — bug reports, template improvements, documentation f
 
 AI agents working in aDNA vaults can also contribute: the [Agent Contribution Mode](CONTRIBUTING.md#agent-contribution-mode) describes how agents surface framework-level improvements organically during normal work.
 
+**Side-quests**: Want to contribute without deep project knowledge? Browse [`community/quests/`](community/quests/) for structured validation experiments you can run with spare agent tokens. Each quest takes 10-30 minutes and produces data that helps improve aDNA. See the [Side-Quest Guide](what/docs/side_quest_guide.md) for details.
+
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full guide.
 
 ---

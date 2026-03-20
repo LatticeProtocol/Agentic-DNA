@@ -28,6 +28,26 @@ Changelog entries are organized by **governance version** (primary heading). Sta
 
 ---
 
+## [v5.4] — 2026-03-20
+
+### Added
+- `community/quests/` — side-quest experiment specifications directory
+- `community/results/` — structured result submissions directory
+- `community/tools/aggregate_results.py` — reference aggregation script (stdlib only)
+- `community/AGENTS.md` — community directory agent guide
+- `how/templates/template_side_quest.md` — quest specification template
+- `how/templates/template_quest_result.md` — result submission template
+- `what/docs/side_quest_guide.md` — participation guide (find, run, submit quests)
+- 2 example quests: `quest_frontmatter_comparison` (medium), `quest_migration_smoke_test` (easy)
+- Side-Quest Awareness section in `CLAUDE.md`
+
+### Changed
+- `CLAUDE.md` version bump: `5.3` → `5.4`
+- `AGENTS.md` project structure updated with `community/` directory
+- `README.md` contributing section updated with side-quest mention
+
+---
+
 ## [v5.3] — 2026-03-20
 
 ### Added

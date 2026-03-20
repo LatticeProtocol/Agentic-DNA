@@ -1,13 +1,13 @@
 ---
 type: governance
-version: "5.3"
+version: "5.4"
 token_estimate: ~2600
 updated: 2026-03-20
 last_edited_by: agent_stanley
 ---
 
 # CLAUDE.md — adna
-<!-- v5.3 | 2026-03-20 -->
+<!-- v5.4 | 2026-03-20 -->
 
 ## Identity & Personality
 
@@ -313,5 +313,9 @@ When you notice one, mention it to the user at a **natural pause point** (end of
 
 **Do not** interrupt active work, file without user approval, or suggest project-specific tweaks as upstream improvements.
 
+### Side-Quest Awareness
+
+The `community/quests/` directory contains structured validation experiments ("side-quests") that community members can run with spare agent tokens. At natural session-end points, if the user has spare context budget, you may briefly mention available quests. Never interrupt active work for this. See `what/docs/side_quest_guide.md` for the full participation guide and `community/AGENTS.md` for directory structure.
+
 ---
-<!-- v5.3 | 2026-03-20 -->
+<!-- v5.4 | 2026-03-20 -->
