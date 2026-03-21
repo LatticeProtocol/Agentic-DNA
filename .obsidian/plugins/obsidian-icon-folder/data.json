@@ -6,7 +6,18 @@
     "iconColor": null,
     "recentlyUsedIcons": [],
     "recentlyUsedIconsSize": 5,
-    "rules": [],
+    "rules": [
+      {"rule": "AGENTS", "icon": "LiBot", "for": "files"},
+      {"rule": "README", "icon": "LiBookOpen", "for": "files"},
+      {"rule": "template_", "icon": "LiFileText", "for": "files"},
+      {"rule": "session_", "icon": "LiClock", "for": "files"},
+      {"rule": "mission_", "icon": "LiClipboardList", "for": "files"},
+      {"rule": "campaign_", "icon": "LiFlag", "for": "files"},
+      {"rule": "context_", "icon": "LiLibrary", "for": "files"},
+      {"rule": "idea_", "icon": "LiLightbulb", "for": "files"},
+      {"rule": "skill_", "icon": "LiWrench", "for": "files"},
+      {"rule": "pipeline_", "icon": "LiGitBranch", "for": "files"}
+    ],
     "extraMargin": {
       "top": 0,
       "right": 4,

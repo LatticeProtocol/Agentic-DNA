@@ -245,7 +245,7 @@ adna/
 | **20 templates** | `how/templates/` | Session, mission, campaign, ADR, context, coordination, backlog, skill, PRD, RFC, AAR, governance, data record, folder note, registry, strategic compass, campaign CLAUDE.md, migration, side quest, quest result |
 | **PRD/RFC pipeline** | `how/pipelines/prd_rfc/` | 4-stage content-as-code planning workflow |
 | **aDNA spec docs** | `what/docs/` | Normative standard, design rationale, bridge patterns |
-| **Obsidian config** | `.obsidian/` | Tokyo Night theme, CSS snippets, 14 community plugins + curated core set, Notebook Navigator as default file browser |
+| **Obsidian config** | `.obsidian/` | Tokyo Night theme, CSS snippets, 15 community plugins + curated core set, Notebook Navigator as default file browser |
 
 ---
 
@@ -253,7 +253,7 @@ adna/
 
 **Clone and open: ~5 minutes.** Agent-guided customization: 15-30 minutes. Manual customization: 30-45 minutes.
 
-> **What you'll have after 5 minutes**: A fully configured knowledge vault with the triad structure (`who/`/`what/`/`how/`), 20 templates, 14 example lattices, 14 Obsidian plugins, and governance files — ready for customization to your domain.
+> **What you'll have after 5 minutes**: A fully configured knowledge vault with the triad structure (`who/`/`what/`/`how/`), 20 templates, 14 example lattices, 15 Obsidian plugins, and governance files — ready for customization to your domain.
 
 > **Why this matters for AI agents**: aDNA's directory structure acts as a routing system. Each level narrows what an AI agent needs to read — from your entire project down to a single task. Agents work faster, use fewer tokens, and produce more focused results.
 
@@ -281,14 +281,14 @@ For the best first experience, run setup before opening in Obsidian:
 ./setup.sh
 ```
 
-This downloads all 14 community plugins, the Tokyo Night theme, and ships a curated workspace layout with a clean sidebar (Notebook Navigator as the default file browser, minimal ribbon icons).
+This downloads all 15 community plugins, the Tokyo Night theme, and ships a curated workspace layout with a clean sidebar (Notebook Navigator as the default file browser, minimal ribbon icons).
 
 > **Windows users**: Run `setup.sh` in Git Bash or WSL. Or install plugins manually via Settings → Community plugins → Browse.
 
 ### 3. Open in Obsidian
 
 Open `adna/` as a vault in [Obsidian](https://obsidian.md). Enable community plugins when prompted.
-14 community plugins and the Tokyo Night theme ship pre-installed. The core plugin set is curated — Notebook Navigator replaces the default file explorer, and Templater replaces the built-in templates plugin. Both originals are disabled but can be re-enabled in Settings → Core plugins.
+15 community plugins and the Tokyo Night theme ship pre-installed. The core plugin set is curated — Notebook Navigator replaces the default file explorer, and Templater replaces the built-in templates plugin. Both originals are disabled but can be re-enabled in Settings → Core plugins.
 
 The accent color (Rebecca Purple `#663399`) and CSS snippets activate automatically. Triad colors (purple/blue/green) appear as Lucide icons in tabs, links, and the sidebar.
 
@@ -443,6 +443,18 @@ On completion, sessions close with a **SITREP** — a structured handoff:
 - **Files touched** — full audit trail
 
 The next agent reads the last SITREP and picks up where the previous one left off. Knowledge compounds instead of evaporating.
+
+### Team Use — Multi-User Vaults
+
+For teams sharing a vault via git, install the [Obsidian Git](https://github.com/denolehov/obsidian-git) community plugin. Recommended settings:
+
+- **Auto-commit interval**: 10 minutes (Settings → Obsidian Git → Automatic)
+- **Auto-pull on open**: enabled (pulls latest changes when Obsidian starts)
+- **Pull on open**: enabled
+
+Per-device files (`workspace.json`, `graph.json`) should be excluded via `.gitignore` to prevent merge conflicts. The vault ships with these exclusions pre-configured.
+
+For onboarding new team members, the vault includes a `workspace.default.json` — a curated layout with Notebook Navigator as the default sidebar, clean ribbon, and a pinned home page. New members run `cp .obsidian/workspace.default.json .obsidian/workspace.json` before opening in Obsidian.
 
 ### The Execution Hierarchy
 
