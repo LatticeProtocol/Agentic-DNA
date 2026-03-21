@@ -195,11 +195,13 @@ body {
     --nn-theme-calendar-day-outside-month-color: var(--nn-theme-foreground-faded);
     --nn-theme-calendar-weekend-bg: color-mix(in srgb, var(--nn-theme-foreground) 10%, transparent);
     --nn-theme-calendar-hover-bg: var(--background-modifier-hover);
-    --nn-theme-calendar-day-has-note-bg: var(--nn-theme-foreground-faded);
-    --nn-theme-calendar-day-has-unfinished-task-color: var(--nn-theme-calendar-day-has-note-bg);
-    --nn-theme-calendar-day-has-feature-image-color: white;
+    --nn-theme-calendar-note-indicator-color: var(--nn-theme-foreground-faded);
+    --nn-theme-calendar-unfinished-task-indicator-color: var(--nn-theme-calendar-note-indicator-color);
+    --nn-theme-calendar-feature-image-text-color: white;
+    --nn-theme-calendar-feature-image-overlay-color: rgb(0 0 0 / 0.05);
     --nn-theme-calendar-day-today-color: var(--nn-theme-calendar-day-in-month-color);
     --nn-theme-calendar-day-today-bg: var(--text-selection);
+    --nn-theme-calendar-day-active-border-color: var(--nn-theme-foreground-faded);
 
     /* -- Folder & Tag Items -- */
     --nn-theme-navitem-chevron-color: var(--nn-theme-foreground-muted);
@@ -282,7 +284,6 @@ body {
     --nn-theme-file-border-radius: 8px;
     --nn-theme-file-border-width: 0px;
     --nn-theme-file-pill-border-width: 1px;
-    --nn-theme-file-hover-border-color: transparent;
     --nn-theme-file-selected-border-color: transparent;
     --nn-theme-file-selected-inactive-border-color: var(--nn-theme-file-selected-border-color);
     --nn-theme-file-selected-bg: var(--text-selection);
@@ -345,6 +346,7 @@ body {
 
 .theme-dark {
     --nn-theme-pinned-shortcut-shadow-color: rgba(0, 0, 0, 0.18);
+    --nn-theme-calendar-feature-image-overlay-color: rgb(0 0 0 / 0.3);
 }
 /* Source: src/styles/sections/layout-base.css */
 
@@ -2117,6 +2119,12 @@ body {
     flex-shrink: 0;
 }
 
+.nn-navitem-hover-action-slot--overlay {
+    width: 0;
+    min-width: 0;
+    overflow: visible;
+}
+
 .nn-navitem-hover-action-button {
     position: absolute;
     top: 50%;
@@ -2148,6 +2156,12 @@ body {
 .nn-desktop .nn-properties-header-item:hover .nn-navitem-hover-action-button {
     visibility: visible;
     pointer-events: auto;
+}
+
+.nn-desktop .nn-shortcut-item--removable:hover .nn-navitem-hover-action-slot--overlay,
+.nn-desktop .nn-shortcut-header-item:hover .nn-navitem-hover-action-slot--overlay,
+.nn-desktop .nn-properties-header-item:hover .nn-navitem-hover-action-slot--overlay {
+    width: 18px;
 }
 
 .nn-desktop .nn-shortcut-item--removable:hover .nn-navitem-hover-action-count,
@@ -2456,6 +2470,7 @@ body {
     --nn-calendar-weeknumber-font-size: var(--nn-calendar-day-font-size);
     --nn-calendar-day-font-size: 12px;
     --nn-calendar-section-gap: 6px;
+    --nn-calendar-year-panel-padding-top: 8px;
     --nn-calendar-padding: 8px;
     --nn-calendar-safe-area: 0px;
     --nn-calendar-border-width: 1px;
@@ -2467,8 +2482,9 @@ body {
     --nn-calendar-task-indicator-offset-x: clamp(5px, calc(var(--nn-calendar-day-font-size) * 0.42), 9px);
     --nn-calendar-weekend-corner-radius: 6px;
     --nn-calendar-header-chip-bg: var(--nn-theme-nav-bg);
-    --nn-calendar-note-indicator-color: var(--nn-theme-calendar-day-has-note-bg);
-    --nn-calendar-task-indicator-color: var(--nn-theme-calendar-day-has-unfinished-task-color);
+    --nn-calendar-note-indicator-color: var(--nn-theme-calendar-note-indicator-color);
+    --nn-calendar-task-indicator-color: var(--nn-theme-calendar-unfinished-task-indicator-color);
+    --nn-calendar-active-editor-border-color: var(--nn-theme-calendar-day-active-border-color);
 }
 
 .notebook-navigator-mobile :is(.nn-navigation-pane, .nn-list-pane, .nn-single-pane-calendar) {
@@ -2818,6 +2834,13 @@ body {
    Year panel (shared)
    ======================================================================== */
 
+.nn-navigation-calendar-year-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nn-calendar-section-gap);
+    padding-top: var(--nn-calendar-year-panel-padding-top);
+}
+
 .nn-navigation-calendar-year-nav {
     display: flex;
     align-items: center;
@@ -2851,25 +2874,122 @@ body {
 .nn-navigation-calendar-year-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 4px;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    aspect-ratio: 16 / 9;
 }
 
 .nn-navigation-calendar-year-month {
-    background: transparent !important;
+    position: relative;
+    background-color: transparent !important;
     color: var(--nn-theme-calendar-day-in-month-color);
     font: inherit;
     font-size: var(--nn-calendar-day-font-size);
     line-height: 1;
-    min-height: 24px;
-    padding: 4px 6px;
+    min-height: 0;
+    padding: 6px;
     text-align: center;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     font-variant-numeric: tabular-nums;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.nn-navigation-calendar-day.has-feature-image::before,
+.nn-navigation-calendar-year-month.has-feature-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03) 24%, rgba(255, 255, 255, 0) 48%),
+        linear-gradient(
+            var(--nn-theme-calendar-feature-image-overlay-color, rgb(0 0 0 / 0.05)),
+            var(--nn-theme-calendar-feature-image-overlay-color, rgb(0 0 0 / 0.05))
+        );
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.nn-navigation-calendar-year-month-label {
+    position: relative;
+    z-index: 1;
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nn-navigation-calendar-year-month.has-daily-note:not(.has-feature-image):not(.has-feature-image-key)::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, var(--nn-calendar-note-indicator-center-offset));
+    height: min(var(--nn-calendar-note-indicator-size), var(--nn-calendar-note-indicator-max-size));
+    aspect-ratio: 1 / 1;
+    width: auto;
+    border-radius: 999px;
+    background-color: var(--nn-calendar-note-indicator-color);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.nn-navigation-calendar-year-month.has-daily-note.has-unfinished-tasks:not(.has-feature-image):not(.has-feature-image-key)::after {
+    transform: translate(calc(-50% - (var(--nn-calendar-task-indicator-offset-x) / 2)), var(--nn-calendar-note-indicator-center-offset));
+}
+
+.nn-navigation-calendar-year-month-unfinished-task-indicator {
+    display: none;
+}
+
+.nn-navigation-calendar-year-month.has-unfinished-tasks .nn-navigation-calendar-year-month-unfinished-task-indicator {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, var(--nn-calendar-note-indicator-center-offset));
+    height: min(var(--nn-calendar-note-indicator-size), var(--nn-calendar-note-indicator-max-size));
+    aspect-ratio: 1 / 1;
+    width: auto;
+    border-radius: 999px;
+    border: 1px solid var(--nn-calendar-task-indicator-color);
+    background-color: transparent;
+    z-index: 1;
+    pointer-events: none;
+    display: block;
+}
+
+.nn-navigation-calendar-year-month.has-daily-note.has-unfinished-tasks:not(.has-feature-image):not(.has-feature-image-key)
+    .nn-navigation-calendar-year-month-unfinished-task-indicator {
+    transform: translate(calc(-50% + (var(--nn-calendar-task-indicator-offset-x) / 2)), var(--nn-calendar-note-indicator-center-offset));
+}
+
+.nn-navigation-calendar-year-month.has-unfinished-tasks.has-feature-image .nn-navigation-calendar-year-month-unfinished-task-indicator,
+.nn-navigation-calendar-year-month.has-unfinished-tasks.has-feature-image-key .nn-navigation-calendar-year-month-unfinished-task-indicator {
+    border-color: currentColor;
 }
 
 .nn-navigation-calendar-year-month.is-selected-month {
+    box-shadow: inset 0 0 0 2px var(--nn-calendar-active-editor-border-color) !important;
+    color: var(--nn-theme-calendar-day-in-month-color);
+}
+
+.nn-navigation-calendar-year-month.is-selected-month.has-feature-image {
+    color: var(--nn-theme-calendar-feature-image-text-color);
+}
+
+.nn-navigation-calendar[data-highlight-today='true']
+    .nn-navigation-calendar-year-month.is-current-month:not(.has-feature-image):not(.has-feature-image-key) {
     background-color: var(--nn-theme-calendar-day-today-bg) !important;
     color: var(--nn-theme-calendar-day-today-color);
 }
@@ -2878,7 +2998,25 @@ body {
     color: var(--nn-theme-calendar-day-in-month-color);
 }
 
+.nn-navigation-calendar button.nn-navigation-calendar-year-month.has-feature-image {
+    color: var(--nn-theme-calendar-feature-image-text-color);
+}
+
 .nn-navigation-calendar button.nn-navigation-calendar-year-month.is-selected-month {
+    color: var(--nn-theme-calendar-day-in-month-color);
+}
+
+.nn-navigation-calendar button.nn-navigation-calendar-year-month.is-selected-month.has-feature-image {
+    color: var(--nn-theme-calendar-feature-image-text-color);
+}
+
+.nn-navigation-calendar[data-highlight-today='true']
+    button.nn-navigation-calendar-year-month.is-current-month:not(.has-feature-image):not(.has-feature-image-key) {
+    color: var(--nn-theme-calendar-day-today-color);
+}
+
+.nn-navigation-calendar[data-highlight-today='true']
+    button.nn-navigation-calendar-year-month.is-current-month.is-selected-month:not(.has-feature-image):not(.has-feature-image-key) {
     color: var(--nn-theme-calendar-day-today-color);
 }
 
@@ -3194,9 +3332,12 @@ body {
         background-color: var(--nn-theme-calendar-hover-bg) !important;
     }
 
-    .nn-navigation-calendar-year-month:hover:not(.is-selected-month) {
-        background-color: var(--nn-theme-calendar-hover-bg) !important;
+    .nn-navigation-calendar-year-month:hover {
         filter: brightness(1.05);
+    }
+
+    .nn-navigation-calendar-year-month:hover:not(.is-selected-month):not(.has-feature-image):not(.has-feature-image-key) {
+        background-color: var(--nn-theme-calendar-hover-bg) !important;
     }
 }
 
@@ -3232,6 +3373,15 @@ body {
     background-color: var(--nn-calendar-note-indicator-color);
     z-index: 1;
     pointer-events: none;
+}
+
+.nn-navigation-calendar-day.is-active-editor-file {
+    box-shadow: inset 0 0 0 2px var(--nn-calendar-active-editor-border-color) !important;
+}
+
+.nn-navigation-calendar[data-highlight-today='true']
+    .nn-navigation-calendar-day.is-today.is-active-editor-file:not(.has-feature-image):not(.has-feature-image-key)::before {
+    box-shadow: inset 0 0 0 2px var(--nn-calendar-active-editor-border-color);
 }
 
 /* Center the two-indicator group horizontally when both note and unfinished-task indicators are visible. */
@@ -3276,13 +3426,30 @@ body {
 }
 
 .nn-navigation-calendar-day.has-feature-image {
-    color: var(--nn-theme-calendar-day-has-feature-image-color);
+    color: var(--nn-theme-calendar-feature-image-text-color);
+}
+
+.nn-navigation-calendar-year-month.has-feature-image {
+    color: var(--nn-theme-calendar-feature-image-text-color);
 }
 
 .nn-navigation-calendar-day.has-feature-image .nn-navigation-calendar-day-number {
     text-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.75),
-        0 2px 8px rgba(0, 0, 0, 0.45);
+        0 1px 2px rgba(0, 0, 0, 0.88),
+        0 2px 8px rgba(0, 0, 0, 0.65);
+}
+
+.nn-navigation-calendar-year-month.has-feature-image .nn-navigation-calendar-year-month-label {
+    font-weight: 600;
+    overflow: visible;
+    text-overflow: clip;
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.88),
+        0 2px 8px rgba(0, 0, 0, 0.65);
+}
+
+.nn-navigation-calendar-year-month.has-feature-image-key .nn-navigation-calendar-year-month-label {
+    font-weight: 600;
 }
 
 .nn-navigation-calendar-day-number {
@@ -3314,7 +3481,8 @@ body {
 
 .nn-navigation-calendar-hover-tooltip-image {
     width: 100%;
-    height: 120px;
+    height: auto;
+    aspect-ratio: 4 / 3;
     border-radius: 8px;
     background-size: cover;
     background-position: center;
@@ -3333,6 +3501,15 @@ body {
 
 .nn-calendar-right-sidebar .nn-navigation-calendar {
     --nn-calendar-header-chip-bg: var(--nn-calendar-right-sidebar-bg);
+}
+
+.nn-calendar-right-sidebar .nn-navigation-calendar-year-grid {
+    width: 100%;
+}
+
+.nn-calendar-right-sidebar .nn-navigation-calendar-year-month {
+    width: 100%;
+    height: 100%;
 }
 
 /* ========================================================================
@@ -3465,6 +3642,33 @@ body {
     position: relative; /* For absolute positioning of reveal overlay */
 }
 
+.nn-file.nn-has-custom-background .nn-file-content {
+    background-color: var(--nn-file-custom-bg-color);
+    border-top-left-radius: var(--nn-file-top-left-radius, min(16px, var(--nn-theme-file-border-radius)));
+    border-top-right-radius: var(--nn-file-top-right-radius, min(16px, var(--nn-theme-file-border-radius)));
+    border-bottom-left-radius: var(--nn-file-bottom-left-radius, min(16px, var(--nn-theme-file-border-radius)));
+    border-bottom-right-radius: var(--nn-file-bottom-right-radius, min(16px, var(--nn-theme-file-border-radius)));
+    box-shadow: inset 0 0 0 var(--nn-theme-file-border-width) transparent;
+}
+
+.nn-virtual-file-item:has(> .nn-file.nn-has-custom-background)::after,
+.nn-virtual-file-item:has(+ .nn-virtual-file-item > .nn-file.nn-has-custom-background)::after {
+    display: none;
+}
+
+.nn-virtual-file-item:has(> .nn-file.nn-has-custom-background)
+    + .nn-virtual-file-item:has(> .nn-file.nn-has-custom-background)
+    > .nn-file.nn-has-custom-background {
+    --nn-file-top-left-radius: 0;
+    --nn-file-top-right-radius: 0;
+}
+
+.nn-virtual-file-item:has(> .nn-file.nn-has-custom-background):has(+ .nn-virtual-file-item > .nn-file.nn-has-custom-background)
+    > .nn-file.nn-has-custom-background {
+    --nn-file-bottom-left-radius: 0;
+    --nn-file-bottom-right-radius: 0;
+}
+
 /* File inner content - flex container for actual content */
 .nn-file-inner-content {
     display: flex;
@@ -3574,6 +3778,12 @@ body {
     word-break: break-word;
     min-height: calc(var(--nn-file-title-line-height) * var(--filename-rows, 1));
     height: calc(var(--nn-file-title-line-height) * var(--filename-rows, 1));
+}
+
+.nn-file-name[data-title-rows='1'] {
+    display: block;
+    white-space: nowrap;
+    word-break: normal;
 }
 
 .nn-file-name[data-has-color='true'] {
@@ -3750,6 +3960,9 @@ body {
 /* Preview on same line as date - match date line-height for alignment */
 .nn-file-second-line .nn-file-preview {
     line-height: var(--nn-file-single-text-line-height);
+    display: block;
+    white-space: nowrap;
+    word-break: normal;
 }
 
 /* Parent folder indicator shown under file names */
@@ -3772,6 +3985,11 @@ body {
     flex: 0 1 auto;
     max-width: 100%;
     min-width: 0;
+}
+
+.nn-parent-folder-content[data-has-background='true'] {
+    border-radius: 4px;
+    padding: 1px 4px;
 }
 
 .nn-parent-folder-content[data-reveal='true'] {
@@ -3919,8 +4137,8 @@ body {
     cursor: pointer;
 }
 
-/* Underline property pills that render wiki-link values */
-.nn-file-tag.nn-file-property.nn-file-property-wikilink {
+/* Underline property pills that render clickable link values */
+.nn-file-tag.nn-file-property.nn-file-property-link {
     text-decoration: underline;
     text-underline-offset: 2px;
 }
@@ -4375,16 +4593,7 @@ body {
    Hover States
    ======================================================================== */
 
-/* File hover states - maintains transparency - desktop only */
-.nn-desktop .nn-file:not(.nn-selected):hover .nn-file-content {
-    background-color: transparent;
-    box-shadow: inset 0 0 0 var(--nn-theme-file-border-width) var(--nn-theme-file-hover-border-color);
-}
-
-.nn-desktop .nn-file.nn-selected:hover .nn-file-content {
-    background-color: transparent;
-    box-shadow: none;
-}
+/* File rows intentionally keep their existing styling on hover. */
 /* Source: src/styles/sections/state-drag-and-drop.css */
 
 /* ========================================================================
@@ -5774,10 +5983,16 @@ body.nn-resizing {
     gap: var(--size-2-2);
     padding-left: var(--size-2-2);
     padding-right: var(--size-2-2);
+    border-radius: var(--radius-s);
+    transition: background-color 120ms ease;
 }
 
 .is-mobile .modal.nn-property-keys-modal .nn-property-keys-row {
     gap: var(--size-2-3);
+}
+
+.modal.nn-property-keys-modal .nn-property-keys-list .nn-property-keys-row:hover {
+    background: var(--nn-theme-foreground-faint);
 }
 
 .nn-property-keys-label {
@@ -6141,6 +6356,66 @@ body.nn-resizing {
 
 .nn-toolbar-visibility-control {
     width: 100%;
+}
+
+.nn-setting-color-preview {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-inline-end: var(--size-2-2);
+}
+
+.nn-setting-color-swatch-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    padding: 0;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.nn-setting-color-swatch-button:hover {
+    border-color: var(--text-muted);
+}
+
+.nn-setting-color-swatch-button.nn-setting-color-swatch-button-dark {
+    background: #111827;
+    border-color: #374151;
+}
+
+.nn-setting-color-swatch-button.nn-setting-color-swatch-button-dark:hover {
+    border-color: #4b5563;
+}
+
+.nn-setting-color-copy-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.nn-setting-color-copy-button:hover {
+    color: var(--text-normal);
+}
+
+.nn-setting-color-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid var(--background-modifier-border);
+    box-sizing: border-box;
 }
 
 .nn-toolbar-visibility-sections {
@@ -7799,8 +8074,8 @@ settings:
         level: 1
         collapsed: true
     -
-        id: nn-border-widths-heading
-        title: Border widths
+        id: nn-border-nav-heading
+        title: Navigation borders
         type: heading
         level: 2
         collapsed: false
@@ -7814,42 +8089,6 @@ settings:
         min: 0
         max: 4
         step: 1
-    -
-        id: nn-theme-navitem-count-border-width
-        title: File count border width
-        description: Border width on navigation file count badges.
-        type: variable-number-slider
-        default: 0
-        format: px
-        min: 0
-        max: 4
-        step: 1
-    -
-        id: nn-theme-file-border-width
-        title: File item border width
-        description: Border width on file item hover and selection states.
-        type: variable-number-slider
-        default: 0
-        format: px
-        min: 0
-        max: 4
-        step: 1
-    -
-        id: nn-theme-file-pill-border-width
-        title: Pill border width
-        description: Border width on tag and custom property pills.
-        type: variable-number-slider
-        default: 1
-        format: px
-        min: 0
-        max: 4
-        step: 1
-    -
-        id: nn-border-nav-heading
-        title: Navigation borders
-        type: heading
-        level: 2
-        collapsed: false
     -
         id: nn-theme-navitem-custom-border-color
         title: Custom background border color
@@ -7887,6 +8126,16 @@ settings:
         default-light: '#'
         default-dark: '#'
     -
+        id: nn-theme-navitem-count-border-width
+        title: File count border width
+        description: Border width on navigation file count badges.
+        type: variable-number-slider
+        default: 0
+        format: px
+        min: 0
+        max: 4
+        step: 1
+    -
         id: nn-theme-navitem-count-border-color
         title: File count border color
         description: Border color on navigation file count badges.
@@ -7920,14 +8169,15 @@ settings:
         level: 2
         collapsed: false
     -
-        id: nn-theme-file-hover-border-color
-        title: Hover border color
-        description: Border color on hovered file items.
-        type: variable-themed-color
-        opacity: true
-        format: rgb
-        default-light: '#'
-        default-dark: '#'
+        id: nn-theme-file-border-width
+        title: Selection border width
+        description: Border width on selected file items.
+        type: variable-number-slider
+        default: 0
+        format: px
+        min: 0
+        max: 4
+        step: 1
     -
         id: nn-theme-file-selected-border-color
         title: Selection border color
@@ -7952,6 +8202,16 @@ settings:
         type: heading
         level: 2
         collapsed: false
+    -
+        id: nn-theme-file-pill-border-width
+        title: Pill border width
+        description: Border width on tag and custom property pills.
+        type: variable-number-slider
+        default: 1
+        format: px
+        min: 0
+        max: 4
+        step: 1
     -
         id: nn-theme-file-tag-border-color
         title: Tag pill border color
@@ -8105,7 +8365,7 @@ settings:
         default-light: '#'
         default-dark: '#'
     -
-        id: nn-theme-calendar-day-has-note-bg
+        id: nn-theme-calendar-note-indicator-color
         title: Daily note indicator
         description: Color for the dot indicator shown on dates with a daily note.
         type: variable-themed-color
@@ -8113,7 +8373,7 @@ settings:
         default-light: '#'
         default-dark: '#'
     -
-        id: nn-theme-calendar-day-has-unfinished-task-color
+        id: nn-theme-calendar-unfinished-task-indicator-color
         title: Unfinished task indicator
         description: Color for the hollow indicator shown on dates with unfinished tasks.
         type: variable-themed-color
@@ -8121,11 +8381,20 @@ settings:
         default-light: '#'
         default-dark: '#'
     -
-        id: nn-theme-calendar-day-has-feature-image-color
+        id: nn-theme-calendar-feature-image-text-color
         title: Feature image text color
         description: Text color for dates with feature images.
         type: variable-themed-color
         format: hex
+        default-light: '#'
+        default-dark: '#'
+    -
+        id: nn-theme-calendar-feature-image-overlay-color
+        title: Feature image overlay color
+        description: Adds a color overlay to darken or tint feature images in calendar days and months. Set separate colors for light and dark mode.
+        type: variable-themed-color
+        opacity: true
+        format: rgb
         default-light: '#'
         default-dark: '#'
     -
@@ -8142,6 +8411,15 @@ settings:
         description: Background color for today's date highlight.
         type: variable-themed-color
         format: hex
+        default-light: '#'
+        default-dark: '#'
+    -
+        id: nn-theme-calendar-day-active-border-color
+        title: Active day outline color
+        description: Border color for the outline shown on the active day in the calendar.
+        type: variable-themed-color
+        opacity: true
+        format: rgb
         default-light: '#'
         default-dark: '#'
     -
@@ -8200,7 +8478,7 @@ settings:
     -
         id: nn-theme-navitem-file-name-color
         title: File text color
-        description: Text color for note shortcuts and recent files. Defaults to folder/tag text color.
+        description: Text color for file shortcuts and recent files. Defaults to folder/tag text color.
         type: variable-themed-color
         format: hex
         default-light: '#'
@@ -8370,7 +8648,7 @@ settings:
     -
         id: nn-theme-navitem-file-name-font-weight
         title: Default file name weight
-        description: Default font weight for file names in shortcuts and recent notes.
+        description: Default font weight for file names in shortcuts and recent files.
         type: variable-number-slider
         default: 400
         min: 100

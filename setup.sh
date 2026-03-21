@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # setup.sh — Bootstrap Obsidian plugins and theme for adna
-# Downloads 15 community plugins + Tokyo Night theme.
+# Downloads 13 community plugins + Tokyo Night theme.
 # Requires: curl (ships with macOS/Linux)
 # Usage: ./setup.sh [--force]
 
@@ -27,9 +27,7 @@ PLUGIN_IDS=(
     obsidian-tasks-plugin
     obsidian-style-settings
     table-editor-obsidian
-    omnisearch
     obsidian42-brat
-    folder-notes
     notebook-navigator
     obsidian-icon-folder
     obsidian-advanced-canvas
@@ -44,14 +42,12 @@ PLUGIN_REPOS=(
     obsidian-tasks-group/obsidian-tasks
     mgmeyers/obsidian-style-settings
     tgrosinger/advanced-tables-obsidian
-    scambier/obsidian-omnisearch
     TfTHacker/obsidian42-brat
-    LostPaul/obsidian-folder-notes
     johansan/notebook-navigator
-    FlorianWowormo/obsidian-icon-folder
+    FlorianWoelki/obsidian-iconize
     Developer-Mike/obsidian-advanced-canvas
-    sandy-mount/pretty-properties
-    JuliusShininmo/fold-properties-by-default
+    anareaty/pretty-properties
+    tbergeron/obsidian-fold-properties-by-default
 )
 
 THEME_REPO="tcmmichaelb139/obsidian-tokyonight"
