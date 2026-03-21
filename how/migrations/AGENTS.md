@@ -18,6 +18,10 @@ Version migration prompts that guide agents through upgrading an aDNA vault from
 |-----------|--------|--------|-------|------|--------|
 | `migrate_v5.0_to_v5.1.md` | 5.0 | 5.1 | governance + state | low | active |
 | `migrate_v5.1_to_v5.2.md` | 5.1 | 5.2 | governance + state | low | active |
+| `migrate_object_skill.md` | pre-lsu | lsu-1.0 | skill objects (frontmatter) | low | active |
+| `migrate_object_module.md` | pre-lsu | lsu-1.0 | module objects + companion YAML | medium | active |
+| `migrate_object_dataset.md` | pre-lsu | lsu-1.0 | dataset objects + companion YAML | medium | active |
+| `migrate_object_lattice.md` | pre-lsu | lsu-1.0 | lattice objects (MD↔YAML pairing) | medium | active |
 
 ## Safety Protocol
 

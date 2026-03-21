@@ -5,7 +5,7 @@ tags: [dashboard, homepage]
 cssclasses: [dashboard]
 status: active
 created: 2026-02-19
-updated: 2026-02-19
+updated: 2026-03-20
 last_edited_by: agent_stanley
 ---
 
@@ -35,6 +35,16 @@ last_edited_by: agent_stanley
 > action:
 >   type: command
 >   command: termy:claude-code
+> ```
+>
+> ```meta-bind-button
+> label: Open Web Browser
+> icon: globe
+> id: open-browser
+> style: primary
+> action:
+>   type: command
+>   command: webviewer:open
 > ```
 >
 > Don't see a terminal? Termy downloads a small binary on first launch (requires internet).
