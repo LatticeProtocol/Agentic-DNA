@@ -1,13 +1,13 @@
 ---
 type: governance
-version: "5.6"
+version: "5.7"
 token_estimate: ~3000
-updated: 2026-03-22
+updated: 2026-03-23
 last_edited_by: agent_stanley
 ---
 
 # CLAUDE.md — adna
-<!-- v5.6 | 2026-03-22 -->
+<!-- v5.7 | 2026-03-23 -->
 
 ## Identity & Personality
 
@@ -28,9 +28,28 @@ This personality (Berthier) is the default. To customize, edit everything betwee
 
 ---
 
-## First-Run Detection
+## Template Detection & Project Setup
 
-On every startup, BEFORE the normal checklist, check if this is an uncustomized vault:
+On every startup, BEFORE the normal checklist, determine whether this is the **base template** or a **working project**:
+
+1. Read `MANIFEST.md` frontmatter — if `role: template` is present, this is the base aDNA template repo
+
+### If this IS the template (`role: template`)
+
+Do NOT run onboarding here — the template stays clean for `git pull` updates.
+
+a. **Greet briefly**: introduce aDNA in 2-3 sentences. This is the starter kit that the user will fork into their own project.
+
+b. **Check workspace state** — get the parent directory of this vault:
+   - If the parent directory **already contains a CLAUDE.md** — workspace exists. List existing projects (subdirectories with their own `CLAUDE.md` or `MANIFEST.md`, excluding `adna/`, `latlab/`, `lattice-protocol/`). Offer to open one or create a new project.
+   - If the parent directory **is `$HOME`** — the user cloned directly into home. Suggest the `~/lattice/` convention: "I recommend creating a `~/lattice/` workspace directory and cloning adna there. This gives you a clean workspace for projects and future L1 compute upgrades."
+   - If the parent directory **has no CLAUDE.md** — offer to create one via `how/skills/skill_workspace_init.md`.
+
+c. **Offer project creation**: load and follow `how/skills/skill_project_fork.md` to fork this template into a new project directory. After creation, direct the user to open their new project: `cd <project_path> && claude`.
+
+### If this is NOT a template (no `role` field)
+
+This is a working project (forked from the template). Apply standard first-run detection:
 
 1. Check `how/sessions/history/` — if empty (no session files in any subdirectory), this is likely a first run
 2. Check `MANIFEST.md` frontmatter — if `last_edited_by: agent_init`, it has never been customized
@@ -39,21 +58,21 @@ If BOTH indicate first-run: load and follow `how/skills/skill_onboarding.md`. Do
 
 If only ONE indicates first-run (partial onboarding), read the skill file and resume from the first incomplete step.
 
----
+### Workspace Convention
 
-## Workspace Bootstrap Detection
+The recommended workspace layout is `~/lattice/`:
 
-After first-run detection resolves (onboarding completes or is skipped), check if this vault is inside a workspace that could benefit from a workspace-level CLAUDE.md:
+```
+~/lattice/                       # Workspace root
+├── CLAUDE.md                    # Workspace-level governance (auto-created)
+├── adna/                        # Base template (git clone, never modified)
+├── my_research_lab/             # Project A (forked from adna/, customized)
+├── client_acme/                 # Project B (forked from adna/)
+├── latlab/                      # (appears after L1 upgrade)
+└── lattice-protocol/            # (appears after L1 upgrade)
+```
 
-1. Get the **parent directory** of this vault (e.g., if running from `~/Projects/adna/`, parent is `~/Projects/`)
-2. If the parent directory **is `$HOME`** — skip (the vault is directly in the home directory, not inside a workspace)
-3. If the parent directory **already contains a CLAUDE.md** — skip silently (workspace is already set up)
-4. If the parent directory **has no CLAUDE.md**:
-   - Inform the user that a workspace-level CLAUDE.md can be created to manage multi-project workflows and L1 upgrades
-   - If user agrees: load and execute `how/skills/skill_workspace_init.md`
-   - If user declines: note the skip and proceed normally
-
-This detection runs **once per workspace**. The workspace CLAUDE.md, once created, teaches future agents how to create new projects from this aDNA template and manage the workspace.
+This separation ensures the base template stays clean for upstream updates while every project gets its own customized governance.
 
 ---
 
@@ -143,7 +162,7 @@ Anomalies and blockers propagate upward through the execution hierarchy:
 
 Every session, in order:
 1. **CLAUDE.md** — auto-loaded; confirms project structure and rules
-2. **First-run check** — if uncustomized vault, invoke onboarding skill (`how/skills/skill_onboarding.md`) and STOP
+2. **Template/first-run check** — if `role: template`, guide project creation (never onboard in template); if uncustomized project (`agent_init`), invoke onboarding skill (`how/skills/skill_onboarding.md`) and STOP
 3. **STATE.md** — operational snapshot: current phase, blockers, next steps
 4. **`how/sessions/active/`** — check for conflicting sessions
 5. **`who/coordination/`** — read any urgent cross-agent notes
@@ -207,7 +226,8 @@ Reusable agent recipes and documented procedures in `how/skills/`. Skills have t
 
 | Skill | Type | Trigger |
 |-------|------|---------|
-| `skill_onboarding` | agent | First-run detection (uncustomized vault) |
+| `skill_onboarding` | agent | First-run detection in forked project (uncustomized, no `role: template`) |
+| `skill_project_fork` | agent | Template detection (`role: template`) — user wants to create a new project |
 | `skill_workspace_init` | agent | Missing workspace CLAUDE.md at parent directory |
 | `skill_l1_upgrade` | agent | User asks about L1/compute/JupyterHub |
 | `skill_lattice_publish` | agent | User wants to publish a lattice to registry |
@@ -283,11 +303,12 @@ Lattices can be published to and pulled from registries for sharing across insta
 
 | Tier | Scope | Example |
 |------|-------|---------|
-| **L1** (Edge) | Local/edge compute, lightweight inference | Laptop GPU, edge device |
+| **L0** (Local) | Knowledge architecture only — Obsidian + Claude Code, no compute services | Fresh `~/lattice/` workspace |
+| **L1** (Edge) | Local/edge compute, lightweight inference — JupyterHub + Lattice network | Laptop GPU, edge device |
 | **L2** (Regional) | Institutional clusters, moderate training | University cluster, on-prem HPC |
 | **L3** (Cloud/HPC) | Large-scale data centers, heavy training | Cloud GPU fleet |
 
-**L1 Upgrade**: aDNA vaults can be upgraded to L1 compute nodes by adding JupyterHub and connecting to the Lattice network. See `how/skills/skill_l1_upgrade.md` for the phased upgrade path.
+**L0 → L1 Upgrade**: L0 workspaces can be upgraded to L1 compute nodes by adding JupyterHub and connecting to the Lattice network. See `how/skills/skill_l1_upgrade.md` for the phased upgrade path.
 
 ### FAIR Metadata
 
@@ -373,4 +394,4 @@ When you notice one, mention it to the user at a **natural pause point** (end of
 The `how/quests/` directory contains structured validation experiments ("side-quests") that community members can run with spare agent tokens. At natural session-end points, if the user has spare context budget, you may briefly mention available quests. Never interrupt active work for this. See `what/docs/side_quest_guide.md` for the full participation guide and `how/quests/AGENTS.md` for directory structure.
 
 ---
-<!-- v5.6 | 2026-03-22 -->
+<!-- v5.7 | 2026-03-23 -->

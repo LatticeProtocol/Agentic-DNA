@@ -2,10 +2,10 @@
 type: context
 title: "aDNA Projects Folder Pattern"
 created: 2026-03-19
-updated: 2026-03-22
+updated: 2026-03-23
 status: active
 last_edited_by: agent_stanley
-tags: [adna, projects, scaffolding, workspace, pattern]
+tags: [adna, projects, scaffolding, workspace, pattern, lattice]
 token_estimate: 2500
 ---
 
@@ -17,16 +17,18 @@ A workspace-level pattern for managing multiple aDNA-structured projects. Two ap
 
 ## Simplified Pattern (Recommended)
 
-The aDNA repo **is** the template. Clone it once, then fork it for each new project. A workspace-level CLAUDE.md manages project creation and discovery.
+The aDNA repo **is** the template. Clone it once into `~/lattice/`, then fork it for each new project. A workspace-level CLAUDE.md manages project creation and discovery.
 
 ```
-~/Projects/                       # Workspace root (any folder works)
+~/lattice/                        # Workspace root (~/lattice/ recommended)
 ├── CLAUDE.md                     # Workspace architect (auto-created by skill_workspace_init.md)
-├── adna/                         # Base template (git clone, never modified for projects)
-│   ├── CLAUDE.md                 # Detects missing workspace CLAUDE.md, offers to create it
+├── adna/                         # Base template (git clone, never modified — role: template)
+│   ├── CLAUDE.md                 # Detects role: template, guides project creation
+│   ├── MANIFEST.md               # Contains role: template marker (stripped on fork)
 │   ├── prepare_for_onboarding.sh # Pre-flight checks for L1 upgrade
 │   ├── setup.sh                  # Obsidian plugin bootstrap
 │   └── how/skills/
+│       ├── skill_project_fork.md    # Forks adna/ into a new project
 │       ├── skill_workspace_init.md  # Creates the workspace CLAUDE.md
 │       ├── skill_onboarding.md      # 5-question interview for new projects
 │       └── skill_l1_upgrade.md      # L0→L1 phased compute upgrade
@@ -41,9 +43,9 @@ The aDNA repo **is** the template. Clone it once, then fork it for each new proj
 
 ### How it works
 
-1. **Clone aDNA** into any folder: `git clone https://github.com/LatticeProtocol/adna.git`
-2. **Run Claude Code** from inside `adna/` — the CLAUDE.md detects no workspace CLAUDE.md at the parent level and offers to create one via `skill_workspace_init.md`
-3. **Create projects** — from the workspace level, ask the agent to create a new project. It copies `adna/`, strips `.git/` and `.obsidian/`, runs `git init`, then triggers the 5-question onboarding interview inside the new project
+1. **Create workspace and clone aDNA**: `mkdir -p ~/lattice && cd ~/lattice && git clone https://github.com/LatticeProtocol/adna.git`
+2. **Run Claude Code** from inside `adna/` — the CLAUDE.md detects `role: template` in MANIFEST.md, creates the workspace CLAUDE.md, and offers to fork your first project via `skill_project_fork.md`
+3. **Create projects** — the agent copies `adna/`, strips `.git/` and `.obsidian/`, removes the `role: template` marker, runs `git init`, then triggers the 5-question onboarding interview inside the new project
 4. **Work inside projects** — each project is self-contained. Open it directly in Claude Code or Obsidian.
 5. **Upgrade to L1** — follow `adna/how/skills/skill_l1_upgrade.md` to add JupyterHub compute
 
@@ -58,8 +60,9 @@ The aDNA repo **is** the template. Clone it once, then fork it for each new proj
 
 1. **The agent is the scaffolding engine** — the workspace CLAUDE.md instructs Claude how to fork, customize, and seed new projects
 2. **Each project is self-contained** — own CLAUDE.md, own git, own triad structure. Can be moved out of the workspace and still works.
-3. **Never modify the template** — `adna/` stays as a clean reference. Only fork from it.
-4. **Workspace CLAUDE.md governs workspace operations only** — project creation, discovery, L1 upgrade. Inside a project, that project's CLAUDE.md is authoritative.
+3. **Never modify the template** — `adna/` stays as a clean reference (`role: template` in MANIFEST.md). Only fork from it. `git pull` is always safe.
+4. **Template detection drives the flow** — `role: template` in MANIFEST.md signals the base template. The fork procedure strips this marker so the new project triggers onboarding, not template detection.
+5. **Workspace CLAUDE.md governs workspace operations only** — project creation, discovery, L0→L1 upgrade. Inside a project, that project's CLAUDE.md is authoritative.
 
 ### Related files
 
@@ -74,7 +77,7 @@ The aDNA repo **is** the template. Clone it once, then fork it for each new proj
 For organizations that want fine-grained control over project scaffolding, the `.base/` template pattern provides per-field customization.
 
 ```
-adna-projects/                    # Workspace root
+~/lattice/                        # Workspace root (or any folder)
 ├── CLAUDE.md                     # Meta-governance — interview + scaffold instructions
 ├── .base/                        # Base template (fork source, not a project)
 │   ├── CLAUDE.md.template        # Governance template with {{variables}}
@@ -173,7 +176,7 @@ The Projects Folder Pattern is the manual version of what the Start Kit automate
 
 ### Creating a new project
 
-1. Open Claude Code in the `adna-projects/` directory
+1. Open Claude Code in the workspace directory (e.g., `~/lattice/`)
 2. Say "Create a new project" (or similar)
 3. The agent reads the root CLAUDE.md and runs the 5-question interview
 4. Templates are copied from `.base/`, variables resolved with your answers

@@ -34,7 +34,7 @@ If this aDNA vault is part of a multi-project workspace (a workspace-level CLAUD
 
 If no workspace CLAUDE.md exists at the parent, skip these updates silently.
 
-**Workspace layout**: After L1 upgrade, `latlab/` should live as a peer directory to this vault (e.g., `~/Projects/latlab/`), not inside it. The admin push or self-service install places repos at the workspace level.
+**Workspace layout**: After L1 upgrade, `latlab/` should live as a peer directory to this vault (e.g., `~/lattice/latlab/`), not inside it. The admin push or self-service install places repos at the workspace level.
 
 ## Trigger
 
@@ -92,11 +92,11 @@ An admin pushes latlab to the target machine using:
 setup_l1_remote.sh <target_ssh_alias> --push-repos full
 ```
 
-This rsyncs the latlab repo to `~/Projects/latlab/` on the target. No GitHub access needed on the target machine.
+This rsyncs the latlab repo to `~/lattice/latlab/` on the target. No GitHub access needed on the target machine.
 
 **If latlab is already present** (admin previously pushed or user has access):
 ```bash
-ls ~/Projects/latlab/deploy/native/setup_l1.sh && echo "latlab present" || echo "latlab not found"
+ls ~/lattice/latlab/deploy/native/setup_l1.sh && echo "latlab present" || echo "latlab not found"
 ```
 
 **If latlab not present and no admin available**: Stop here. The user needs an admin to push latlab to their machine, or the public L1 deployment package (see backlog — not yet available).
@@ -104,7 +104,7 @@ ls ~/Projects/latlab/deploy/native/setup_l1.sh && echo "latlab present" || echo 
 ### Step 3: Run Setup
 
 ```bash
-cd ~/Projects/latlab
+cd ~/lattice/latlab
 bash deploy/native/setup_l1.sh
 ```
 
@@ -118,7 +118,7 @@ This script is idempotent and handles:
 ### Step 4: Verify
 
 ```bash
-bash ~/Projects/latlab/deploy/native/latlab_doctor.sh
+bash ~/lattice/latlab/deploy/native/latlab_doctor.sh
 ```
 
 All checks should show PASS or WARN. No FAIL is acceptable.
@@ -126,7 +126,7 @@ All checks should show PASS or WARN. No FAIL is acceptable.
 ### Step 5: Start JupyterHub
 
 ```bash
-bash ~/Projects/latlab/deploy/native/latlab_start.sh
+bash ~/lattice/latlab/deploy/native/latlab_start.sh
 ```
 
 ### Step 6: Confirm

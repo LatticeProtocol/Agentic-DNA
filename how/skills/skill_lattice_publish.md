@@ -59,7 +59,7 @@ Run structural and semantic validation:
 
 ```bash
 # Validate the lattice file
-cd ~/Projects/lattice-protocol-repo
+cd ~/lattice/lattice-protocol-repo
 python -c "
 from objects.lattices.tools.lattice_validate import validate_lattice_file
 result = validate_lattice_file('path/to/lattice.lattice.yaml')
@@ -76,7 +76,7 @@ for warning in result.warnings:
 Verify all 6 federation readiness checks pass:
 
 ```bash
-cd ~/Projects/lattice-protocol-repo
+cd ~/lattice/lattice-protocol-repo
 python -c "
 from objects.lattices.federation import check_federation_readiness
 import yaml

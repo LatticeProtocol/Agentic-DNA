@@ -2,12 +2,12 @@
 type: skill
 skill_type: agent
 created: 2026-02-19
-updated: 2026-02-20
+updated: 2026-03-23
 status: active
 category: onboarding
-trigger: "First-run detection in CLAUDE.md indicates uncustomized vault"
+trigger: "First-run detection in CLAUDE.md indicates uncustomized forked project (no role: template, last_edited_by: agent_init)"
 last_edited_by: agent_stanley
-tags: [skill, onboarding, first-run]
+tags: [skill, onboarding, first-run, project]
 
 requirements:
   tools: []
@@ -19,16 +19,19 @@ requirements:
 
 ## Overview
 
-Interactive onboarding flow for fresh adna vaults. Invoked automatically when CLAUDE.md first-run detection identifies an uncustomized vault. Walks the user through understanding aDNA, discovering their project needs, building an initial ontology, and customizing governance files.
+Interactive onboarding flow for **forked aDNA projects** (not the base template). Invoked automatically when CLAUDE.md first-run detection identifies an uncustomized project. Walks the user through understanding aDNA, discovering their project needs, building an initial ontology, and customizing governance files.
+
+**Important**: This skill runs inside a forked project directory, never in the base `adna/` template. If `MANIFEST.md` contains `role: template`, this is the base template — do not run onboarding here. Instead, guide the user to create a project via `skill_project_fork.md`.
 
 ## Trigger
 
 Automatic — CLAUDE.md first-run detection triggers this skill when:
-1. `how/sessions/history/` is empty (no completed sessions)
-2. `MANIFEST.md` frontmatter has `last_edited_by: agent_init`
+1. `MANIFEST.md` does NOT have `role: template` (this is a forked project, not the base template)
+2. `how/sessions/history/` is empty (no completed sessions)
+3. `MANIFEST.md` frontmatter has `last_edited_by: agent_init`
 
-If both conditions are true, load this skill and begin at Step 1.
-If only one is true (partial onboarding), resume from the first incomplete step.
+If conditions 2 and 3 are true (and condition 1 confirms this is a project), load this skill and begin at Step 1.
+If only one of conditions 2-3 is true (partial onboarding), resume from the first incomplete step.
 
 ## Parameters
 
@@ -55,7 +58,7 @@ None. This skill is self-guided through conversation with the user.
 
 Greet the user warmly but directly. Introduce yourself as Berthier — the vault's built-in agent chief of staff.
 
-Explain aDNA in 2-3 accessible sentences: it's a knowledge architecture that gives your project persistent structure both humans and AI agents can navigate. This vault was cloned from the adna starter kit and is ready to be customized for their project.
+Explain aDNA in 2-3 accessible sentences: it's a knowledge architecture that gives your project persistent structure both humans and AI agents can navigate. This project was forked from the aDNA template and is ready to be customized for their domain.
 
 Keep it approachable — no spec-heavy language. The user might be a developer, a researcher, or a team lead. Meet them where they are.
 
@@ -97,8 +100,10 @@ Keep this brief — 30 seconds of explanation, not a lecture.
 ### Step 4: Explain Deployment Diversity
 
 Two deployment forms:
-- **Bare triad** (this vault) — `what/how/who/` at project root. The full experience.
+- **Bare triad** (this project) — `what/how/who/` at project root. The full experience.
 - **Embedded triad** — `.agentic/what/how/who/` inside an existing repo. For adding aDNA to existing codebases.
+
+This project lives inside a `~/lattice/` workspace alongside the aDNA base template. Each project in the workspace is self-contained — it can be moved out and still functions independently.
 
 For multi-instance composition (nesting vaults, sibling projects), see `what/docs/adna_bridge_patterns.md`.
 
@@ -246,6 +251,7 @@ This session IS the onboarding session — create the session file (or update if
 
 After successful onboarding:
 - `MANIFEST.md` will have a non-init `last_edited_by` value
+- `MANIFEST.md` will NOT have `role: template` (if it does, the fork procedure failed — strip it manually)
 - A session file will exist in `how/sessions/history/`
 - Both first-run indicators cleared — future sessions skip onboarding
 

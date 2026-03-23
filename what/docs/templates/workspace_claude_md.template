@@ -16,7 +16,7 @@ This is a **multi-project aDNA workspace**. The `{{adna_folder}}/` directory is 
 
 You are operating at the **workspace level** — one level above individual projects. Your role here is to help the user discover, create, and manage aDNA projects. When the user wants to work *inside* a project, they should open that project's directory directly (in Claude Code or Obsidian).
 
-**Workspace path**: This file lives at the root of the workspace folder. The aDNA base template is at `{{adna_folder}}/`.
+**Workspace path**: This file lives at the root of the workspace folder (recommended: `~/lattice/`). The aDNA base template is at `{{adna_folder}}/`.
 
 **Compute tier**: `{{compute_tier}}`
 - **L0** — Local only. Obsidian + Claude Code. No JupyterHub, no federation.
@@ -55,7 +55,11 @@ rm -rf .git/ .obsidian/
 git init
 ```
 
-This gives the new project the full aDNA structure (who/what/how triad, templates, skills, context library) without any git history or Obsidian config from the base repo.
+Then prepare the fork for onboarding:
+- Remove `role: template` from `MANIFEST.md` frontmatter (this marker identifies the base template — forked projects must not have it)
+- Set `last_edited_by: agent_init` in MANIFEST.md, STATE.md, and CLAUDE.md frontmatter
+
+This gives the new project the full aDNA structure (who/what/how triad, templates, skills, context library) without any git history or Obsidian config from the base repo. The `agent_init` markers trigger the onboarding interview on first run.
 
 ### Step 3: Run Onboarding
 

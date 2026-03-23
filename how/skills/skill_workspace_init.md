@@ -2,12 +2,12 @@
 type: skill
 skill_type: agent
 created: 2026-03-22
-updated: 2026-03-22
+updated: 2026-03-23
 status: active
 category: onboarding
-trigger: "Workspace bootstrap detection in CLAUDE.md identifies missing workspace-level CLAUDE.md at parent directory"
+trigger: "Template detection in CLAUDE.md identifies missing workspace-level CLAUDE.md at parent directory (typically ~/lattice/)"
 last_edited_by: agent_stanley
-tags: [skill, workspace, bootstrap, onboarding, multi-project]
+tags: [skill, workspace, bootstrap, onboarding, multi-project, lattice]
 
 requirements:
   tools: []
@@ -55,7 +55,7 @@ None. This skill is guided through conversation with the user.
 
 Inform the user:
 
-> "This aDNA repo is inside a workspace folder that doesn't have a workspace-level CLAUDE.md yet. I can create one at `<parent_path>/CLAUDE.md` — it will help future agents discover your projects, create new ones from this template, and manage L1 upgrades. Shall I set it up?"
+> "Your `~/lattice/` workspace doesn't have a workspace-level CLAUDE.md yet. I can create one at `<parent_path>/CLAUDE.md` — it will help future agents discover your projects, create new ones from this template, and manage L0→L1 upgrades. Shall I set it up?"
 
 If the user declines, note the skip and proceed with normal session flow. Do not ask again in future sessions (the parent directory still won't have a CLAUDE.md, but the user has declined — record this in `who/coordination/` as a skip note so other agents don't re-trigger).
 
@@ -66,7 +66,7 @@ Scan the parent directory:
 1. **Existing projects** — list all subdirectories that contain a `CLAUDE.md` or `MANIFEST.md` file. These are aDNA projects already present in the workspace.
 2. **Infrastructure repos** — check if `latlab/` exists (indicates L1). Check if `lattice-protocol/` exists.
 3. **Compute tier** — if `latlab/` is present AND a JupyterHub process is running (check port 8000), tier is `L1`. Otherwise `L0`.
-4. **aDNA folder name** — the basename of this vault's directory (e.g., `adna` if cloned to `~/Projects/adna/`).
+4. **aDNA folder name** — the basename of this vault's directory (e.g., `adna` if cloned to `~/lattice/adna/`).
 
 Report findings to the user:
 - "Found X existing project(s): ..."
@@ -91,20 +91,12 @@ Confirm to the user: "Created workspace CLAUDE.md at `<path>`."
 
 Ask the user: "Would you like to create your first project from this template now?"
 
-If yes, follow the **New Project Creation** procedure from the workspace CLAUDE.md template:
-
-1. **Ask for project name** — folder name (underscored, lowercase) and brief description
-2. **Ask for initial context** — anything to seed (person, org, topic, goal)
-3. **Copy the template**:
-   ```
-   cp -r <adna_folder>/ <project_name>/
-   cd <project_name>
-   rm -rf .git/ .obsidian/
-   git init
-   ```
-4. **Note**: The new project's CLAUDE.md will detect it as a fresh vault on next run and trigger `skill_onboarding.md` automatically. Carry forward any answers from this step so the user doesn't repeat themselves.
-
-If the user wants to complete onboarding now (within this same session), cd into the new project directory and execute the onboarding skill. Otherwise, note that onboarding will trigger automatically on next open.
+If yes, load and execute `how/skills/skill_project_fork.md`. Pass the workspace root and aDNA folder name as parameters. The fork skill handles:
+- Collecting project name and description
+- Copying the template and stripping `.git/` and `.obsidian/`
+- Removing `role: template` from the forked MANIFEST.md
+- Setting up first-run markers so onboarding triggers in the new project
+- Offering to run onboarding immediately or defer
 
 If the user declines project creation, skip to Step 5.
 
@@ -137,6 +129,7 @@ Suggest next steps:
 
 ## Related
 
+- [[how/skills/skill_project_fork|skill_project_fork.md]] — Fork template into a new project (called from Step 4)
 - [[how/skills/skill_onboarding|skill_onboarding.md]] — 5-question interview for customizing new projects
 - [[how/skills/skill_l1_upgrade|skill_l1_upgrade.md]] — Phased L0→L1 compute upgrade
 - [[what/docs/projects_folder_pattern|projects_folder_pattern.md]] — Multi-project workspace design doc

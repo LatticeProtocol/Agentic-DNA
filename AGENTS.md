@@ -1,7 +1,7 @@
 ---
 type: directory_index
 created: 2026-02-17
-updated: 2026-03-20
+updated: 2026-03-23
 last_edited_by: agent_stanley
 tags: [directory_index, root]
 ---
@@ -36,7 +36,7 @@ adna/
 ## Agent Startup
 
 1. **CLAUDE.md** — auto-loaded; confirms project structure and rules
-2. **First-run check** — if uncustomized vault, invoke onboarding skill (`how/skills/skill_onboarding.md`)
+2. **Template/first-run check** — if `role: template` in MANIFEST.md, guide project creation via `skill_project_fork.md`; if uncustomized project (`agent_init`), invoke onboarding skill (`how/skills/skill_onboarding.md`)
 3. **STATE.md** — operational snapshot: current phase, blockers, next steps
 4. **`how/sessions/active/`** — check for conflicting sessions
 5. **`who/coordination/`** — read any urgent cross-agent notes

@@ -263,14 +263,18 @@ adna/
 
 ### 1. Get the vault
 
-**Option A — Use as template (recommended)**
-Click **[Use this template](https://github.com/LatticeProtocol/adna/generate)** on GitHub to create your own copy with clean history.
-
-**Option B — Clone directly**
+**Option A — Clone into `~/lattice/` (recommended)**
 ```bash
+mkdir -p ~/lattice
+cd ~/lattice
 git clone https://github.com/LatticeProtocol/adna.git
 cd adna
 ```
+
+This creates the canonical workspace layout. The `adna/` directory is the base template — you'll fork it into project directories, keeping the template clean for updates.
+
+**Option B — Use as GitHub template**
+Click **[Use this template](https://github.com/LatticeProtocol/adna/generate)** on GitHub to create your own copy with clean history. Clone the result into `~/lattice/`.
 
 ### 2. Run setup (recommended)
 
@@ -307,15 +311,14 @@ Open a terminal in the vault directory and start Claude Code:
 claude
 ```
 
-**Berthier** — the vault's built-in agent personality — will detect this is a fresh vault and walk you through interactive onboarding:
+**Berthier** — the vault's built-in agent personality — will detect this is the base template and guide you through workspace setup:
 
-- Explains the aDNA architecture and triad structure
-- Asks about your project, domain, and goals
-- Suggests domain-specific ontology extensions
-- Customizes governance files with your project identity
-- Offers personality customization for your agent
+- Creates a workspace CLAUDE.md at `~/lattice/`
+- Helps you fork `adna/` into your first project (e.g., `~/lattice/my_research_lab/`)
+- Runs the 5-question onboarding interview inside your new project
+- Customizes governance files, suggests domain extensions, offers personality customization
 
-This is the fastest way to go from clone to productive vault. Everything Berthier does is inspectable — see `how/skills/skill_onboarding.md`.
+The base `adna/` template stays clean — all customization happens in your forked project. Run `git pull` inside `adna/` anytime to get framework updates. Everything Berthier does is inspectable — see `how/skills/skill_project_fork.md` and `how/skills/skill_onboarding.md`.
 
 > **No Obsidian?** This path works entirely from the terminal — no Obsidian installation required. See [`what/docs/agent_first_guide.md`](what/docs/agent_first_guide.md) for the full agent-first walkthrough, including feature parity details and Claude Code configuration.
 
@@ -357,18 +360,19 @@ Then write your governance files using the starter templates in the full guide. 
 
 ## Multi-Project Workspaces
 
-Managing multiple aDNA projects? The **Projects Folder Pattern** gives you a workspace with a shared template and an agent-guided interview for scaffolding new projects.
+The `~/lattice/` workspace naturally supports multiple projects. Each project is a fork of the `adna/` template with its own governance, git history, and domain customization.
 
 ```
-adna-projects/
-├── CLAUDE.md              # Meta-governance — interview + scaffold instructions
-├── .base/                 # Template files with {{variable}} placeholders
-├── my-research-vault/     # Project A (scaffolded from .base/)
-├── client-pipeline/       # Project B (scaffolded from .base/)
-└── shared/                # Optional cross-project context
+~/lattice/
+├── CLAUDE.md              # Workspace governance (auto-created on first run)
+├── adna/                  # Base template (never modified — role: template)
+├── my_research_lab/       # Project A (forked from adna/, customized)
+├── client_acme/           # Project B (forked from adna/)
+├── latlab/                # (appears after L0→L1 upgrade)
+└── lattice-protocol/      # (appears after L0→L1 upgrade)
 ```
 
-Open Claude Code in the workspace root, say "create a new project," and the agent runs a 5-question interview to scaffold a fully configured vault — domain-specific directories, personalized CLAUDE.md, populated MANIFEST.md and STATE.md.
+Open Claude Code in `adna/` or at the workspace root, say "create a new project," and the agent forks the template and runs a 5-question onboarding interview to scaffold a fully configured project — domain-specific directories, personalized CLAUDE.md, populated MANIFEST.md and STATE.md.
 
 **Working example**: [`what/docs/examples/adna-projects/`](what/docs/examples/adna-projects/) — two pre-scaffolded projects (biotech lab, enterprise pipeline) showing distinct interview outputs.
 

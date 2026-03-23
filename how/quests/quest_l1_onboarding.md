@@ -103,10 +103,10 @@ Once the admin confirms:
 
 ```bash
 # Run the health check
-bash ~/Projects/latlab/deploy/native/latlab_doctor.sh
+bash ~/lattice/latlab/deploy/native/latlab_doctor.sh
 
 # Start JupyterHub
-bash ~/Projects/latlab/deploy/native/latlab_start.sh
+bash ~/lattice/latlab/deploy/native/latlab_start.sh
 ```
 
 Open `http://127.0.0.1:8000` in your browser. You should see the JupyterHub login page.

@@ -1,10 +1,10 @@
 ---
 type: state
 created: 2026-02-17
-updated: 2026-03-20
+updated: 2026-03-23
 status: active
 last_edited_by: agent_stanley
-last_session: session_stanley_20260320_adna_evo_m15
+last_session: session_stanley_20260323_lattice_workspace_convention
 tags: [state, governance]
 ---
 
@@ -35,8 +35,10 @@ Dynamic operational snapshot for cold-start orientation. Updated each session.
 - Strategic compass template + escalation cascade (session→mission→campaign→STATE.md)
 - 20 templates including AAR, strategic compass, campaign CLAUDE.md, registry, data record, folder note, PRD, RFC, migration, side quest, quest result
 - R&D→PRD→RFC planning pipeline (4 stages)
-- Agent-driven onboarding (`how/skills/skill_onboarding.md`)
-- 6 skills (onboarding, lattice publish, new entity type, context quality audit, context graduation, vault review)
+- Agent-driven onboarding (`how/skills/skill_onboarding.md`) — runs in forked projects, not base template
+- Template detection + project fork flow (`role: template` in MANIFEST.md, `skill_project_fork.md`)
+- `~/lattice/` workspace convention for L0 node bootstrap
+- 7 skills (project fork, onboarding, lattice publish, new entity type, context quality audit, context graduation, vault review)
 - Session tracking, mission/campaign/backlog systems
 - 10 CSS snippets for Obsidian visual polish
 - CHANGELOG.md with version policy and migration cross-links
@@ -78,13 +80,15 @@ None.
 
 ## Next Steps
 
-1. **Start an agent session** — run `claude` in the vault directory; Berthier guides interactive onboarding (~15-30 min)
-2. **Or customize manually** — edit MANIFEST.md, STATE.md, and CLAUDE.md § Identity with your project identity (~30-45 min)
-3. **Extend the ontology** — add domain-specific directories under who/what/how (see README § Extending the Ontology, or load `ontology_workshop` context)
-4. **Explore the context library** — read `what/context/AGENTS.md` for topic index, or check `context_recipes.md` for pre-built assemblies
-5. **Build a lattice** — copy an example from `what/lattices/examples/` and customize it
-6. **Design a campaign** — use the `campaign_design` recipe to load campaign dispatch + convergence model context
+1. **Clone into `~/lattice/`** — `mkdir -p ~/lattice && cd ~/lattice && git clone https://github.com/LatticeProtocol/adna.git`
+2. **Run Claude Code** in `~/lattice/adna/` — the agent detects this is the base template, creates your workspace, and helps fork your first project
+3. **Or customize manually** — fork `adna/` to a project directory, edit MANIFEST.md, STATE.md, and CLAUDE.md § Identity with your project identity
+4. **Extend the ontology** — add domain-specific directories under who/what/how (see README § Extending the Ontology, or load `ontology_workshop` context)
+5. **Explore the context library** — read `what/context/AGENTS.md` for topic index, or check `context_recipes.md` for pre-built assemblies
+6. **Build a lattice** — copy an example from `what/lattices/examples/` and customize it
 
 ## Partial-Resume Detection
 
-If session history is non-empty but MANIFEST.md still shows `last_edited_by: agent_init`, onboarding was started but governance was not customized. Read `how/skills/skill_onboarding.md` and resume from the first step that hasn't produced output (check for customized MANIFEST.md, personalized CLAUDE.md § Identity, and updated STATE.md).
+**Template** (`role: template` in MANIFEST.md): This is the base template. It should never enter partial-resume state — onboarding runs in forked projects, not here.
+
+**Forked project** (no `role` field): If session history is non-empty but MANIFEST.md still shows `last_edited_by: agent_init`, onboarding was started but governance was not customized. Read `how/skills/skill_onboarding.md` and resume from the first step that hasn't produced output (check for customized MANIFEST.md, personalized CLAUDE.md § Identity, and updated STATE.md).

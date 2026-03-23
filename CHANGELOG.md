@@ -28,6 +28,33 @@ Changelog entries are organized by **governance version** (primary heading). Sta
 
 ---
 
+## [v5.7] — 2026-03-23
+
+### Added
+- `role: template` marker in `MANIFEST.md` frontmatter — distinguishes the base template from forked projects
+- `how/skills/skill_project_fork.md` — dedicated skill for forking `adna/` into a new project directory
+- `~/lattice/` as the canonical workspace convention for L0 nodes
+- L0 compute tier in CLAUDE.md Compute Tiers table (local knowledge architecture, no compute services)
+- Workspace convention diagram in CLAUDE.md Template Detection section
+
+### Changed
+- `CLAUDE.md` v5.6→v5.7: merged "First-Run Detection" + "Workspace Bootstrap Detection" into unified "Template Detection & Project Setup" flow
+- `skill_onboarding.md` now runs exclusively in forked projects, never in the base template
+- `skill_workspace_init.md` Step 4 delegates project creation to `skill_project_fork.md`
+- All documentation updated from `~/Projects/` to `~/lattice/` as the recommended workspace root
+- `README.md` Quick Start updated with `~/lattice/` clone instructions and template-aware setup flow
+- `projects_folder_pattern.md` updated with `~/lattice/` as canonical workspace root and `role: template` design principle
+- `workspace_claude_md.template` updated with fork preparation steps (strip `role: template`, set `agent_init`)
+- `STATE.md` next steps updated with `~/lattice/` convention
+- Peripheral files updated: `skill_l1_upgrade.md`, `skill_lattice_publish.md`, `tutorial_lattice_publishing.md`, `tools/AGENTS.md`, `quest_l1_onboarding.md`
+
+### Design decisions
+- `adna/` stays clean — never customized by onboarding. `git pull` always safe.
+- `role: template` in MANIFEST.md is the canonical detection mechanism (explicit, git-independent)
+- `~/lattice/` is a strong recommendation, not mandatory — system works in any location
+
+---
+
 ## [v5.5] — 2026-03-20
 
 ### Added
@@ -81,6 +108,14 @@ Changelog entries are organized by **governance version** (primary heading). Sta
 ### Removed
 - Empty `community/proposals/` directory (superseded by agentic backlog pattern)
 - Empty `.github/ISSUE_TEMPLATE/` directory (standard GitHub issues sufficient for now)
+
+### Tooling (non-versioned, built in lattice-labs campaign LSU)
+- `compliance_checker.py` — 10-dimension compliance scoring for vault objects (~1085 LOC)
+- 4 object migration prompts: `migrate_object_{skill,module,dataset,lattice}.md`
+- `migration_safety_framework.md` — git tags, worktree testing, rollback L1-L5
+- `adna_validate.py` — instance conformance validator per §5.5
+- `frontmatter_schema.json` — JSON Schema for frontmatter validation
+- Post-LSU fixes: D9 companion content validation, MCP module_type D5 N/A
 
 ---
 

@@ -5,7 +5,7 @@ A step-by-step walkthrough of creating, validating, publishing, pulling, and com
 ## Prerequisites
 
 - An aDNA vault (cloned from [LatticeProtocol/adna](https://github.com/LatticeProtocol/adna))
-- `lattice-protocol` repo available at `~/Projects/lattice-protocol/`
+- `lattice-protocol` repo available at `~/lattice/lattice-protocol/`
 - Python 3.10+ with `pyyaml` installed
 - `latlab` CLI installed (`pip install lattice`)
 
@@ -114,7 +114,7 @@ lattice:
 Run the schema validator to check structural integrity:
 
 ```bash
-cd ~/Projects/lattice-protocol-repo
+cd ~/lattice/lattice-protocol-repo
 python -c "
 from objects.lattices.tools.lattice_validate import validate_lattice_file
 
@@ -140,7 +140,7 @@ No errors means the lattice passes all structural checks: required fields presen
 Federation readiness is a stricter check — 6 criteria must pass before a lattice can be published:
 
 ```bash
-cd ~/Projects/lattice-protocol-repo
+cd ~/lattice/lattice-protocol-repo
 python -c "
 from objects.lattices.federation import check_federation_readiness
 import yaml
