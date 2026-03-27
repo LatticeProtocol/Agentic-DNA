@@ -141,6 +141,7 @@ Pre-defined context assemblies for multi-disciplinary tasks. See `context_recipe
 | adna_core | 10 | ~29,500 | 4.2 | active |
 | lattice_basics | 2 | ~6,000 | 4.0 | active |
 | object_standards | 1 | ~3,200 | 3.8 | active |
+| system_configuration | 7 | ~13,600 | — | active |
 
 ## Load/Skip Decision
 
