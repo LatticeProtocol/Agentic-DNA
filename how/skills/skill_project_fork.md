@@ -58,7 +58,7 @@ Invoked by the CLAUDE.md template detection flow or the workspace CLAUDE.md proj
 
 If `carry_forward_answers` are provided (from the calling flow), use them. Otherwise ask:
 
-1. **Project name** — folder name. Must be lowercase with underscores. Example: `my_research_lab`, `acme_crm`, `sleep_study`
+1. **Project name** — base folder name (the `.aDNA` suffix is appended automatically). Must be lowercase with underscores. Example: `my_research_lab`, `acme_crm`, `sleep_study` → creates `my_research_lab.aDNA/`
 2. **Brief description** — 1-2 sentences describing the project's purpose
 
 Validate the project name:
@@ -69,18 +69,20 @@ Validate the project name:
 
 ### Step 2: Confirm Target Location
 
-The target directory is `<workspace_root>/<project_name>/`.
+The target directory is `<workspace_root>/<project_name>.aDNA/` (the `.aDNA` suffix marks it as an aDNA project — see Standard §3.5).
 
 Report to the user:
-> "I'll create your project at `<workspace_root>/<project_name>/`. This will fork the full aDNA structure — triad directories, templates, skills, context library, and lattice tools. The base template at `<adna_folder>/` stays untouched."
+> "I'll create your project at `<workspace_root>/<project_name>.aDNA/`. This will fork the full aDNA structure — triad directories, templates, skills, context library, and lattice tools. The base template at `<adna_folder>/` stays untouched."
+
+If the user explicitly requests no suffix, respect their preference.
 
 Ask for confirmation before proceeding.
 
 ### Step 3: Fork the Template
 
 ```bash
-cp -r <adna_folder>/ <workspace_root>/<project_name>/
-cd <workspace_root>/<project_name>/
+cp -r <adna_folder>/ <workspace_root>/<project_name>.aDNA/
+cd <workspace_root>/<project_name>.aDNA/
 rm -rf .git/ .obsidian/
 git init
 ```

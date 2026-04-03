@@ -176,6 +176,39 @@ Both deployment forms are first-class. The triad ontology is identical in both �
 
 An aDNA instance MUST use exactly one deployment form. A project MUST NOT mix bare and embedded triads.
 
+### 3.5 Directory Convention
+
+An aDNA project directory SHOULD use the `.aDNA` suffix to indicate it follows the Agentic DNA knowledge architecture standard. This suffix serves as a visual type marker, analogous to `.app` bundles in macOS or `.git` directories in version control.
+
+**Naming rules:**
+
+- The base template repository (`Agentic-DNA/`) MUST NOT use the `.aDNA` suffix — it is the source, not an instance.
+- Forked projects SHOULD use the pattern `ProjectName.aDNA/` (e.g., `zeta.aDNA/`, `my_research.aDNA/`).
+- The project name portion MUST match `[a-z][a-z0-9_]{0,63}` — lowercase letters, digits, and underscores only, starting with a letter, maximum 64 characters.
+- The suffix `.aDNA` uses mixed case (capital D, N, A) matching the abbreviation branding.
+- Nesting `.aDNA` directories inside other `.aDNA` directories is NOT RECOMMENDED.
+- Existing projects MAY adopt the convention by renaming their directory. This is optional.
+
+**Discovery:**
+
+Tools SHOULD discover aDNA projects via `*.aDNA` glob patterns:
+
+```bash
+# List aDNA projects in workspace
+ls -d *.aDNA 2>/dev/null
+find . -maxdepth 1 -name "*.aDNA" -type d
+```
+
+**Workspace convention:**
+
+```
+~/lattice/
+├── Agentic-DNA/           # Base template (source repo, no suffix)
+├── my_research.aDNA/      # Forked project (aDNA instance)
+├── zeta.aDNA/             # Another project
+└── CLAUDE.md              # Workspace-level governance
+```
+
 ---
 
 ## 4. Governance Files

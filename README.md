@@ -314,7 +314,7 @@ claude
 **Berthier** — the vault's built-in agent personality — will detect this is the base template and guide you through workspace setup:
 
 - Creates a workspace CLAUDE.md at `~/lattice/`
-- Helps you fork `adna/` into your first project (e.g., `~/lattice/my_research_lab/`)
+- Helps you fork into your first project (e.g., `~/lattice/my_research_lab.aDNA/`)
 - Runs the 5-question onboarding interview inside your new project
 - Customizes governance files, suggests domain extensions, offers personality customization
 
@@ -360,14 +360,14 @@ Then write your governance files using the starter templates in the full guide. 
 
 ## Multi-Project Workspaces
 
-The `~/lattice/` workspace naturally supports multiple projects. Each project is a fork of the `adna/` template with its own governance, git history, and domain customization.
+The `~/lattice/` workspace naturally supports multiple projects. Each project is a fork of the Agentic-DNA template with its own governance, git history, and domain customization. Forked projects use the `.aDNA` suffix to indicate they follow the aDNA standard (see Standard §3.5).
 
 ```
 ~/lattice/
 ├── CLAUDE.md              # Workspace governance (auto-created on first run)
-├── adna/                  # Base template (cloned as Agentic-DNA, never modified — role: template)
-├── my_research_lab/       # Project A (forked from adna/, customized)
-├── client_acme/           # Project B (forked from adna/)
+├── Agentic-DNA/           # Base template (never modified — role: template, no .aDNA suffix)
+├── my_research_lab.aDNA/  # Project A (forked, customized)
+├── client_acme.aDNA/      # Project B (forked)
 ├── latlab/                # (appears after L0→L1 upgrade)
 └── lattice-protocol/      # (appears after L0→L1 upgrade)
 ```

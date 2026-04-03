@@ -41,7 +41,7 @@ Do NOT run onboarding here — the template stays clean for `git pull` updates.
 a. **Greet briefly**: introduce aDNA in 2-3 sentences. This is the starter kit that the user will fork into their own project.
 
 b. **Check workspace state** — get the parent directory of this vault:
-   - If the parent directory **already contains a CLAUDE.md** — workspace exists. List existing projects (subdirectories with their own `CLAUDE.md` or `MANIFEST.md`, excluding `adna/`, `latlab/`, `lattice-protocol/`). Offer to open one or create a new project.
+   - If the parent directory **already contains a CLAUDE.md** — workspace exists. List existing projects: scan for `*.aDNA/` directories first (the standard convention), then fall back to subdirectories with `CLAUDE.md` or `MANIFEST.md` (excluding `Agentic-DNA/`, `latlab/`, `lattice-protocol/`). Offer to open one or create a new project.
    - If the parent directory **is `$HOME`** — the user cloned directly into home. Suggest the `~/lattice/` convention: "I recommend creating a `~/lattice/` workspace directory and cloning adna there. This gives you a clean workspace for projects and future L1 compute upgrades."
    - If the parent directory **has no CLAUDE.md** — offer to create one via `how/skills/skill_workspace_init.md`.
 
@@ -65,9 +65,9 @@ The recommended workspace layout is `~/lattice/`:
 ```
 ~/lattice/                       # Workspace root
 ├── CLAUDE.md                    # Workspace-level governance (auto-created)
-├── Agentic-DNA/                 # Base template (git clone, never modified)
-├── my_research_lab/             # Project A (forked from Agentic-DNA/, customized)
-├── client_acme/                 # Project B (forked from Agentic-DNA/)
+├── Agentic-DNA/                 # Base template (git clone, never modified, no .aDNA suffix)
+├── my_research_lab.aDNA/        # Project A (forked from Agentic-DNA/, customized)
+├── client_acme.aDNA/            # Project B (forked from Agentic-DNA/)
 ├── latlab/                      # (appears after L1 upgrade)
 └── lattice-protocol/            # (appears after L1 upgrade)
 ```
