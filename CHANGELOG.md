@@ -33,18 +33,31 @@ Changelog entries are organized by **governance version** (primary heading). Sta
 ### Changed
 - **Identity rename**: Display name `adna` → `Agentic-DNA` across all governance files, docs, and context. GitHub repo renamed to `LatticeProtocol/Agentic-DNA`.
 - **Naming convention**: `Agentic-DNA` = display name, headings, repo name; `aDNA` = abbreviation in running text; `adna` lowercase preserved in protocol URIs, directory names, tags, and frontmatter topics.
-- `.aDNA` embedded deployment form introduced (`.agentic/` convention updates pending).
+- `.aDNA` directory convention: `adna_standard.md` §3.5 with RFC 2119 naming rules, `skill_project_fork.md` auto-appends `.aDNA` suffix, CLAUDE.md workspace detection uses `*.aDNA/` glob.
 - Clone command updated: `git clone https://github.com/LatticeProtocol/Agentic-DNA.git adna` (local dir stays `adna/`).
 - Version bump: CLAUDE.md `5.7` → `6.0`.
+- `how/missions/AGENTS.md`: Mandatory AAR before `status: completed`, git-aware state verification.
+- `how/campaigns/AGENTS.md`: Verifiable DG criteria, campaign AAR step, context graduation sequencing.
+- CLAUDE.md: 6 standing orders + git coordination section (5 rules + truth hierarchy).
+- `template_mission.md`: AAR section appended.
+- `template_campaign.md`: `calibrated_sessions`, `estimation_class` fields added, campaign AAR section.
+- `lattice_yaml_schema.json`: `lattice_type` enum expanded 4→7 (added `skill`, `infrastructure`, `context_set`).
+- `adna_standard.md` §7.2: Required base fields updated 5→6 (added `status`).
+- Template count: 20→22.
 
 ### Fixed
 - `CONTRIBUTING.md`: `validate_lattice.py` → `lattice_validate.py` (correct script name).
 - `CONTRIBUTING.md`: Removed reference to nonexistent `calibrate_token_estimates.sh`.
 - `skill_sqlite_persistence.md`: Added `status: proposed` to frontmatter (was missing status semantics).
 - `governance_agent_protocol.md`: Added `runtime: claude_code` to frontmatter for clarity.
-- Count reconciliation: context library 4→5 topics, 23→27 subtopics; adna_core 10→13; skills 7→13; example lattices 14→16; standard version v2.1→v2.2 references corrected.
+- Count reconciliation: context library 4→5 topics, 23→27 subtopics; adna_core 10→13; skills 7→13; example lattices 14→15; standard version v2.1→v2.2 references corrected.
+- `adna_validate.py`: Frontmatter MUST violations now reported as errors (were warnings).
+- `canvas2lattice.py`: `_sanitize_node_id()` converts canvas UUIDs to valid lattice IDs.
+- Schema/validator/spec triple divergence resolved — all three sources now agree on 7 lattice types and 6 required fields.
 
 ### Added
+- `template_aar_lightweight.md` — 5-line AAR format (Worked/Didn't/Finding/Change/Follow-up).
+- `template_campaign_mission.md` — campaign-linked mission template with campaign_id, exit gate, AAR.
 - PR #1 integration acknowledgment (ariaxhan system_configuration contribution).
 
 ---

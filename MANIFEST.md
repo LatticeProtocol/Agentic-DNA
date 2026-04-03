@@ -35,7 +35,7 @@ Agentic-DNA/
 | Layer | Question | Contains |
 |-------|----------|----------|
 | **what/** | WHAT does this project know? | Context library (5 topics, 27 subtopics), decisions, aDNA docs, lattice YAML tools + schema + examples |
-| **how/** | HOW does this project work? | Missions, sessions, 20 templates, 13 skills, backlog, campaigns, PRD/RFC pipeline |
+| **how/** | HOW does this project work? | Missions, sessions, 22 templates, 13 skills, backlog, campaigns, PRD/RFC pipeline |
 | **who/** | WHO is involved? | People, teams, coordination, governance |
 
 ### Base Ontology (14 Entity Types)
@@ -90,7 +90,7 @@ how/pipelines/prd_rfc/
 └── 04_review/        → Final approval (human gate)
 ```
 
-### Templates (20)
+### Templates (22)
 
 | Template | Auto-triggers in |
 |----------|-----------------|
@@ -101,10 +101,12 @@ how/pipelines/prd_rfc/
 | `template_coordination.md` | `who/coordination/` |
 | `template_backlog.md` | `how/backlog/` |
 | `template_campaign.md` | `how/campaigns/` |
+| `template_campaign_mission.md` | `how/campaigns/campaign_*/missions/` |
 | `template_prd.md` | `how/pipelines/prd_rfc/02_requirements/` |
 | `template_rfc.md` | `how/pipelines/prd_rfc/03_design/` |
 | `template_skill.md` | `how/skills/` |
 | `template_aar.md` | `how/missions/artifacts/` |
+| `template_aar_lightweight.md` | — |
 | `template_strategic_compass.md` | `who/governance/` |
 | `template_campaign_claude.md` | `how/campaigns/campaign_*/` |
 | `template_registry.md` | — |
@@ -121,10 +123,10 @@ how/pipelines/prd_rfc/
 |-----------|--------|-------------|
 | aDNA Standard v2.2 | Shipped | Core specification — triad, ontology (14 base + 8 extension), sessions, missions, campaigns |
 | Context library | Shipped | 5 topics, 27 subtopics, ~75K tokens. Cross-topic recipe system with 6 recipes |
-| Lattice YAML tools | Shipped | Validate, convert (YAML↔canvas), JSON Schema, 16 example lattices + 3 canvas templates |
+| Lattice YAML tools | Shipped | Validate, convert (YAML↔canvas), JSON Schema, 15 example lattices + 3 canvas templates |
 | Mermaid-enhanced spec docs | Shipped | 19 diagrams across 3 aDNA specification documents |
 | PRD/RFC pipeline | Shipped | 4-stage planning pipeline (research → requirements → design → review) |
-| 20 templates | Shipped | Session, mission, campaign, context, ADR, backlog, coordination, PRD, RFC, skill, AAR, strategic compass, campaign CLAUDE.md, registry, data record, folder note, governance, migration, side quest, quest result |
+| 22 templates | Shipped | Session, mission, campaign, campaign mission, context, ADR, backlog, coordination, PRD, RFC, skill, AAR, lightweight AAR, strategic compass, campaign CLAUDE.md, registry, data record, folder note, governance, migration, side quest, quest result |
 | Execution hierarchy v2 | Shipped | OODA cascade (3-level evaluation loops), AAR protocol, mission classes, escalation cascade |
 | Quality framework | Shipped | 10-dimension compliance rubric, quality audit skill, context graduation pipeline |
 

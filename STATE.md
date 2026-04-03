@@ -26,14 +26,14 @@ Dynamic operational snapshot for cold-start orientation. Updated each session.
 - `.dataset.yaml` schema: multi-cloud storage, 7 providers, FUSE support (Decision 12)
 - Lattice YAML validation tool (`lattice_validate.py`) + JSON Schema
 - Canvas-YAML bidirectional conversion (`lattice2canvas.py`, `canvas2lattice.py`)
-- 16 example lattice files + 3 canvas templates + 1 demonstration canvas
+- 15 example lattice files + 3 canvas templates + 1 demonstration canvas
 - Context library: 5 topics, 27 subtopics, ~75K tokens (prompt_engineering, adna_core, claude_code, lattice_basics, object_standards)
 - Sync protocol: vault↔repo `adna_core/` sync (backlog: formal sync skill not yet created)
 - Cross-topic recipe system: 6 domain-neutral recipes with 3-tier budgets
 - Execution hierarchy v2: OODA cascade (3-level), AAR protocol (5-step), mission classes (5 types)
 - Quality framework: 6-axis rubric, quality audit skill, context graduation pipeline
 - Strategic compass template + escalation cascade (session→mission→campaign→STATE.md)
-- 20 templates including AAR, strategic compass, campaign CLAUDE.md, registry, data record, folder note, PRD, RFC, migration, side quest, quest result
+- 22 templates including AAR, lightweight AAR, campaign mission, strategic compass, campaign CLAUDE.md, registry, data record, folder note, PRD, RFC, migration, side quest, quest result
 - R&D→PRD→RFC planning pipeline (4 stages)
 - Agent-driven onboarding (`how/skills/skill_onboarding.md`) — runs in forked projects, not base template
 - Template detection + project fork flow (`role: template` in MANIFEST.md, `skill_project_fork.md`)
@@ -60,7 +60,8 @@ Dynamic operational snapshot for cold-start orientation. Updated each session.
 
 | Date | Upgrade | Source |
 |------|---------|--------|
-| 2026-04-03 | CLAUDE.md v6.0 — Agentic-DNA identity rename, .aDNA convention, PR #1 critical fixes, count reconciliation | campaign_adna_iii_review M04 |
+| 2026-04-03 | v6.0 validation pass — template count 20→22, example count 16→15, CHANGELOG expanded (M05-M07), schema/validator/spec aligned | campaign_arih M08-M09 |
+| 2026-04-03 | CLAUDE.md v6.0 — Agentic-DNA identity rename, .aDNA convention, vault backport, III findings, count reconciliation | campaign_arih M04-M07 |
 | 2026-03-20 | CLAUDE.md v5.5 — VISION.md, ecosystem section in README, governance file coherence pass | campaign_adna_ecosystem_evolution M15 |
 | 2026-03-20 | CLAUDE.md v5.4 — side-quest infrastructure, quest/result templates, aggregation tool | campaign_adna_ecosystem_evolution M14 |
 | 2026-03-20 | CLAUDE.md v5.3 — CONTRIBUTING.md, Agent Contribution Mode, upstream contribution skill | campaign_adna_ecosystem_evolution M13 |
