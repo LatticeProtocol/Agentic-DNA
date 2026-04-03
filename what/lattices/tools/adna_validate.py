@@ -137,12 +137,12 @@ def check_starter(root, prefix, result):
         rel = os.path.relpath(fp, root)
         if fm is None:
             fm_errors += 1
-            result.warnings.append(f"Frontmatter: missing or unparseable in '{rel}'")
+            result.errors.append(f"Frontmatter: missing or unparseable in '{rel}'")
             continue
         for field in REQUIRED_FRONTMATTER:
             if field not in fm:
                 fm_errors += 1
-                result.warnings.append(f"Frontmatter: missing '{field}' in '{rel}'")
+                result.errors.append(f"Frontmatter: missing required field '{field}' in '{rel}'")
 
     result.info.append(f"Scanned {total_files} content files, {fm_errors} frontmatter issues")
 

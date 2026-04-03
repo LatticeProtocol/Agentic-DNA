@@ -25,6 +25,24 @@ import yaml
 # Reasoning node convention: text starts with "## Reasoning:" prefix
 REASONING_PREFIX_PATTERN = re.compile(r"^##\s*Reasoning:", re.IGNORECASE)
 
+# Valid lattice node ID pattern: ^[a-z][a-z0-9_]*$
+_VALID_ID = re.compile(r"^[a-z][a-z0-9_]*$")
+
+
+def _sanitize_node_id(raw_id: str) -> str:
+    """Convert a canvas node ID (often a UUID) to a valid lattice node ID.
+
+    Valid IDs: ^[a-z][a-z0-9_]*$ (lowercase, underscores, starts with letter).
+    UUIDs like '4a3b2c1d' get prefixed with 'n_' and hyphens replaced.
+    """
+    if _VALID_ID.match(raw_id):
+        return raw_id
+    sanitized = raw_id.lower().replace("-", "_").replace(" ", "_")
+    sanitized = re.sub(r"[^a-z0-9_]", "", sanitized)
+    if not sanitized or not sanitized[0].isalpha():
+        sanitized = "n_" + sanitized
+    return sanitized
+
 
 def canvas_to_lattice(
     data: dict[str, Any],
@@ -122,12 +140,12 @@ def _extract_meta(
 def _convert_node(cnode: dict[str, Any]) -> dict[str, Any] | None:
     """Convert a canvas node to a lattice YAML node. Returns None for skipped nodes."""
     node_type = cnode.get("type", "")
-    node_id = cnode.get("id", "")
+    node_id = _sanitize_node_id(cnode.get("id", ""))
 
     # Skip groups (except _lattice_meta, handled separately) and links
     if node_type in ("group", "link"):
         return None
-    if node_id == "_lattice_meta":
+    if cnode.get("id") == "_lattice_meta":
         return None
 
     if node_type == "file":
@@ -145,7 +163,7 @@ def _convert_node(cnode: dict[str, Any]) -> dict[str, Any] | None:
 
 def _convert_file_node(cnode: dict[str, Any]) -> dict[str, Any]:
     """Convert a canvas file node to a lattice YAML node."""
-    node_id = cnode["id"]
+    node_id = _sanitize_node_id(cnode["id"])
     file_path = cnode.get("file", "")
 
     # Infer type from path prefix
@@ -171,7 +189,7 @@ def _convert_file_node(cnode: dict[str, Any]) -> dict[str, Any]:
 
 def _convert_text_node(cnode: dict[str, Any]) -> dict[str, Any]:
     """Convert a canvas text node to a lattice YAML node."""
-    node_id = cnode["id"]
+    node_id = _sanitize_node_id(cnode["id"])
     text = cnode.get("text", "")
 
     # Check for reasoning convention
@@ -199,8 +217,8 @@ def _convert_text_node(cnode: dict[str, Any]) -> dict[str, Any]:
 
 def _convert_edge(cedge: dict[str, Any]) -> dict[str, Any]:
     """Convert a canvas edge to a lattice YAML edge."""
-    source = cedge.get("fromNode", "")
-    target = cedge.get("toNode", "")
+    source = _sanitize_node_id(cedge.get("fromNode", ""))
+    target = _sanitize_node_id(cedge.get("toNode", ""))
     label = cedge.get("label", "")
 
     result: dict[str, Any] = {

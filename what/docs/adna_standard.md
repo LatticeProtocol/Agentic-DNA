@@ -515,7 +515,7 @@ An aDNA instance at Starter conformance MUST have:
 1. **Governance files**: `CLAUDE.md`, `MANIFEST.md`, `README.md` at the root (bare) or repository root (embedded)
 2. **Triad directories**: `what/`, `how/`, `who/` (bare) or `.agentic/what/`, `.agentic/how/`, `.agentic/who/` (embedded)
 3. **Required subdirectories**: `what/context/`, `how/missions/`, `how/sessions/`, `how/templates/`, `who/coordination/`, `who/governance/`
-4. **Frontmatter**: All content files inside the triad MUST include the base fields defined in §7.2 (`type`, `created`, `updated`, `last_edited_by`, `tags`)
+4. **Frontmatter**: All content files inside the triad MUST include the base fields defined in §7.2 (`type`, `status`, `created`, `updated`, `last_edited_by`, `tags`)
 
 Starter conformance represents the minimum viable aDNA instance — sufficient for a single-agent project with basic session tracking.
 
@@ -611,7 +611,7 @@ The `type_` prefix pattern is RECOMMENDED for aDNA content files. It enables sor
 
 ## 7. Frontmatter System
 
-> **Scan**: Required base fields (`type`, `created`, `updated`, `last_edited_by`, `tags`), tag conventions, priority field, type-specific extensions.
+> **Scan**: Required base fields (`type`, `status`, `created`, `updated`, `last_edited_by`, `tags`), tag conventions, priority field, type-specific extensions.
 
 *Decisions: C4, D18, D20*
 
@@ -628,6 +628,7 @@ Every aDNA content file MUST include these frontmatter fields:
 ```yaml
 ---
 type: <entity_type>
+status: <lifecycle_status>
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 last_edited_by: agent_<username> | <username>
@@ -638,6 +639,7 @@ tags: []
 | Field | Purpose |
 |-------|---------|
 | `type` | Entity classification (e.g., `session`, `mission`, `customer`, `context_research`) |
+| `status` | Lifecycle state (e.g., `active`, `completed`, `draft`, `abandoned`) — entity-specific values |
 | `created` | Date of file creation |
 | `updated` | Date of last modification — critical for collision prevention |
 | `last_edited_by` | Attribution — who or what last modified this file |

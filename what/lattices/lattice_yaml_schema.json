@@ -28,7 +28,7 @@
         "lattice_type": {
           "type": "string",
           "description": "Classification of the lattice. Maps to vault ontology discriminator. Pipeline = deterministic DAG of modules. Agent = LLM-driven reasoning (from AgentMode). Context_graph = knowledge structure. Workflow = operational process.",
-          "enum": ["pipeline", "agent", "context_graph", "workflow"],
+          "enum": ["pipeline", "agent", "context_graph", "workflow", "skill", "infrastructure", "context_set"],
           "default": "pipeline"
         },
         "description": {
