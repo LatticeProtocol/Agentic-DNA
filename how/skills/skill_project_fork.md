@@ -83,15 +83,21 @@ Ask for confirmation before proceeding.
 ```bash
 cp -r <adna_folder>/ <workspace_root>/<project_name>.aDNA/
 cd <workspace_root>/<project_name>.aDNA/
-rm -rf .git/ .obsidian/
+rm -rf .git/
 git init
+
+# Preserve portable Obsidian config (settings, appearance, snippets)
+# but remove plugin binaries (15MB+) — user runs setup.sh to install them
+rm -rf .obsidian/plugins/ .obsidian/themes/
+rm -f .obsidian/workspace.json .obsidian/graph.json
 ```
 
 This gives the new project:
 - The full `who/what/how/` triad structure
 - All templates, skills, context library, and lattice tools
 - A fresh git repository with no history
-- No Obsidian config (user can run `setup.sh` if they want Obsidian plugins)
+- Portable Obsidian config (app settings, appearance, CSS snippets, hotkeys, plugin list)
+- Run `./setup.sh` to download plugins and theme (~15MB, requires network)
 
 ### Step 4: Prepare for Onboarding
 
