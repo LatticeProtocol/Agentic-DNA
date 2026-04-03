@@ -31,7 +31,7 @@ These templates are applied by Templater when creating a new file in the mapped 
 | `template_session.md` | Session tracking file | `how/sessions/active/` | `session` |
 | `template_skill.md` | Skill recipe or procedure | `how/skills/` | `skill` |
 
-### Manual-Apply Templates (10)
+### Manual-Apply Templates (12)
 
 These templates have no Templater auto-trigger. Copy their structure manually or use `Templater: Insert template` command:
 

@@ -14,7 +14,7 @@ Dynamic operational snapshot for cold-start orientation. Updated each session.
 
 ## Current Phase
 
-**Production-validated.** Agentic-DNA v6.0 with hardened object standards, Canvas Standard v1.0.0, execution hierarchy v2 (OODA + AAR), 16 example lattices, and community infrastructure (contribution system, side-quests, vision document). aDNA Standard v2.2 (maintenance pass complete). Identity rename from `adna` to `Agentic-DNA` complete (repo: `LatticeProtocol/Agentic-DNA`).
+**Production-validated.** Agentic-DNA v6.0 with hardened object standards, Canvas Standard v1.0.0, execution hierarchy v2 (OODA + AAR), 15 example lattices, and community infrastructure (contribution system, side-quests, vision document). aDNA Standard v2.2 (maintenance pass complete). Identity rename from `adna` to `Agentic-DNA` complete (repo: `LatticeProtocol/Agentic-DNA`).
 
 ## What's Working
 
