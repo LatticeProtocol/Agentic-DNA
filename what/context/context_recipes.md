@@ -3,12 +3,12 @@ type: context_guide
 topic: context_library
 subtopic: recipes
 created: 2026-03-17
-updated: 2026-03-18
+updated: 2026-03-28
 sources: ["Context library AGENTS.md", "Context engineering guide", "Campaign dispatch guide"]
 context_version: "2.0"
 token_estimate: ~1000
-last_edited_by: agent_stanley
-tags: [context, recipes, assembly, cross-topic]
+last_edited_by: agent_aria
+tags: [context, recipes, assembly, cross-topic, claude_code]
 ---
 
 # Context Library: Cross-Topic Assembly Recipes
@@ -65,7 +65,14 @@ Cross-references `federation_design` from the Design section. For multi-node wor
 
 ### Operate — Day-to-Day Operations
 
-Add domain-specific operational recipes here as your context library grows. Candidates: `standard_compliance_audit` (type_vocabulary + fair_mapping + object_standards_overview, ~6.5K) for verifying objects meet aDNA standards.
+| Recipe | Topics Used | Subtopics (Standard Load) | ~Tokens | Use When |
+|--------|------------|---------------------------|---------|----------|
+| `system_setup` | claude_code + who/governance | vault_architecture, config_cascade, `governance_agent_protocol.md` | ~6.4K | Setting up a new workspace, vault, or project from scratch |
+| `agent_onboarding` | claude_code + who/governance | `governance_agent_protocol.md`, memory_integration, vault_architecture | ~7.4K | Onboarding a new agent to an existing vault |
+| `orchestration_setup` | claude_code + how/skills | `skill_orchestration_tiers.md`, `skill_sqlite_persistence.md` | ~4.6K | Designing multi-agent workflows, model routing, or tier-based execution |
+| `operational_debugging` | claude_code | config_cascade, hook_system, memory_integration | ~7.5K | Troubleshooting config inheritance, hook failures, or memory issues |
+
+Candidates: `standard_compliance_audit` (type_vocabulary + fair_mapping + object_standards_overview, ~6.5K) for verifying objects meet aDNA standards.
 
 ## Token Budget Tiers
 
@@ -98,6 +105,10 @@ When no recipe is explicitly requested, match the task to a recipe using these k
 | campaign, phase, mission, strategic initiative | `campaign_design` |
 | context file, context topic, write context, quality rubric | `context_authoring` |
 | federation, merge, cross-instance, URI, seam | `federation_design` |
+| workspace, vault, configure, CLAUDE.md, settings, setup | `system_setup` |
+| onboard agent, new agent, orient agent | `agent_onboarding` |
+| orchestrate, tiers, model routing, multi-agent, parallel | `orchestration_setup` |
+| hook failure, config debug, memory issue, inheritance | `operational_debugging` |
 
 If no match: fall back to manual subtopic selection from the relevant topic AGENTS.md files.
 

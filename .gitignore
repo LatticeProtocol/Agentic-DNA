@@ -37,3 +37,6 @@ env/
 # Claude Code / MCP (local credentials — never commit)
 .mcp.json
 .claude/
+
+# Local working context (not part of upstream)
+_meta/
