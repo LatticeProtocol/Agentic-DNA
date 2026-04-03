@@ -1,16 +1,16 @@
 ---
 type: directory_index
 created: 2026-02-17
-updated: 2026-03-23
+updated: 2026-04-03
 last_edited_by: agent_stanley
 tags: [directory_index, root]
 ---
 
-# adna — Agent Guide
+# Agentic-DNA — Agent Guide
 
 ## Purpose
 
-This is the root agent reference for the adna project. It routes agents to the appropriate triad leg (what/how/who) based on their current task. This file is always loaded — it does not have a Load/Skip section because agents need it for orientation on every session.
+This is the root agent reference for the Agentic-DNA project. It routes agents to the appropriate triad leg (what/how/who) based on their current task. This file is always loaded — it does not have a Load/Skip section because agents need it for orientation on every session.
 
 ## Quick Orientation
 

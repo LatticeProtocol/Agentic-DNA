@@ -2,19 +2,19 @@
 type: manifest
 role: template
 created: 2026-02-17
-updated: 2026-03-23
+updated: 2026-04-03
 last_edited_by: agent_stanley
 tags: [manifest, governance]
 ---
 
-# adna — Project Manifest
+# Agentic-DNA — Project Manifest
 
 ## Project Identity
 
 <!-- CUSTOMIZE THIS: Replace the description below with your project's name and purpose. -->
 <!-- Example: "**my-project** — AI-powered market research platform for B2B SaaS companies." -->
 
-**adna** — A standalone knowledge architecture for building personal lattices and knowledge graphs. Designed for both humans (via Obsidian) and AI agents (via Claude Code). aDNA is the foundational building block of the Lattice federated computing protocol.
+**Agentic-DNA** — A standalone knowledge architecture for building personal lattices and knowledge graphs. Designed for both humans (via Obsidian) and AI agents (via Claude Code). aDNA is the foundational building block of the Lattice federated computing protocol.
 
 This repo is a self-contained aDNA deployment that anyone can clone and immediately start using. It includes templates, tools, example lattices, and the operational infrastructure (sessions, missions, campaigns) needed to run an AI-native project from day one.
 
@@ -23,7 +23,7 @@ This repo is a self-contained aDNA deployment that anyone can clone and immediat
 This project uses the **aDNA (Agentic DNA)** knowledge architecture — a bare triad deployment.
 
 ```
-adna/
+Agentic-DNA/
 ├── what/        # WHAT — Knowledge objects, context library, lattice tools
 ├── how/         # HOW — Plans, sessions, templates, pipelines
 ├── who/         # WHO — People, teams, coordination, governance
@@ -34,8 +34,8 @@ adna/
 
 | Layer | Question | Contains |
 |-------|----------|----------|
-| **what/** | WHAT does this project know? | Context library, decisions, aDNA docs, lattice YAML tools + schema + examples |
-| **how/** | HOW does this project work? | Missions, sessions, 20 templates, backlog, campaigns, skills, PRD/RFC pipeline |
+| **what/** | WHAT does this project know? | Context library (5 topics, 27 subtopics), decisions, aDNA docs, lattice YAML tools + schema + examples |
+| **how/** | HOW does this project work? | Missions, sessions, 20 templates, 13 skills, backlog, campaigns, PRD/RFC pipeline |
 | **who/** | WHO is involved? | People, teams, coordination, governance |
 
 ### Base Ontology (14 Entity Types)
@@ -62,7 +62,8 @@ Extend by adding domain-specific entities under the appropriate triad leg (e.g.,
 | Topic | Subtopics | Tokens | Location |
 |-------|-----------|--------|----------|
 | Prompt Engineering | 7 | ~21K | `what/context/prompt_engineering/` |
-| aDNA Core | 10 | ~29.5K | `what/context/adna_core/` |
+| aDNA Core | 13 | ~35K | `what/context/adna_core/` |
+| Claude Code | 4 | ~12K | `what/context/claude_code/` |
 | Lattice Basics | 2 | ~4.5K | `what/context/lattice_basics/` |
 | Object Standards | 1 | ~3K | `what/context/object_standards/` |
 
@@ -118,13 +119,13 @@ how/pipelines/prd_rfc/
 
 | Component | Status | Description |
 |-----------|--------|-------------|
-| aDNA Standard v2.1 | Shipped | Core specification — triad, ontology (14 base + 8 extension), sessions, missions, campaigns |
-| Context library | Shipped | 4 topics, 20 subtopics, ~58K tokens. Cross-topic recipe system with 6 recipes |
-| Lattice YAML tools | Shipped | Validate, convert (YAML↔canvas), JSON Schema, 14 example lattices |
+| aDNA Standard v2.2 | Shipped | Core specification — triad, ontology (14 base + 8 extension), sessions, missions, campaigns |
+| Context library | Shipped | 5 topics, 27 subtopics, ~75K tokens. Cross-topic recipe system with 6 recipes |
+| Lattice YAML tools | Shipped | Validate, convert (YAML↔canvas), JSON Schema, 16 example lattices + 3 canvas templates |
 | Mermaid-enhanced spec docs | Shipped | 19 diagrams across 3 aDNA specification documents |
 | PRD/RFC pipeline | Shipped | 4-stage planning pipeline (research → requirements → design → review) |
 | 20 templates | Shipped | Session, mission, campaign, context, ADR, backlog, coordination, PRD, RFC, skill, AAR, strategic compass, campaign CLAUDE.md, registry, data record, folder note, governance, migration, side quest, quest result |
 | Execution hierarchy v2 | Shipped | OODA cascade (3-level evaluation loops), AAR protocol, mission classes, escalation cascade |
-| Quality framework | Shipped | 6-axis quality rubric, quality audit skill, context graduation pipeline |
+| Quality framework | Shipped | 10-dimension compliance rubric, quality audit skill, context graduation pipeline |
 
 See `how/missions/` for mission details and `STATE.md` for current operational state.

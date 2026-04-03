@@ -1,10 +1,10 @@
 ---
 type: state
 created: 2026-02-17
-updated: 2026-03-23
+updated: 2026-04-03
 status: active
 last_edited_by: agent_stanley
-last_session: session_stanley_20260323_lattice_workspace_convention
+last_session: session_stanley_20260402_identity_rename
 tags: [state, governance]
 ---
 
@@ -14,7 +14,7 @@ Dynamic operational snapshot for cold-start orientation. Updated each session.
 
 ## Current Phase
 
-**Production-validated.** aDNA v5.5 with hardened object standards, Canvas Standard v1.0.0, execution hierarchy v2 (OODA + AAR), 14 example lattices, and community infrastructure (contribution system, side-quests, vision document). aDNA Standard v2.2 (maintenance pass complete).
+**Production-validated.** Agentic-DNA v6.0 with hardened object standards, Canvas Standard v1.0.0, execution hierarchy v2 (OODA + AAR), 16 example lattices, and community infrastructure (contribution system, side-quests, vision document). aDNA Standard v2.2 (maintenance pass complete). Identity rename from `adna` to `Agentic-DNA` complete (repo: `LatticeProtocol/Agentic-DNA`).
 
 ## What's Working
 
@@ -26,8 +26,8 @@ Dynamic operational snapshot for cold-start orientation. Updated each session.
 - `.dataset.yaml` schema: multi-cloud storage, 7 providers, FUSE support (Decision 12)
 - Lattice YAML validation tool (`lattice_validate.py`) + JSON Schema
 - Canvas-YAML bidirectional conversion (`lattice2canvas.py`, `canvas2lattice.py`)
-- 13 example lattice files + 3 canvas templates + 1 demonstration canvas
-- Context library: 4 topics, 23 subtopics, ~58K tokens (prompt_engineering, adna_core, lattice_basics, object_standards)
+- 16 example lattice files + 3 canvas templates + 1 demonstration canvas
+- Context library: 5 topics, 27 subtopics, ~75K tokens (prompt_engineering, adna_core, claude_code, lattice_basics, object_standards)
 - Sync protocol: vault↔repo `adna_core/` sync (backlog: formal sync skill not yet created)
 - Cross-topic recipe system: 6 domain-neutral recipes with 3-tier budgets
 - Execution hierarchy v2: OODA cascade (3-level), AAR protocol (5-step), mission classes (5 types)
@@ -38,7 +38,7 @@ Dynamic operational snapshot for cold-start orientation. Updated each session.
 - Agent-driven onboarding (`how/skills/skill_onboarding.md`) — runs in forked projects, not base template
 - Template detection + project fork flow (`role: template` in MANIFEST.md, `skill_project_fork.md`)
 - `~/lattice/` workspace convention for L0 node bootstrap
-- 7 skills (project fork, onboarding, lattice publish, new entity type, context quality audit, context graduation, vault review)
+- 13 skills (project fork, onboarding, workspace init, L1 upgrade, lattice publish, new entity type, context quality audit, context graduation, vault review, upstream contribution, version migration, sqlite persistence, orchestration tiers)
 - Session tracking, mission/campaign/backlog systems
 - 10 CSS snippets for Obsidian visual polish
 - CHANGELOG.md with version policy and migration cross-links
@@ -60,6 +60,7 @@ Dynamic operational snapshot for cold-start orientation. Updated each session.
 
 | Date | Upgrade | Source |
 |------|---------|--------|
+| 2026-04-03 | CLAUDE.md v6.0 — Agentic-DNA identity rename, .aDNA convention, PR #1 critical fixes, count reconciliation | campaign_adna_iii_review M04 |
 | 2026-03-20 | CLAUDE.md v5.5 — VISION.md, ecosystem section in README, governance file coherence pass | campaign_adna_ecosystem_evolution M15 |
 | 2026-03-20 | CLAUDE.md v5.4 — side-quest infrastructure, quest/result templates, aggregation tool | campaign_adna_ecosystem_evolution M14 |
 | 2026-03-20 | CLAUDE.md v5.3 — CONTRIBUTING.md, Agent Contribution Mode, upstream contribution skill | campaign_adna_ecosystem_evolution M13 |
@@ -80,7 +81,7 @@ None.
 
 ## Next Steps
 
-1. **Clone into `~/lattice/`** — `mkdir -p ~/lattice && cd ~/lattice && git clone https://github.com/LatticeProtocol/adna.git`
+1. **Clone into `~/lattice/`** — `mkdir -p ~/lattice && cd ~/lattice && git clone https://github.com/LatticeProtocol/Agentic-DNA.git adna`
 2. **Run Claude Code** in `~/lattice/adna/` — the agent detects this is the base template, creates your workspace, and helps fork your first project
 3. **Or customize manually** — fork `adna/` to a project directory, edit MANIFEST.md, STATE.md, and CLAUDE.md § Identity with your project identity
 4. **Extend the ontology** — add domain-specific directories under who/what/how (see README § Extending the Ontology, or load `ontology_workshop` context)

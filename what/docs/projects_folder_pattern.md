@@ -43,7 +43,7 @@ The aDNA repo **is** the template. Clone it once into `~/lattice/`, then fork it
 
 ### How it works
 
-1. **Create workspace and clone aDNA**: `mkdir -p ~/lattice && cd ~/lattice && git clone https://github.com/LatticeProtocol/adna.git`
+1. **Create workspace and clone aDNA**: `mkdir -p ~/lattice && cd ~/lattice && git clone https://github.com/LatticeProtocol/Agentic-DNA.git adna`
 2. **Run Claude Code** from inside `adna/` — the CLAUDE.md detects `role: template` in MANIFEST.md, creates the workspace CLAUDE.md, and offers to fork your first project via `skill_project_fork.md`
 3. **Create projects** — the agent copies `adna/`, strips `.git/` and `.obsidian/`, removes the `role: template` marker, runs `git init`, then triggers the 5-question onboarding interview inside the new project
 4. **Work inside projects** — each project is self-contained. Open it directly in Claude Code or Obsidian.

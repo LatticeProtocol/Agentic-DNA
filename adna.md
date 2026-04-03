@@ -3,7 +3,7 @@ type: folder_note
 tier: 1
 folder_path: adna
 created: 2026-03-02
-updated: 2026-03-02
+updated: 2026-04-03
 status: active
 last_edited_by: agent_stanley
 tags: [folder-note, adna, git-repo]
@@ -16,7 +16,7 @@ cssclasses: [folder-note]
 > [!abstract] Definition
 > Agentic DNA — a standalone **knowledge architecture template** (MIT) for AI-native vaults. Obsidian + Claude Code, zero proprietary dependencies. Version 2.1, triad structure (who/what/how), 19 canonical I/O types, FAIR metadata, Canvas Standard v1.0.0.
 >
-> **GitHub**: [LatticeProtocol/adna](https://github.com/LatticeProtocol/adna) · **License**: MIT · **Stack**: Obsidian / Claude Code / Python 3.10+
+> **GitHub**: [LatticeProtocol/Agentic-DNA](https://github.com/LatticeProtocol/Agentic-DNA) · **License**: MIT · **Stack**: Obsidian / Claude Code / Python 3.10+
 
 ## Triad Structure
 
@@ -45,7 +45,7 @@ cssclasses: [folder-note]
 | File | Purpose |
 |------|---------|
 | [[adna/README\|README.md]] | Public documentation — quick-start guide |
-| [[adna/CLAUDE\|CLAUDE.md]] | Agent governance (v5.6) — rules, safety, protocol |
+| [[adna/CLAUDE\|CLAUDE.md]] | Agent governance (v6.0) — rules, safety, protocol |
 | [[adna/MANIFEST\|MANIFEST.md]] | Project identity, architecture, entry points |
 | [[adna/STATE\|STATE.md]] | Build state and operational snapshot |
 | `setup.sh` | First-run bootstrap script |

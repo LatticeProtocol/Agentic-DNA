@@ -28,6 +28,27 @@ Changelog entries are organized by **governance version** (primary heading). Sta
 
 ---
 
+## [v6.0] — 2026-04-03
+
+### Changed
+- **Identity rename**: Display name `adna` → `Agentic-DNA` across all governance files, docs, and context. GitHub repo renamed to `LatticeProtocol/Agentic-DNA`.
+- **Naming convention**: `Agentic-DNA` = display name, headings, repo name; `aDNA` = abbreviation in running text; `adna` lowercase preserved in protocol URIs, directory names, tags, and frontmatter topics.
+- `.aDNA` embedded deployment form introduced (`.agentic/` convention updates pending).
+- Clone command updated: `git clone https://github.com/LatticeProtocol/Agentic-DNA.git adna` (local dir stays `adna/`).
+- Version bump: CLAUDE.md `5.7` → `6.0`.
+
+### Fixed
+- `CONTRIBUTING.md`: `validate_lattice.py` → `lattice_validate.py` (correct script name).
+- `CONTRIBUTING.md`: Removed reference to nonexistent `calibrate_token_estimates.sh`.
+- `skill_sqlite_persistence.md`: Added `status: proposed` to frontmatter (was missing status semantics).
+- `governance_agent_protocol.md`: Added `runtime: claude_code` to frontmatter for clarity.
+- Count reconciliation: context library 4→5 topics, 23→27 subtopics; adna_core 10→13; skills 7→13; example lattices 14→16; standard version v2.1→v2.2 references corrected.
+
+### Added
+- PR #1 integration acknowledgment (ariaxhan system_configuration contribution).
+
+---
+
 ## [v5.7] — 2026-03-23
 
 ### Added

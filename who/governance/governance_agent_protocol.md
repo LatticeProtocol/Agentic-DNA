@@ -1,9 +1,10 @@
 ---
 type: governance
+runtime: claude_code
 created: 2026-03-27
-updated: 2026-03-28
+updated: 2026-04-03
 status: active
-last_edited_by: agent_aria
+last_edited_by: agent_stanley
 tags: [governance, agent_protocol, partnership, autonomy]
 ---
 

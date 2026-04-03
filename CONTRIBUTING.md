@@ -1,4 +1,4 @@
-# Contributing to aDNA
+# Contributing to Agentic-DNA
 
 Thank you for your interest in improving aDNA. This guide covers how to report issues, suggest improvements, and submit changes.
 
@@ -18,15 +18,15 @@ This project will adopt the [Contributor Covenant v2.1](https://www.contributor-
 
 Found something broken — a dead link, incorrect schema, template that doesn't match the standard?
 
-1. Check [existing issues](https://github.com/LatticeProtocol/adna/issues) to avoid duplicates
-2. Open a [bug report](https://github.com/LatticeProtocol/adna/issues/new?template=bug_report.md)
+1. Check [existing issues](https://github.com/LatticeProtocol/Agentic-DNA/issues) to avoid duplicates
+2. Open a [bug report](https://github.com/LatticeProtocol/Agentic-DNA/issues/new?template=bug_report.md)
 3. Include the aDNA version (`CLAUDE.md` frontmatter `version` field) and steps to reproduce
 
 ### Suggest an Improvement
 
 Have an idea for a better template, a missing context topic, or a workflow enhancement?
 
-- Open a [GitHub issue](https://github.com/LatticeProtocol/adna/issues/new) describing the improvement
+- Open a [GitHub issue](https://github.com/LatticeProtocol/Agentic-DNA/issues/new) describing the improvement
 - For detailed proposals, submit a PR with the change — see [Suggesting Improvements](#suggesting-improvements) below
 
 ### Submit a Pull Request
@@ -46,7 +46,7 @@ aDNA is a Markdown-based knowledge architecture — no build step, no dependenci
 
 ```bash
 # Clone the repo
-git clone https://github.com/LatticeProtocol/adna.git
+git clone https://github.com/LatticeProtocol/Agentic-DNA.git adna
 cd adna
 
 # Run setup (creates Obsidian config + validates structure)
@@ -64,10 +64,7 @@ chmod +x setup.sh
 
 ```bash
 # Validate lattice YAML files
-python what/lattices/tools/validate_lattice.py what/lattices/examples/*.yaml
-
-# Check frontmatter token estimates
-bash what/lattices/tools/calibrate_token_estimates.sh
+python what/lattices/tools/lattice_validate.py what/lattices/examples/*.yaml
 ```
 
 ---
@@ -78,7 +75,7 @@ The best aDNA improvements come from real usage. When you (or your AI agent) dis
 
 ### Human Contributors
 
-1. Check [existing issues](https://github.com/LatticeProtocol/adna/issues) for duplicates
+1. Check [existing issues](https://github.com/LatticeProtocol/Agentic-DNA/issues) for duplicates
 2. Open a GitHub issue describing what you observed, what task you were doing, and what improvement you'd suggest
 3. For larger changes, submit a PR with the fix — see [Submit a Pull Request](#submit-a-pull-request) above
 
@@ -90,7 +87,7 @@ The agent workflow:
 1. Agent notices a framework-level gap during a task
 2. At a natural pause point (end of task, session close), agent mentions it to the user
 3. If the user approves, agent creates a backlog idea file: `how/backlog/idea_upstream_<description>.md`
-4. Optionally (if `gh` CLI is configured), agent opens a GitHub issue on `LatticeProtocol/adna`
+4. Optionally (if `gh` CLI is configured), agent opens a GitHub issue on `LatticeProtocol/Agentic-DNA`
 
 This is **organic, not forced** — agents surface suggestions only when they encounter real friction, and only with user approval. No configuration needed; the behavior is part of the agent's standard awareness.
 
@@ -157,6 +154,6 @@ tags: []
 
 ## Questions?
 
-- Open a [discussion](https://github.com/LatticeProtocol/adna/discussions) for questions about aDNA architecture
+- Open a [discussion](https://github.com/LatticeProtocol/Agentic-DNA/discussions) for questions about aDNA architecture
 - Check [`what/docs/`](what/docs/) for specification documents and design rationale
 - Read the [README](README.md) for a project overview

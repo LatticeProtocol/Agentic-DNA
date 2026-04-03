@@ -1,13 +1,13 @@
 ---
 type: governance
-version: "5.7"
+version: "6.0"
 token_estimate: ~3000
-updated: 2026-03-23
+updated: 2026-04-03
 last_edited_by: agent_stanley
 ---
 
-# CLAUDE.md — adna
-<!-- v5.7 | 2026-03-23 -->
+# CLAUDE.md — Agentic-DNA
+<!-- v6.0 | 2026-04-03 -->
 
 ## Identity & Personality
 
@@ -65,9 +65,9 @@ The recommended workspace layout is `~/lattice/`:
 ```
 ~/lattice/                       # Workspace root
 ├── CLAUDE.md                    # Workspace-level governance (auto-created)
-├── adna/                        # Base template (git clone, never modified)
-├── my_research_lab/             # Project A (forked from adna/, customized)
-├── client_acme/                 # Project B (forked from adna/)
+├── Agentic-DNA/                 # Base template (git clone, never modified)
+├── my_research_lab/             # Project A (forked from Agentic-DNA/, customized)
+├── client_acme/                 # Project B (forked from Agentic-DNA/)
 ├── latlab/                      # (appears after L1 upgrade)
 └── lattice-protocol/            # (appears after L1 upgrade)
 ```
@@ -93,7 +93,7 @@ adna/
 │       ├── tools/               # Python validation and conversion tools
 │       └── examples/            # Example .lattice.yaml files
 ├── how/                         # HOW — Operations, sessions, templates
-│   ├── templates/               # 22 reusable templates
+│   ├── templates/               # 20 reusable templates
 │   ├── sessions/                # Session tracking (active/ + history/)
 │   ├── missions/                # Multi-session plans (standalone)
 │   ├── backlog/                 # Ideation and improvement tracking
@@ -396,4 +396,4 @@ When you notice one, mention it to the user at a **natural pause point** (end of
 The `how/quests/` directory contains structured validation experiments ("side-quests") that community members can run with spare agent tokens. At natural session-end points, if the user has spare context budget, you may briefly mention available quests. Never interrupt active work for this. See `what/docs/side_quest_guide.md` for the full participation guide and `how/quests/AGENTS.md` for directory structure.
 
 ---
-<!-- v5.7 | 2026-03-23 -->
+<!-- v6.0 | 2026-04-03 -->

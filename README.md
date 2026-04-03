@@ -1,4 +1,4 @@
-# adna
+# Agentic-DNA
 
 **Give your project a knowledge architecture that both humans and AI agents can navigate.**
 
@@ -203,29 +203,29 @@ This keeps the directory structure flat while preserving semantic precision. The
 ## What's Inside
 
 ```
-adna/
+Agentic-DNA/
 ├── CLAUDE.md                           # Agent master context
 ├── MANIFEST.md                         # Project identity (customize this)
 ├── STATE.md                            # Operational state (customize this)
 ├── what/                               # Knowledge
-│   ├── context/                        #   Context library
+│   ├── context/                        #   Context library (5 topics, 27 subtopics)
 │   ├── decisions/                      #   Architecture Decision Records
 │   ├── docs/                           #   aDNA specification documents
-│   │   ├── adna_standard.md            #     Full normative spec (v2.1)
+│   │   ├── adna_standard.md            #     Full normative spec (v2.2)
 │   │   ├── adna_design.md              #     Architecture rationale
 │   │   └── adna_bridge_patterns.md     #     Multi-instance composition
 │   └── lattices/                       #   Lattice definitions
 │       ├── lattice_yaml_schema.json    #     JSON Schema
 │       ├── canvas_yaml_interop.md      #     Canvas ↔ YAML spec
-│       ├── examples/                   #     14 example lattices
+│       ├── examples/                   #     16 example lattices + 3 canvas templates
 │       └── tools/                      #     validate, convert, interop
 ├── how/                                # Operations
-│   ├── templates/                      #   10 auto-triggering templates
+│   ├── templates/                      #   20 templates (10 auto-triggering)
 │   ├── pipelines/prd_rfc/              #   R&D → PRD → RFC pipeline
 │   ├── sessions/                       #   Session tracking
 │   ├── campaigns/                      #   Multi-mission initiatives
 │   ├── missions/                       #   Task decomposition
-│   ├── skills/                         #   Agent recipes & procedures
+│   ├── skills/                         #   13 agent recipes & procedures
 │   └── backlog/                        #   Ideas & improvements
 ├── who/                                # Organization
 │   ├── coordination/                   #   Cross-agent notes
@@ -240,7 +240,7 @@ adna/
 |-----------|----------|-------------|
 | **Lattice tools** | `what/lattices/tools/` | Validate `.lattice.yaml` files, convert to/from Obsidian canvas |
 | **JSON Schema** | `what/lattices/lattice_yaml_schema.json` | Formal schema for lattice definitions |
-| **14 example lattices** | `what/lattices/examples/` | Business, research, creative, and biotech examples |
+| **16 example lattices** | `what/lattices/examples/` | Business, research, creative, and biotech examples (+ 3 canvas templates) |
 | **20 templates** | `how/templates/` | Session, mission, campaign, ADR, context, coordination, backlog, skill, PRD, RFC, AAR, governance, data record, folder note, registry, strategic compass, campaign CLAUDE.md, migration, side quest, quest result |
 | **PRD/RFC pipeline** | `how/pipelines/prd_rfc/` | 4-stage content-as-code planning workflow |
 | **aDNA spec docs** | `what/docs/` | Normative standard, design rationale, bridge patterns |
@@ -267,14 +267,14 @@ adna/
 ```bash
 mkdir -p ~/lattice
 cd ~/lattice
-git clone https://github.com/LatticeProtocol/adna.git
+git clone https://github.com/LatticeProtocol/Agentic-DNA.git adna
 cd adna
 ```
 
 This creates the canonical workspace layout. The `adna/` directory is the base template — you'll fork it into project directories, keeping the template clean for updates.
 
 **Option B — Use as GitHub template**
-Click **[Use this template](https://github.com/LatticeProtocol/adna/generate)** on GitHub to create your own copy with clean history. Clone the result into `~/lattice/`.
+Click **[Use this template](https://github.com/LatticeProtocol/Agentic-DNA/generate)** on GitHub to create your own copy with clean history. Clone the result into `~/lattice/`.
 
 ### 2. Run setup (recommended)
 
@@ -365,7 +365,7 @@ The `~/lattice/` workspace naturally supports multiple projects. Each project is
 ```
 ~/lattice/
 ├── CLAUDE.md              # Workspace governance (auto-created on first run)
-├── adna/                  # Base template (never modified — role: template)
+├── adna/                  # Base template (cloned as Agentic-DNA, never modified — role: template)
 ├── my_research_lab/       # Project A (forked from adna/, customized)
 ├── client_acme/           # Project B (forked from adna/)
 ├── latlab/                # (appears after L0→L1 upgrade)
@@ -842,7 +842,7 @@ Read [`VISION.md`](who/governance/VISION.md) for the full picture: the decentral
 
 | Document | What it covers |
 |----------|---------------|
-| [`what/docs/adna_standard.md`](what/docs/adna_standard.md) | Full normative specification (v2.1) — RFC 2119 keywords, all MUST/SHOULD/MAY rules |
+| [`what/docs/adna_standard.md`](what/docs/adna_standard.md) | Full normative specification (v2.2) — RFC 2119 keywords, all MUST/SHOULD/MAY rules |
 | [`what/docs/standard_reading_guide.md`](what/docs/standard_reading_guide.md) | Reading guide — three persona-based paths through the standard, section map, skill/lattice disambiguation |
 | [`what/docs/adna_design.md`](what/docs/adna_design.md) | Architecture rationale — why three legs, why these governance files, design tradeoffs |
 | [`what/docs/adna_bridge_patterns.md`](what/docs/adna_bridge_patterns.md) | Multi-instance composition — nesting, sibling, monorepo patterns |

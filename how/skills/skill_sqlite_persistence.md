@@ -3,7 +3,7 @@ type: skill
 skill_type: process
 created: 2026-03-28
 updated: 2026-03-28
-status: active
+status: proposed
 category: operations
 trigger: "Multiple agents sharing a project, session conflicts hard to detect, learnings accumulating without validation signal, cross-session queries needed"
 last_edited_by: agent_aria
