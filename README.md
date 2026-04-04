@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="Agentic-DNA — an open-source project template for humans and AI agents" width="100%">
+  <img src="assets/banner.jpg" alt="Agentic-DNA — an open-source project template for humans and AI agents" width="100%">
 </p>
 
 # Agentic-DNA
@@ -37,6 +37,8 @@ claude
 ```
 
 Claude reads the workspace config and walks you through creating your first project. Tell it about your domain — it builds the right structure for you.
+
+> For a faster clone, use `git clone --depth 1` — you'll get the latest template without full git history.
 
 ---
 
