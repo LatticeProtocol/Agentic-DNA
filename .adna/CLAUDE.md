@@ -28,28 +28,9 @@ This personality (Berthier) is the default. To customize, edit everything betwee
 
 ---
 
-## Template Detection & Project Setup
+## First-Run Detection
 
-On every startup, BEFORE the normal checklist, determine whether this is the **base template** or a **working project**:
-
-1. Read `MANIFEST.md` frontmatter — if `role: template` is present, this is the base aDNA template repo
-
-### If this IS the template (`role: template`)
-
-Do NOT run onboarding here — the template stays clean for `git pull` updates.
-
-a. **Greet briefly**: introduce aDNA in 2-3 sentences. This is the starter kit that the user will fork into their own project.
-
-b. **Check workspace state** — get the parent directory of this vault:
-   - If the parent directory **already contains a CLAUDE.md** — workspace exists. List existing projects: scan for `*.aDNA/` directories first (the standard convention), then fall back to subdirectories with `CLAUDE.md` or `MANIFEST.md` (excluding `Agentic-DNA/`, `latlab/`, `lattice-protocol/`). Offer to open one or create a new project.
-   - If the parent directory **is `$HOME`** — the user cloned directly into home. Suggest the `~/lattice/` convention: "I recommend creating a `~/lattice/` workspace directory and cloning adna there. This gives you a clean workspace for projects and future L1 compute upgrades."
-   - If the parent directory **has no CLAUDE.md** — offer to create one via `how/skills/skill_workspace_init.md`.
-
-c. **Offer project creation**: load and follow `how/skills/skill_project_fork.md` to fork this template into a new project directory. After creation, direct the user to open their new project: `cd <project_path> && claude`.
-
-### If this is NOT a template (no `role` field)
-
-This is a working project (forked from the template). Apply standard first-run detection:
+On startup, determine whether this is an **uncustomized project** (freshly forked from the base template):
 
 1. Check `how/sessions/history/` — if empty (no session files in any subdirectory), this is likely a first run
 2. Check `MANIFEST.md` frontmatter — if `last_edited_by: agent_init`, it has never been customized
@@ -58,28 +39,14 @@ If BOTH indicate first-run: load and follow `how/skills/skill_onboarding.md`. Do
 
 If only ONE indicates first-run (partial onboarding), read the skill file and resume from the first incomplete step.
 
-### Workspace Convention
-
-The recommended workspace layout is `~/lattice/`:
-
-```
-~/lattice/                       # Workspace root
-├── CLAUDE.md                    # Workspace-level governance (auto-created)
-├── Agentic-DNA/                 # Base template (git clone, never modified, no .aDNA suffix)
-├── my_research_lab.aDNA/        # Project A (forked from Agentic-DNA/, customized)
-├── client_acme.aDNA/            # Project B (forked from Agentic-DNA/)
-├── latlab/                      # (appears after L1 upgrade)
-└── lattice-protocol/            # (appears after L1 upgrade)
-```
-
-This separation ensures the base template stays clean for upstream updates while every project gets its own customized governance.
+> **Note**: If `MANIFEST.md` contains `role: template`, this is the base template inside `.adna/` — do NOT run onboarding here. The root-level `CLAUDE.md` (one directory up) handles template detection and project creation.
 
 ---
 
 ## Project Map
 
 ```
-adna/
+project_name.aDNA/
 ├── CLAUDE.md                    # Agent master context (this file)
 ├── AGENTS.md                    # Root agent guide
 ├── MANIFEST.md                  # Project overview, architecture, entry points
@@ -185,7 +152,7 @@ Git is the coordination bus for multi-user and multi-agent projects.
 
 Every session, in order:
 1. **CLAUDE.md** — auto-loaded; confirms project structure and rules
-2. **Template/first-run check** — if `role: template`, guide project creation (never onboard in template); if uncustomized project (`agent_init`), invoke onboarding skill (`how/skills/skill_onboarding.md`) and STOP
+2. **First-run check** — if uncustomized project (`agent_init` + empty session history), invoke onboarding skill (`how/skills/skill_onboarding.md`) and STOP
 3. **STATE.md** — operational snapshot: current phase, blockers, next steps
 4. **`how/sessions/active/`** — check for conflicting sessions
 5. **`who/coordination/`** — read any urgent cross-agent notes
@@ -250,8 +217,8 @@ Reusable agent recipes and documented procedures in `how/skills/`. Skills have t
 | Skill | Type | Trigger |
 |-------|------|---------|
 | `skill_onboarding` | agent | First-run detection in forked project (uncustomized, no `role: template`) |
-| `skill_project_fork` | agent | Template detection (`role: template`) — user wants to create a new project |
-| `skill_workspace_init` | agent | Missing workspace CLAUDE.md at parent directory |
+| `skill_project_fork` | agent | User wants to create a new project (called from root CLAUDE.md) |
+| `skill_workspace_init` | agent | *Deprecated* — root CLAUDE.md now ships pre-authored |
 | `skill_l1_upgrade` | agent | User asks about L1/compute/JupyterHub |
 | `skill_lattice_publish` | agent | User wants to publish a lattice to registry |
 | `skill_new_entity_type` | agent | User wants to extend the ontology |
