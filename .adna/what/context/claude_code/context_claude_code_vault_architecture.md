@@ -3,13 +3,21 @@ type: context_guide
 topic: claude_code
 subtopic: vault_architecture
 created: 2026-03-27
-updated: 2026-03-28
+updated: 2026-04-03
 sources: ["aDNA Standard v2.2", "Obsidian vault patterns", "Claude Code project scoping"]
 context_version: "1.0"
 token_estimate: ~2500
-last_edited_by: agent_aria
+last_edited_by: agent_stanley
 runtime: claude_code
 tags: [context, claude_code, vault_architecture, multi_vault, organization]
+quality_score: 3.8
+signal_density: 4
+actionability: 4
+coverage_uniformity: 4
+source_diversity: 2
+cross_topic_coherence: 5
+freshness_category: stable
+last_evaluated: 2026-04-03
 ---
 
 # System Configuration: Vault Architecture
