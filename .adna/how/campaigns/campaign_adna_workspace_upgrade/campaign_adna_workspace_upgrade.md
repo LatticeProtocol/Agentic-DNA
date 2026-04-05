@@ -5,7 +5,7 @@ campaign_class: governance-tight
 title: "aDNA Workspace Upgrade — Standard Compliance + Reusable Upgrade Skill"
 owner: stanley
 co_executors: [herb]
-status: planning
+status: in_progress
 phase_count: 2
 mission_count: 5
 estimated_sessions: "~4.0"
@@ -65,8 +65,8 @@ Herb validates:
 
 | # | Mission | Title | Sessions | Status |
 |---|---------|-------|----------|--------|
-| M00 | [[missions/mission_adna_ws_upgrade_m00\|M00]] | Audit & Plan | 0.5 | planning |
-| M01 | [[missions/mission_adna_ws_upgrade_m01\|M01]] | Create skill_workspace_upgrade.md | 1.0 | planning |
+| M00 | [[missions/mission_adna_ws_upgrade_m00\|M00]] | Audit & Plan | 0.5 | **complete** |
+| M01 | [[missions/mission_adna_ws_upgrade_m01\|M01]] | Create skill_workspace_upgrade.md | 1.0 | **in_progress** |
 | M02 | [[missions/mission_adna_ws_upgrade_m02\|M02]] | Create migrate_v6.0_workspace.md | 0.5 | planning |
 
 **Phase 1 gate**: Upgrade skill exists in `.adna/how/skills/`. Migration guide exists in `.adna/how/migrations/`. Both are self-contained, documented, and runnable by external users.
@@ -84,18 +84,21 @@ Herb validates:
 
 | # | When | Decision | Status |
 |---|------|----------|--------|
-| D1 | M00 | Full rename vs symlink bridge — impact on git history, CI, cross-repo refs | pending |
-| D2 | M01 | Upgrade skill scope — single project? Multi-project? Git submodules? | pending |
-| D3 | M03 | Herb sync validation — schedule Herb's Obsidian test window | pending |
+| D1 | M00 | Full rename vs symlink bridge — impact on git history, CI, cross-repo refs | **RESOLVED: No rename.** Blast radius unacceptable (40+ refs, 30+ memory files, 3 machines' Obsidian configs). All existing projects grandfathered. Future projects use `.aDNA` suffix. |
+| D2 | M00 | Workspace CLAUDE.md persona | **RESOLVED: No persona.** Functional router only. Berthier activates inside projects. |
+| D3 | M00 | Workspace CLAUDE.md version control | **RESOLVED: Track in adna repo.** Users get workspace governance via `git pull`. |
+| D4 | M00 | Root cleanup scope | **RESOLVED: Aggressive.** Archive everything not an active project or working directory. |
+| D5 | M03 | Herb sync validation — schedule Herb's Obsidian test window | pending |
 
 ## Risk Register
 
 | Risk | Severity | Mitigation |
 |------|----------|------------|
-| Rename breaks Obsidian Git auto-sync | High | Git tag pre-rename, Herb validates, symlink fallback |
-| Cross-repo references break (vault CLAUDE.md, STATE.md) | Medium | Comprehensive grep for old name, update all refs |
-| Obsidian wikilinks break after rename | Medium | Bulk find-replace, Obsidian link updater plugin |
+| Workspace CLAUDE.md merge loses JupyterLab context | Medium | Draft in artifacts first, diff against current, user review before apply |
+| No git safety net for workspace root changes | Medium | Manual backup to `_archive/` before modification |
+| Workspace CLAUDE.md sync across machines | Medium | Tracked in adna repo — users get updates via `git pull` |
 | Upgrade skill too complex for external users | Medium | Test with fresh clone, simplify during M04 |
+| Cleanup accidentally removes active content | Medium | Archive, never delete. User reviews cleanup list. |
 
 ## Campaign AAR
 
