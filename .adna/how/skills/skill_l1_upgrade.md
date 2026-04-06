@@ -2,7 +2,7 @@
 type: skill
 skill_type: agent
 created: 2026-03-21
-updated: 2026-03-22
+updated: 2026-04-06
 status: active
 category: deployment
 trigger: "User asks about compute, L1, JupyterHub, or 'upgrade to L1'"
@@ -139,46 +139,49 @@ Open `http://127.0.0.1:8000` in a browser. You should see the JupyterHub login p
 
 ---
 
-## Phase 2 — Mesh Connectivity (~5 min, Tailscale invite required)
+## Phase 2 — Mesh Connectivity (~5 min, Nebula cert bundle required)
 
-**Goal**: Peer-to-peer connectivity to all Lattice nodes via Tailscale overlay network.
+**Goal**: Peer-to-peer connectivity to all Lattice nodes via Nebula overlay mesh.
 
-**Prerequisite**: Lattice admin provides a Tailscale tailnet invite.
+**Prerequisite**: Lattice admin provides a Nebula certificate bundle (ca.crt, node.crt, node.key, config.yml).
 
-### Step 1: Install Tailscale
-
-```bash
-brew install tailscale
-```
-
-**IMPORTANT**: Install via Homebrew, NOT the App Store. The App Store version installs to `/Applications/Tailscale.app/Contents/MacOS/Tailscale` which is not in SSH PATH. The Homebrew version is at `/opt/homebrew/bin/tailscale` — accessible everywhere. If the App Store version is already installed, it will conflict. Remove it first.
-
-### Step 2: Authenticate
+### Step 1: Install Nebula
 
 ```bash
-sudo tailscaled &
-tailscale up --authkey=<invite_key>
-# Or without authkey:
-tailscale up  # Opens browser for SSO
+brew install nebula
 ```
 
-### Step 3: Record Address
+### Step 2: Deploy Certificate Bundle
 
 ```bash
-tailscale ip -4  # Note the 100.x.x.x address
-tailscale status  # Verify other Lattice nodes are visible
+sudo mkdir -p /opt/homebrew/etc/nebula/pki
+sudo cp ~/nebula/pki/{ca.crt,<node_name>.crt,<node_name>.key} /opt/homebrew/etc/nebula/pki/
+sudo cp ~/nebula/config.yml /opt/homebrew/etc/nebula/config.yml
+sudo chmod 700 /opt/homebrew/etc/nebula/pki
+sudo chmod 600 /opt/homebrew/etc/nebula/pki/*
+sudo chmod 600 /opt/homebrew/etc/nebula/config.yml
 ```
 
-Report the 100.x.x.x address to the Lattice admin for state file registration.
-
-### Step 4: Verify Peer Connectivity
+### Step 3: Start Nebula and Verify
 
 ```bash
-# Ping another Lattice node (admin provides the IP)
-ping -c 3 100.x.x.x
+# Start the daemon
+sudo /opt/homebrew/bin/nebula -config /opt/homebrew/etc/nebula/config.yml &
+
+# Verify lighthouse connectivity
+ping -c 2 10.42.0.1
 ```
 
-**Phase 2 complete.** The node is now reachable from any other node on the Lattice tailnet. JupyterHub is still local-only (listening on 127.0.0.1) — this is intentional for security.
+Report the assigned overlay IP (10.42.0.x — shown in config.yml) to the Lattice admin for state file registration.
+
+### Step 4: Install Persistent Daemon
+
+```bash
+sudo cp ~/nebula/net.defined.nebula.plist /Library/LaunchDaemons/
+sudo launchctl load /Library/LaunchDaemons/net.defined.nebula.plist
+```
+
+**Phase 2 complete.** The node is now reachable from any other node on the Lattice mesh. JupyterHub is still local-only (listening on 127.0.0.1) — this is intentional for security.
 
 ---
 
@@ -300,8 +303,8 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshenv
 echo 'export PATH="$HOME/.latlab/venv/bin:$PATH"' >> ~/.zshenv
 ```
 
-### Homebrew vs App Store Tailscale
-The App Store version's CLI lives at `/Applications/Tailscale.app/Contents/MacOS/Tailscale` — not in PATH for SSH sessions. Always prefer Homebrew install. If both are installed, the App Store version takes precedence and causes confusion.
+### Nebula Certificate Permissions
+Cert files at `/opt/homebrew/etc/nebula/pki/` must be `chmod 600` (owner-only read). Nebula will refuse to start if certs are world-readable. The pki directory itself should be `chmod 700`.
 
 ### NGINX Config Paths (Phase 4)
 On macOS with Homebrew, NGINX config is at `/opt/homebrew/etc/nginx/`, NOT `/etc/nginx/`. All deploy scripts account for this, but manual config edits need the correct path.

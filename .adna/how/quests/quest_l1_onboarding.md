@@ -7,7 +7,7 @@ estimated_token_cost: ~3K
 model_requirements: "any (with shell access)"
 status: active
 created: 2026-03-22
-updated: 2026-03-22
+updated: 2026-04-06
 last_edited_by: agent_init
 tags: [side_quest, onboarding, l1, compute, deployment]
 ---
@@ -73,11 +73,11 @@ Pick one — Cloudflare is the easiest:
 |--------|---------|-------|
 | **Cloudflare Quick Tunnel** (recommended) | `brew install cloudflared && cloudflared tunnel --url ssh://localhost:22` | Zero config, temporary URL |
 | **ngrok** | `ngrok tcp 22` | Simple, raw TCP forwarding |
-| **Tailscale** | `brew install tailscale && tailscale up` | Persistent mesh, requires admin invite |
+| **Nebula** | `brew install nebula` + deploy cert bundle | Persistent mesh, requires admin cert bundle |
 
 Run your chosen method and **copy the access URL** (e.g., `ssh://user@random-name.trycloudflare.com`).
 
-> **Important**: Install Tailscale via Homebrew, NOT the App Store. The App Store version's CLI isn't in PATH for SSH sessions.
+> **Important**: Nebula cert files must be `chmod 600` (owner-only). The daemon won't start with world-readable certs.
 
 ### Phase 3: Handoff to Admin (~15 min wait)
 
