@@ -151,7 +151,7 @@ EOF
 
 After completing this quest, you can continue with advanced phases:
 
-- **Phase 2**: Mesh connectivity via Tailscale (see `how/skills/skill_l1_upgrade.md` Phase 2)
+- **Phase 2**: Mesh connectivity via Nebula (see `how/skills/skill_l1_upgrade.md` Phase 2)
 - **Phase 3**: Federation relay for remote admin access (Phase 3)
 - **Phase 4**: Full compliance with TLS + HMAC (Phase 4)
 

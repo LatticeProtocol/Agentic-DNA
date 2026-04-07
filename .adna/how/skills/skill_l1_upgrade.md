@@ -211,7 +211,7 @@ Once the admin confirms the port, add to `~/.ssh/config`:
 
 ```
 Host latlab-relay
-    HostName <l2_tailscale_ip_or_hostname>
+    HostName <l2_nebula_ip_or_hostname>
     User <l2_username>
     IdentityFile ~/.ssh/id_ed25519_latlab
     ServerAliveInterval 30
@@ -328,7 +328,7 @@ JupyterHub's configurable-http-proxy listens on port 8100 (API) in addition to 8
 | Output | Type | Description |
 |--------|------|-------------|
 | JupyterHub running | Service | Local compute at `http://127.0.0.1:8000` |
-| Tailscale connected | Network | Mesh connectivity to Lattice tailnet |
+| Nebula connected | Network | Mesh connectivity to Lattice overlay (10.42.0.x) |
 | SSH relay tunnel | Network | Admin access via L2 relay |
 | TLS + HMAC (Phase 4) | Security | Production compliance |
 
@@ -339,7 +339,7 @@ JupyterHub's configurable-http-proxy listens on port 8100 (API) in addition to 8
 | `setup_l1.sh` fails at venv | Wrong Python version or Homebrew conflict | Verify `python3 --version` ≥3.12, check `which python3` points to Homebrew |
 | Port 8000 in use | Another service or stale Hub process | `lsof -i :8000`, kill the process, or use `latlab_stop.sh` |
 | `latlab_doctor.sh` shows FAIL | Missing dependency or config | Read the FAIL message — doctor explains what's wrong and how to fix |
-| Tailscale auth fails | Wrong tailnet or expired invite | Get fresh invite key from admin |
+| Nebula fails to start | Bad cert permissions or wrong config path | Verify `chmod 600` on cert files, check `/opt/homebrew/etc/nebula/config.yml` exists |
 | SSH tunnel won't connect | Firewall, wrong port, or stale socket | Check `fuser <port>/tcp` on relay, verify SSH config |
 | NativeAuth login rejected | `allow_all = False` | Check JupyterHub config: `c.NativeAuthenticator.allow_all` |
 
