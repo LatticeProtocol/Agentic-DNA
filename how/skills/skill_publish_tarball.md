@@ -11,7 +11,7 @@ tags: [skill, publish, tarball, offline, archive, sketch, v7_0]
 
 requirements:
   tools: [git, sha256sum (or shasum on macOS)]
-  context: [.adna/how/standard/hooks/pre-push-sanitize.sh]
+  context: [how/standard/hooks/pre-push-sanitize.sh]
   permissions: [read access to vault; write access to output directory]
 ---
 
@@ -78,7 +78,9 @@ ts=$(date -u +"%Y%m%dT%H%M%SZ")
 Run the pre-push hook in informational mode against the working tree (recommended; not strictly required since `git archive` respects `.gitignore`):
 
 ```bash
-hook=".adna/how/standard/hooks/pre-push-sanitize.sh"
+# Post-M03-flatten canonical path (vault-local); fallback to legacy .adna/ layout
+hook="how/standard/hooks/pre-push-sanitize.sh"
+[[ -x "$hook" ]] || hook=".adna/how/standard/hooks/pre-push-sanitize.sh"
 if [[ -x "$hook" ]]; then
   # Sanitization is best-effort here; the hook is designed for git push, not archive
   echo "INFO: tarball respects .gitignore; sanitization scan is advisory only."

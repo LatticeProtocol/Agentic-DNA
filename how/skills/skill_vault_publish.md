@@ -11,7 +11,7 @@ tags: [skill, publish, vault, git, github, sanitization, v7_0]
 
 requirements:
   tools: [git, gh (optional for tag creation)]
-  context: [.adna/how/standard/hooks/pre-push-sanitize.sh, skill_git_remote_setup.md, skill_deploy.md]
+  context: [how/standard/hooks/pre-push-sanitize.sh, skill_git_remote_setup.md, skill_deploy.md]
   permissions: [git push to origin]
 ---
 
@@ -51,7 +51,7 @@ Invoke when:
 - `gh` CLI (optional — used only for milestone-tag GitHub release creation in Step 5).
 
 ### Context Files
-- `.adna/how/standard/hooks/pre-push-sanitize.sh` — the sanitization rules the hook enforces.
+- `how/standard/hooks/pre-push-sanitize.sh` — the sanitization rules the hook enforces (vault-local post-M03-flatten; `.adna/how/standard/hooks/pre-push-sanitize.sh` is the legacy fallback location).
 - `how/skills/skill_git_remote_setup.md` — the first-time-setup precondition.
 - `how/skills/skill_deploy.md` — installs the pre-push hook.
 
@@ -187,5 +187,5 @@ The receipt at `who/peers/published/<UTC>.md` is itself a vault content file wit
 - **`skill_git_remote_setup.md`** — first-time remote configuration (precondition for first run).
 - **`skill_deploy.md`** — installs the pre-push hook.
 - **`skill_publish_tarball.md`** — optional offline-tarball alternative.
-- **`.adna/how/standard/hooks/pre-push-sanitize.sh`** — the pre-push sanitization hook (enforced automatically).
+- **`how/standard/hooks/pre-push-sanitize.sh`** — the pre-push sanitization hook (enforced automatically; `.adna/how/standard/hooks/pre-push-sanitize.sh` is the legacy fallback).
 - **`what/decisions/adr_010_publish_skill_naming.md`** — the naming decision that motivates this skill's existence as a separate file.

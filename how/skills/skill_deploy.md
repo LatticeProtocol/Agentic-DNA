@@ -11,7 +11,7 @@ tags: [skill, deploy, hook, installer, idempotent, v7_0, sanitization]
 
 requirements:
   tools: [bash, cp, chmod]
-  context: [.adna/how/standard/hooks/pre-push-sanitize.sh]
+  context: [how/standard/hooks/pre-push-sanitize.sh]
   permissions: [write access to .git/hooks/]
 ---
 
@@ -19,7 +19,7 @@ requirements:
 
 ## Overview
 
-Installs deploy-time scaffolding for the vault. At v7.0, the primary install is the pre-push sanitization hook — copies `.adna/how/standard/hooks/pre-push-sanitize.sh` to `.git/hooks/pre-push` with executable permissions.
+Installs deploy-time scaffolding for the vault. At v7.0, the primary install is the pre-push sanitization hook — copies `how/standard/hooks/pre-push-sanitize.sh` (vault-local, post-M03-flatten canonical) or `.adna/how/standard/hooks/pre-push-sanitize.sh` (template-shipped fallback, for legacy per-vault-`.adna/` layouts) to `.git/hooks/pre-push` with executable permissions.
 
 Idempotent: re-running on a vault with the current hook installed is a no-op (overwrites with identical content). Future v7.x+ template upgrades that ship new or updated hooks should re-run this skill to keep installations current.
 
@@ -32,7 +32,7 @@ Invoke when:
 - An operator wants to verify the installed hook matches the current template.
 
 **Pre-requisites**:
-- `.adna/how/standard/hooks/pre-push-sanitize.sh` exists in the vault's template (`.adna/`). If it does not, the template is pre-v7.0 — run `git -C .adna pull` first.
+- The pre-push hook source exists at `how/standard/hooks/pre-push-sanitize.sh` (vault-local, post-M03-flatten canonical) OR `.adna/how/standard/hooks/pre-push-sanitize.sh` (template-shipped fallback). If neither exists, the template is pre-v7.0 — run `git -C .adna pull` first.
 - The vault is a git repo with a `.git/` directory.
 
 ## Parameters
@@ -50,7 +50,7 @@ Invoke when:
 - `cp`, `chmod`, `diff` (standard POSIX).
 
 ### Context Files
-- `.adna/how/standard/hooks/pre-push-sanitize.sh` — the canonical hook source (template-shipped).
+- `how/standard/hooks/pre-push-sanitize.sh` — the canonical hook source post-M03-flatten (vault-local copy via `skill_project_fork`). The pre-flatten location `.adna/how/standard/hooks/pre-push-sanitize.sh` is checked as a fallback.
 
 ### Permissions
 - Write access to `.git/hooks/`.
@@ -60,10 +60,14 @@ Invoke when:
 ### Step 1: Verify hook source exists
 
 ```bash
-hook_source=".adna/how/standard/hooks/pre-push-sanitize.sh"
+# Post-M03-flatten canonical path (vault-local copy via skill_project_fork)
+hook_source="how/standard/hooks/pre-push-sanitize.sh"
+# Fallback: pre-flatten layout (vault has child .adna/ template subdir)
+[[ -f "$hook_source" ]] || hook_source=".adna/how/standard/hooks/pre-push-sanitize.sh"
 
 if [[ ! -f "$hook_source" ]]; then
-  echo "ERROR: hook source not found at $hook_source"
+  echo "ERROR: hook source not found at how/standard/hooks/pre-push-sanitize.sh"
+  echo "ERROR: (fallback .adna/how/standard/hooks/pre-push-sanitize.sh also missing)"
   echo "ERROR: Template may be pre-v7.0. Run 'git -C .adna pull' to refresh."
   exit 1
 fi
@@ -175,7 +179,7 @@ This skill demonstrates the v7.0 "deploy-time install" pattern in working form: 
 
 ## Related
 
-- **`.adna/how/standard/hooks/pre-push-sanitize.sh`** — the hook this skill installs.
+- **`how/standard/hooks/pre-push-sanitize.sh`** — the hook this skill installs (vault-local post-M03-flatten; `.adna/how/standard/hooks/pre-push-sanitize.sh` is the fallback for legacy per-vault-`.adna/` layouts).
 - **`skill_vault_publish.md`** — the publish skill that depends on the hook being installed.
 - **`skill_git_remote_setup.md`** — first-time remote configuration (run before this skill).
 - **`what/decisions/adr_010_publish_skill_naming.md`** — the v7.0 publish-skill family decision.
